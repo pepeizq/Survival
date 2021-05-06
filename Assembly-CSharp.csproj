@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Jugador\Jugador.cs" />
     <Compile Include="Assets\Scripts\Jugador\Necesidades.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Cactus.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class Necesidades : MonoBehaviour
+public class Necesidades : MonoBehaviour, iDañable
 {
     public Necesidad vida;
     public Necesidad hambre;
@@ -69,7 +69,7 @@ public class Necesidades : MonoBehaviour
         sueño.Quitar(cantidad);
     }
 
-    public void RecibirDaño(float cantidad)
+    public void RecibirDaño(int cantidad)
     {
         vida.Quitar(cantidad);
         recibirDañoEvento?.Invoke();
@@ -107,4 +107,9 @@ public class Necesidad
     {
         return valorActual / valorMaximo;
     }
+}
+
+public interface iDañable
+{
+    void RecibirDaño(int cantidad);
 }
