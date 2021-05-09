@@ -681,6 +681,7 @@ MonoBehaviour:
   diaTotalSegundos: 30
   inicioTiempo: 0.25
   mediodia: {x: 90, y: 0, z: 0}
+  diaCielo: {fileID: 2100000, guid: 3826fc0be2d5d2841b56721bf3000b23, type: 2}
   solLuz: {fileID: 705507994}
   solColor:
     serializedVersion: 2
@@ -744,6 +745,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  nocheCielo: {fileID: 2100000, guid: b1a0caa590cb39743822be5f596d7907, type: 2}
   lunaLuz: {fileID: 1102487873}
   lunaColor:
     serializedVersion: 2

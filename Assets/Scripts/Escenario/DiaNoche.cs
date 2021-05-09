@@ -11,12 +11,14 @@ public class DiaNoche : MonoBehaviour
 
     private float tiempoIncremento;
 
-    [Header("Sol")]
+    [Header("Dia")]
+    public Material diaCielo;
     public Light solLuz;
     public Gradient solColor;
     public AnimationCurve solIntensidad;
 
-    [Header("Luna")]
+    [Header("Noche")]
+    public Material nocheCielo;
     public Light lunaLuz;
     public Gradient lunaColor;
     public AnimationCurve lunaIntensidad;
@@ -61,6 +63,7 @@ public class DiaNoche : MonoBehaviour
         else if (solLuz.intensity > 0f && solLuz.gameObject.activeInHierarchy == false)
         {
             solLuz.gameObject.SetActive(true);
+            RenderSettings.skybox = diaCielo;
         }
 
         //activar desactivar luna
@@ -71,6 +74,7 @@ public class DiaNoche : MonoBehaviour
         else if (lunaLuz.intensity > 0f && lunaLuz.gameObject.activeInHierarchy == false)
         {
             lunaLuz.gameObject.SetActive(true);
+            RenderSettings.skybox = nocheCielo;
         }
 
         //otras luces y reflejos
