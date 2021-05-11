@@ -12,16 +12,20 @@ public class DiaNoche : MonoBehaviour
     private float tiempoIncremento;
 
     [Header("Dia")]
-    public Material diaCielo;
     public Light solLuz;
     public Gradient solColor;
     public AnimationCurve solIntensidad;
 
     [Header("Noche")]
-    public Material nocheCielo;
     public Light lunaLuz;
     public Gradient lunaColor;
     public AnimationCurve lunaIntensidad;
+
+    [Header("Skybox")]
+    public Gradient cieloSkyboxColor;
+    public Gradient sueloSkyboxColor;
+    private float atmosfera;
+    private float exposicion;
 
     [Header("Luces Adicionales")]
     public AnimationCurve luzIntesidadMultiplicador;
@@ -31,6 +35,8 @@ public class DiaNoche : MonoBehaviour
     {
         tiempoIncremento = 1.0f / diaTotalSegundos;
         tiempo = inicioTiempo;
+
+        atmosfera = tiempo;
     }
 
     public void Update()
@@ -63,7 +69,6 @@ public class DiaNoche : MonoBehaviour
         else if (solLuz.intensity > 0f && solLuz.gameObject.activeInHierarchy == false)
         {
             solLuz.gameObject.SetActive(true);
-            RenderSettings.skybox = diaCielo;
         }
 
         //activar desactivar luna
@@ -74,8 +79,22 @@ public class DiaNoche : MonoBehaviour
         else if (lunaLuz.intensity > 0f && lunaLuz.gameObject.activeInHierarchy == false)
         {
             lunaLuz.gameObject.SetActive(true);
-            RenderSettings.skybox = nocheCielo;
         }
+
+        //skybox
+        if (tiempo > 0.5f)
+        {
+            atmosfera -= 2 * tiempoIncremento * Time.deltaTime;
+        }
+        else
+        {
+            atmosfera += 2 * tiempoIncremento * Time.deltaTime;
+        }
+
+        //RenderSettings.skybox.SetFloat("_Exposure", tiempo + (tiempo * 0.5f));
+        RenderSettings.skybox.SetFloat("_AtmosphereThickness", atmosfera);
+        RenderSettings.skybox.SetColor("_SkyTint", cieloSkyboxColor.Evaluate(tiempo));
+        RenderSettings.skybox.SetColor("_GroundColor", sueloSkyboxColor.Evaluate(tiempo));
 
         //otras luces y reflejos
         RenderSettings.ambientIntensity = luzIntesidadMultiplicador.Evaluate(tiempo);
