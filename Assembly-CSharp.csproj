@@ -55,11 +55,13 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Escenario\DiaNoche.cs" />
     <Compile Include="Assets\Scripts\Escenario\Cactus.cs" />
+    <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
+    <Compile Include="Assets\Scripts\Objetos\ObjetoDatos.cs" />
     <Compile Include="Assets\Scripts\Jugador\Jugador.cs" />
     <Compile Include="Assets\Scripts\Jugador\Necesidades.cs" />
-    <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
-    <Compile Include="Assets\Scripts\Escenario\DiaNoche.cs" />
+    <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

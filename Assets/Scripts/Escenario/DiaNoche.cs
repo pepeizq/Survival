@@ -37,6 +37,7 @@ public class DiaNoche : MonoBehaviour
         tiempo = inicioTiempo;
 
         atmosfera = tiempo;
+        exposicion = 1.5f;
     }
 
     public void Update()
@@ -85,14 +86,16 @@ public class DiaNoche : MonoBehaviour
         if (tiempo > 0.5f)
         {
             atmosfera -= 2 * tiempoIncremento * Time.deltaTime;
+            exposicion -= tiempoIncremento * Time.deltaTime;
         }
         else
         {
             atmosfera += 2 * tiempoIncremento * Time.deltaTime;
+            exposicion += tiempoIncremento * Time.deltaTime;
         }
 
-        //RenderSettings.skybox.SetFloat("_Exposure", tiempo + (tiempo * 0.5f));
         RenderSettings.skybox.SetFloat("_AtmosphereThickness", atmosfera);
+        RenderSettings.skybox.SetFloat("_Exposure", exposicion);
         RenderSettings.skybox.SetColor("_SkyTint", cieloSkyboxColor.Evaluate(tiempo));
         RenderSettings.skybox.SetColor("_GroundColor", sueloSkyboxColor.Evaluate(tiempo));
 
