@@ -2,82 +2,85 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class Necesidades : MonoBehaviour, iDañable
+namespace Jugador
 {
-    public Necesidad vida;
-    public Necesidad hambre;
-    public Necesidad sediento;
-    public Necesidad sueño;
-
-    public float hambreDecaerVida;
-    public float sedientoDecaerVida;
-
-    public UnityEvent recibirDañoEvento;
-
-    public void Start()
+    public class Necesidades : MonoBehaviour, iDañable
     {
-        vida.valorActual = vida.valorInicio;
-        hambre.valorActual = hambre.valorInicio;
-        sediento.valorActual = sediento.valorInicio;
-        sueño.valorActual = sueño.valorInicio;
-    }
+        public Necesidad vida;
+        public Necesidad hambre;
+        public Necesidad sediento;
+        public Necesidad sueño;
 
-    public void Update()
-    {
-        hambre.Quitar(hambre.decaer * Time.deltaTime);
-        sediento.Quitar(sediento.decaer * Time.deltaTime);
-        sueño.Añadir(sueño.regenerar * Time.deltaTime);
+        public float hambreDecaerVida;
+        public float sedientoDecaerVida;
 
-        if (hambre.valorActual == 0.0f)
+        public UnityEvent recibirDañoEvento;
+
+        public void Start()
         {
-            vida.Quitar(hambreDecaerVida * Time.deltaTime);
+            vida.valorActual = vida.valorInicio;
+            hambre.valorActual = hambre.valorInicio;
+            sediento.valorActual = sediento.valorInicio;
+            sueño.valorActual = sueño.valorInicio;
         }
 
-        if (sediento.valorActual == 0.0f)
+        public void Update()
         {
-            vida.Quitar(sedientoDecaerVida * Time.deltaTime);
+            hambre.Quitar(hambre.decaer * Time.deltaTime);
+            sediento.Quitar(sediento.decaer * Time.deltaTime);
+            sueño.Añadir(sueño.regenerar * Time.deltaTime);
+
+            if (hambre.valorActual == 0.0f)
+            {
+                vida.Quitar(hambreDecaerVida * Time.deltaTime);
+            }
+
+            if (sediento.valorActual == 0.0f)
+            {
+                vida.Quitar(sedientoDecaerVida * Time.deltaTime);
+            }
+
+            if (vida.valorActual == 0.0f)
+            {
+                Muerte();
+            }
+
+            vida.barra.fillAmount = vida.Porcentaje();
+            hambre.barra.fillAmount = hambre.Porcentaje();
+            sediento.barra.fillAmount = sediento.Porcentaje();
+            sueño.barra.fillAmount = sueño.Porcentaje();
         }
 
-        if (vida.valorActual == 0.0f)
+        public void Curar(float cantidad)
         {
-            Muerte();
+            vida.Añadir(cantidad);
         }
 
-        vida.barra.fillAmount = vida.Porcentaje();
-        hambre.barra.fillAmount = hambre.Porcentaje();
-        sediento.barra.fillAmount = sediento.Porcentaje();
-        sueño.barra.fillAmount = sueño.Porcentaje();
-    }
+        public void Comer(float cantidad)
+        {
+            hambre.Añadir(cantidad);
+        }
 
-    public void Curar(float cantidad)
-    {
-        vida.Añadir(cantidad);
-    }
+        public void Beber(float cantidad)
+        {
+            sediento.Añadir(cantidad);
+        }
 
-    public void Comer(float cantidad)
-    {
-        hambre.Añadir(cantidad);
-    }
+        public void Dormir(float cantidad)
+        {
+            sueño.Quitar(cantidad);
+        }
 
-    public void Beber(float cantidad)
-    {
-        sediento.Añadir(cantidad);
-    }
+        public void RecibirDaño(int cantidad)
+        {
+            vida.Quitar(cantidad);
+            recibirDañoEvento?.Invoke();
+        }
 
-    public void Dormir(float cantidad)
-    {
-        sueño.Quitar(cantidad);
-    }
-
-    public void RecibirDaño(int cantidad)
-    {
-        vida.Quitar(cantidad);
-        recibirDañoEvento?.Invoke();
-    }
-
-    public void Muerte()
-    {
-        Debug.Log("Jugador Muerto");
+        public void Muerte()
+        {
+            Debug.Log("Jugador Muerto");
+        }
     }
 }
 

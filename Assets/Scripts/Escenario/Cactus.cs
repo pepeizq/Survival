@@ -7,6 +7,7 @@ public class Cactus : MonoBehaviour
     public int daño;
     public float dañoRate;
 
+    //jugador o enemigos
     private List<iDañable> cosasDañar = new List<iDañable>();
 
     public void Start()

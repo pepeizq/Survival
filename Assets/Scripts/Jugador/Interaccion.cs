@@ -9,8 +9,8 @@ public class Interaccion : MonoBehaviour
     public float distanciaMaxima;
     public LayerMask interactuableLayer;
 
-    private GameObject curvaInteraccionGameObject;
-    private IInteractuable curvaInteraccion;
+    private GameObject actualInteraccionGameObject;
+    private IInteractuable actualInteraccion;
 
     public TextMeshProUGUI mensajeTexto;
     private Camera camara;
@@ -31,17 +31,17 @@ public class Interaccion : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, distanciaMaxima, interactuableLayer) == true)
             {
-                if (hit.collider.gameObject != curvaInteraccionGameObject)
+                if (hit.collider.gameObject != actualInteraccionGameObject)
                 {
-                    curvaInteraccionGameObject = hit.collider.gameObject;
-                    curvaInteraccion = hit.collider.GetComponent<IInteractuable>();
+                    actualInteraccionGameObject = hit.collider.gameObject;
+                    actualInteraccion = hit.collider.GetComponent<IInteractuable>();
                     MostrarMensajeTexto();
                 }
             }
             else
             {
-                curvaInteraccionGameObject = null;
-                curvaInteraccion = null;
+                actualInteraccionGameObject = null;
+                actualInteraccion = null;
                 mensajeTexto.gameObject.SetActive(false);
             }
         }
@@ -50,16 +50,16 @@ public class Interaccion : MonoBehaviour
     public void MostrarMensajeTexto()
     {
         mensajeTexto.gameObject.SetActive(true);
-        mensajeTexto.text = string.Format("<b>[E]</b> {0}", curvaInteraccion.MensajeDisponible());
+        mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeDisponible());
     }
 
     public void InteractuarInput(InputAction.CallbackContext contexto)
     {
-        if (contexto.phase == InputActionPhase.Started && curvaInteraccion != null)
+        if (contexto.phase == InputActionPhase.Started && actualInteraccion != null)
         {
-            curvaInteraccion.Interactuar();
-            curvaInteraccionGameObject = null;
-            curvaInteraccion = null;
+            actualInteraccion.Interactuar();
+            actualInteraccionGameObject = null;
+            actualInteraccion = null;
             mensajeTexto.gameObject.SetActive(false);
         }
     }

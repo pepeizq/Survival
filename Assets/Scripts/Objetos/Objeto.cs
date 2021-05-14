@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 
-public class Objeto : MonoBehaviour, IInteractuable
+namespace Objeto
 {
-    public ObjetoDatos datos;
-
-    public string MensajeDisponible()
+    public class Objeto : MonoBehaviour, IInteractuable
     {
-        return string.Format("Coge {0}", datos.nombre);
-    }
+        public Datos datos;
 
-    public void Interactuar()
-    {
-        Destroy(gameObject);
+        public string MensajeDisponible()
+        {
+            return string.Format("Coge {0}", datos.nombre);
+        }
+
+        public void Interactuar()
+        {
+            Destroy(gameObject);
+        }
     }
 }
+
