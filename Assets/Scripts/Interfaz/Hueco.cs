@@ -53,7 +53,7 @@ namespace Interfaz.Inventario
 
         public void ClickearBoton()
         {
-
+            Jugador.Inventario.instancia.SeleccionarObjeto(posicion);
         }
     }
 }

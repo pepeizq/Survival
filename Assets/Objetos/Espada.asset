@@ -16,6 +16,6 @@ MonoBehaviour:
   descripcion: Para matar cosas
   tipo: 1
   icono: {fileID: 21300000, guid: ee0668b73cff678459e5685b34a76bde, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 8853118015657672045, guid: 89a7168ef5301ec4dbb1ca0723360d8f, type: 3}
   puedeCantidad: 0
   cantidadMaxima: 0

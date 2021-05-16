@@ -7,6 +7,14 @@ public enum ObjetoTipo
     Consumible
 }
 
+public enum ConsumibleTipo
+{
+    Hambre,
+    Sed,
+    Salud,
+    Sueño
+}
+
 namespace Objeto
 {
     [CreateAssetMenu(fileName = "Objeto", menuName = "Nuevo Objeto")]
@@ -22,6 +30,15 @@ namespace Objeto
         [Header("Cantidad")]
         public bool puedeCantidad;
         public int cantidadMaxima;
+
+        [Header("Consumible")]
+        public Consumible[] consumibles;
+    }
+
+    [System.Serializable]
+    public class Consumible
+    {
+        public ConsumibleTipo tipo;
+        public float valor;
     }
 }
-

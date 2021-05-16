@@ -19,6 +19,8 @@ namespace Jugador
         public float maxXMirar;
         private float camaraCurvaXRotacion;
         public float sensibilidadMirar;
+        [HideInInspector]
+        public bool puedeMirar = true;
 
         private Vector2 ratonDelta;
 
@@ -41,7 +43,10 @@ namespace Jugador
 
         public void LateUpdate()
         {
-            MirarCamara();
+            if (puedeMirar == true)
+            {
+                MirarCamara();
+            }         
         }
 
         public void Movimiento()
@@ -124,6 +129,20 @@ namespace Jugador
             Gizmos.DrawRay(transform.position + (-transform.forward * 0.2f), Vector3.down);
             Gizmos.DrawRay(transform.position + (transform.right * 0.2f), Vector3.down);
             Gizmos.DrawRay(transform.position + (-transform.right * 0.2f), Vector3.down);
+        }
+
+        public void EnseñarCursor(bool enseñar)
+        {
+            if (enseñar == true)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                puedeMirar = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                puedeMirar = true;
+            }
         }
     }
 }

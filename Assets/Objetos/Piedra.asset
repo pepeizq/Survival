@@ -16,6 +16,6 @@ MonoBehaviour:
   descripcion: Es una piedra
   tipo: 0
   icono: {fileID: 21300000, guid: 60bc4515c09c9904798289cf0be883c3, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 7189615784453064362, guid: 6be09ae1842990547a011d9a28cfccb8, type: 3}
   puedeCantidad: 1
   cantidadMaxima: 20

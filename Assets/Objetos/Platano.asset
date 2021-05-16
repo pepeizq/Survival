@@ -16,6 +16,11 @@ MonoBehaviour:
   descripcion: De Canarias
   tipo: 2
   icono: {fileID: 21300000, guid: 66b9cadb5eb22224ba25174e1983a030, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 7094807241920235959, guid: 66254bf1cec5d6e4ea48354e5c3b867e, type: 3}
   puedeCantidad: 1
   cantidadMaxima: 20
+  consumibles:
+  - tipo: 0
+    valor: 50
+  - tipo: 1
+    valor: 20

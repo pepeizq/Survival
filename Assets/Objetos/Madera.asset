@@ -16,6 +16,6 @@ MonoBehaviour:
   descripcion: Un trozo de madera
   tipo: 0
   icono: {fileID: 21300000, guid: 4150b0b7f7d693349887c3fbfc6cfb32, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 8467848837203371665, guid: 08657aeedae53864da3d6eb67b46f28b, type: 3}
   puedeCantidad: 1
   cantidadMaxima: 20
