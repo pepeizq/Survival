@@ -2,65 +2,68 @@
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class Interaccion : MonoBehaviour
+namespace Jugador
 {
-    public float comprobacion = 0.05f;
-    private float ultimaComprobacion;
-    public float distanciaMaxima;
-    public LayerMask interactuableLayer;
-
-    private GameObject actualInteraccionGameObject;
-    private IInteractuable actualInteraccion;
-
-    public TextMeshProUGUI mensajeTexto;
-    private Camera camara;
-
-    public void Start()
+    public class Interaccion : MonoBehaviour
     {
-        camara = Camera.main;
-    }
+        public float comprobacion = 0.05f;
+        private float ultimaComprobacion;
+        public float distanciaMaxima;
+        public LayerMask interactuableLayer;
 
-    public void Update()
-    {
-        if (Time.time - ultimaComprobacion > comprobacion)
+        private GameObject actualInteraccionGameObject;
+        private IInteractuable actualInteraccion;
+
+        public TextMeshProUGUI mensajeTexto;
+        private Camera camara;
+
+        public void Start()
         {
-            ultimaComprobacion = Time.time;
+            camara = Camera.main;
+        }
 
-            Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, distanciaMaxima, interactuableLayer) == true)
+        public void Update()
+        {
+            if (Time.time - ultimaComprobacion > comprobacion)
             {
-                if (hit.collider.gameObject != actualInteraccionGameObject)
+                ultimaComprobacion = Time.time;
+
+                Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit, distanciaMaxima, interactuableLayer) == true)
                 {
-                    actualInteraccionGameObject = hit.collider.gameObject;
-                    actualInteraccion = hit.collider.GetComponent<IInteractuable>();
-                    MostrarMensajeTexto();
+                    if (hit.collider.gameObject != actualInteraccionGameObject)
+                    {
+                        actualInteraccionGameObject = hit.collider.gameObject;
+                        actualInteraccion = hit.collider.GetComponent<IInteractuable>();
+                        MostrarMensajeTexto();
+                    }
+                }
+                else
+                {
+                    actualInteraccionGameObject = null;
+                    actualInteraccion = null;
+                    mensajeTexto.gameObject.SetActive(false);
                 }
             }
-            else
+        }
+
+        public void MostrarMensajeTexto()
+        {
+            mensajeTexto.gameObject.SetActive(true);
+            mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeDisponible());
+        }
+
+        public void InteractuarInput(InputAction.CallbackContext contexto)
+        {
+            if (contexto.phase == InputActionPhase.Started && actualInteraccion != null)
             {
+                actualInteraccion.Interactuar();
                 actualInteraccionGameObject = null;
                 actualInteraccion = null;
                 mensajeTexto.gameObject.SetActive(false);
             }
-        }
-    }
-
-    public void MostrarMensajeTexto()
-    {
-        mensajeTexto.gameObject.SetActive(true);
-        mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeDisponible());
-    }
-
-    public void InteractuarInput(InputAction.CallbackContext contexto)
-    {
-        if (contexto.phase == InputActionPhase.Started && actualInteraccion != null)
-        {
-            actualInteraccion.Interactuar();
-            actualInteraccionGameObject = null;
-            actualInteraccion = null;
-            mensajeTexto.gameObject.SetActive(false);
         }
     }
 }
