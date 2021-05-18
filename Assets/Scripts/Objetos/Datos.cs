@@ -33,6 +33,9 @@ namespace Objeto
 
         [Header("Consumible")]
         public Consumible[] consumibles;
+
+        [Header("Camara")]
+        public GameObject objetoEquipado;
     }
 
     [System.Serializable]

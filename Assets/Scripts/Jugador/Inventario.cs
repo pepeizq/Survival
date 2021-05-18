@@ -282,17 +282,34 @@ namespace Jugador
 
         public void EquiparBoton()
         {
+            if (huecosInterfaz[objetoEquipadoPosicion].equipado == true)
+            {
+                Desequipar(objetoEquipadoPosicion);
+            }
 
+            huecosInterfaz[objetoSeleccionadoPosicion].equipado = true;
+            objetoEquipadoPosicion = objetoSeleccionadoPosicion;
+            Jugador.Equipar.instancia.EquiparNuevo(objetoSeleccionado.objeto);
+            ActualizarInterfaz();
+
+            SeleccionarObjeto(objetoSeleccionadoPosicion);
         }
 
         public void Desequipar(int posicion)
         {
+            huecosInterfaz[posicion].equipado = false;
+            Jugador.Equipar.instancia.Desequipar();
+            ActualizarInterfaz();
 
+            if (objetoSeleccionadoPosicion == posicion)
+            {
+                SeleccionarObjeto(posicion);
+            }
         }
 
         public void DesequiparBoton()
         {
-
+            Desequipar(objetoSeleccionadoPosicion);
         }
 
         public void SoltarBoton()

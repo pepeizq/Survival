@@ -19,3 +19,5 @@ MonoBehaviour:
   prefab: {fileID: 5144967191190178520, guid: 14f3fc747f364994ba3159d03aa36f1e, type: 3}
   puedeCantidad: 0
   cantidadMaxima: 0
+  consumibles: []
+  objetoEquipado: {fileID: 6665922975983787745, guid: ec65e17e9884452469fcc290a977f481, type: 3}
