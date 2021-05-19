@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1519919564978389912}
   - component: {fileID: -3259866706503342553}
+  - component: {fileID: -8765079465050356145}
   m_Layer: 11
   m_Name: Espada
   m_TagString: Untagged
@@ -44,6 +45,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0eca0e762925648a3ec382ffb0c95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ataqueVelocidad: 1
+  ataqueDistancia: 1
+  recolectaRecursos: 0
+  "haceDa\xF1o": 1
+  "da\xF1o": 1
+--- !u!95 &-8765079465050356145
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519919564978389915}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2fc6602602e3d264887150306435d13c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1519919566414811750
 PrefabInstance:
   m_ObjectHideFlags: 0

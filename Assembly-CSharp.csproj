@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Objetos\Datos.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
     <Compile Include="Assets\Scripts\Jugador\Necesidades.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Recurso.cs" />
     <Compile Include="Assets\Scripts\Jugador\Interaccion.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Equipar.cs" />
     <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />

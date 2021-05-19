@@ -36,12 +36,12 @@ namespace Objeto
 
         public void PuedeAtacar()
         {
-            atacando = true;
+            atacando = false;
         }
 
         public void AlGolpear()
         {
-
+            Debug.Log("yolo");
         }
     }
 }

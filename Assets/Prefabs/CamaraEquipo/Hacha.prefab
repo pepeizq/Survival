@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3500029449261215262}
   - component: {fileID: 7813158162734780490}
+  - component: {fileID: 430099889}
   m_Layer: 11
   m_Name: Hacha
   m_TagString: Untagged
@@ -44,6 +45,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0eca0e762925648a3ec382ffb0c95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ataqueVelocidad: 0.9
+  ataqueDistancia: 1
+  recolectaRecursos: 1
+  "haceDa\xF1o": 0
+  "da\xF1o": 0
+--- !u!95 &430099889
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665922975983787745}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 66ec27868aeccda40a338ce0ef58aaec, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7848345218555448469
 PrefabInstance:
   m_ObjectHideFlags: 0

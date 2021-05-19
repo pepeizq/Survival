@@ -22,7 +22,7 @@ namespace Jugador
         {
             if (contexto.phase == InputActionPhase.Performed && actualObjetoEquipado != null && movimientos.puedeMirar == true)
             {
-
+                actualObjetoEquipado.AtacarInput();
             }
         }
 
@@ -30,7 +30,7 @@ namespace Jugador
         {
             if (contexto.phase == InputActionPhase.Performed && actualObjetoEquipado != null && movimientos.puedeMirar == true)
             {
-
+                actualObjetoEquipado.Atacar2Input();
             }
         }
 
