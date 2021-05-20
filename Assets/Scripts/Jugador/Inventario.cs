@@ -211,15 +211,21 @@ namespace Jugador
                 if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Consumible)
                 {
                     botonUsar.SetActive(true);
+                    botonEquipar.SetActive(false);
+                    botonDesequipar.SetActive(false);
                 }
 
                 if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Equipable && huecosInterfaz[posicion].equipado == false)
                 {
+                    botonUsar.SetActive(false);
                     botonEquipar.SetActive(true);
+                    botonDesequipar.SetActive(false);
                 }
 
                 if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Equipable && huecosInterfaz[posicion].equipado == true)
                 {
+                    botonUsar.SetActive(false);
+                    botonEquipar.SetActive(false);
                     botonDesequipar.SetActive(true);
                 }
 
@@ -293,6 +299,11 @@ namespace Jugador
             ActualizarInterfaz();
 
             SeleccionarObjeto(objetoSeleccionadoPosicion);
+
+            if (huecosInterfaz[objetoEquipadoPosicion].equipado == true)
+            {
+                AbrirCerrar();
+            }
         }
 
         public void Desequipar(int posicion)

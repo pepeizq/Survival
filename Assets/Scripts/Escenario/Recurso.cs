@@ -12,18 +12,18 @@ public class Recurso : MonoBehaviour
         int i = 0;
         while (i < cantidadPorGolpe)
         {
-            cantidadMaxima -= 1;
-
             if (cantidadMaxima <= 0)
             {
                 break;
             }
 
+            cantidadMaxima -= 1;
+
             Jugador.Inventario.instancia.AñadirObjeto(objetoADar);
             i += 1;
         }
 
-        Instantiate(particulaGolpe, puntoGolpeo, Quaternion.LookRotation(puntoNormal, Vector3.up));
+        Destroy(Instantiate(particulaGolpe, puntoGolpeo, Quaternion.LookRotation(puntoNormal, Vector3.up)), 1f);
 
         if (cantidadMaxima <= 0)
         {

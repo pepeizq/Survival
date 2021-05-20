@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d0eca0e762925648a3ec382ffb0c95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ataqueVelocidad: 0.9
-  ataqueDistancia: 1
-  recolectaRecursos: 1
+  velocidad: 1
+  maximaDistancia: 1
+  daRecurso: 1
   "haceDa\xF1o": 0
   "da\xF1o": 0
 --- !u!95 &430099889

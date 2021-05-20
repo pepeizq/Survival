@@ -5,6 +5,7 @@ namespace Jugador
 {
     public class Equipar : MonoBehaviour
     {
+        [HideInInspector]
         public Objeto.Camara actualObjetoEquipado;
         public Transform objetoEquipado;
 
