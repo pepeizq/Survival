@@ -17,12 +17,12 @@ namespace Objeto
         public int daño;
 
         private Animator animacion;
-        private Camera cam;
+        private Camera camara;
 
         public void Awake()
         {
             animacion = GetComponent<Animator>();
-            cam = Camera.main;
+            camara = Camera.main;
         }
 
         public override void AtacarInput()
@@ -42,7 +42,7 @@ namespace Objeto
 
         public void AlGolpear()
         {
-            Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, maximaDistancia) == true)
