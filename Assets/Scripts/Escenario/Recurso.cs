@@ -2,7 +2,7 @@
 
 public class Recurso : MonoBehaviour
 {
-    public Objeto.Datos objetoADar;
+    public Assets.Objeto objetoADar;
     public int cantidadPorGolpe = 1;
     public int cantidadMaxima;
     public GameObject particulaGolpe;

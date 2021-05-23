@@ -35,7 +35,7 @@ namespace Jugador
             }
         }
 
-        public void EquiparNuevo(Objeto.Datos objeto)
+        public void EquiparNuevo(Assets.Objeto objeto)
         {
             Desequipar();
             actualObjetoEquipado = Instantiate(objeto.objetoEquipado, objetoEquipado).GetComponent<Objeto.Camara>();

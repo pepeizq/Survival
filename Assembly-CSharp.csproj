@@ -59,10 +59,11 @@
     <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Camara.cs" />
     <Compile Include="Assets\Scripts\Jugador\Inventario.cs" />
-    <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
+    <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
+    <Compile Include="Assets\Scripts\Assets\Receta.cs" />
     <Compile Include="Assets\Scripts\Escenario\Cactus.cs" />
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
-    <Compile Include="Assets\Scripts\Objetos\Datos.cs" />
+    <Compile Include="Assets\Scripts\Assets\Objeto.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
     <Compile Include="Assets\Scripts\Jugador\Necesidades.cs" />
     <Compile Include="Assets\Scripts\Escenario\Recurso.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Assets\Scripts\Objetos\Camara\Equipar.cs" />
     <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
-    <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
+    <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

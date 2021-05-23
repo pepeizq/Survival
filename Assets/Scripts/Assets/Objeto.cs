@@ -1,29 +1,14 @@
 ﻿using UnityEngine;
 
-public enum ObjetoTipo
-{
-    Recurso,
-    Equipable,
-    Consumible
-}
-
-public enum ConsumibleTipo
-{
-    Hambre,
-    Sed,
-    Salud,
-    Sueño
-}
-
-namespace Objeto
+namespace Assets
 {
     [CreateAssetMenu(fileName = "Objeto", menuName = "Nuevo Objeto")]
-    public class Datos : ScriptableObject
+    public class Objeto : ScriptableObject
     {
         [Header("Datos")]
         public string nombre;
         public string descripcion;
-        public ObjetoTipo tipo;
+        public Tipos.Objeto tipo;
         public Sprite icono;
         public GameObject prefab;
 
@@ -41,7 +26,25 @@ namespace Objeto
     [System.Serializable]
     public class Consumible
     {
-        public ConsumibleTipo tipo;
+        public Tipos.Consumible tipo;
         public float valor;
+    }
+}
+
+namespace Assets.Tipos
+{
+    public enum Objeto
+    {
+        Recurso,
+        Equipable,
+        Consumible
+    }
+
+    public enum Consumible
+    {
+        Hambre,
+        Sed,
+        Salud,
+        Sueño
     }
 }

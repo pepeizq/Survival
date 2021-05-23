@@ -4,17 +4,15 @@ namespace Crafting
 {
     public class Ventana : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        public Receta[] recetas;
+        public static Ventana instancia;
 
+        public void Awake()
+        {
+            instancia = this;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
 
-        }
     }
 }
 

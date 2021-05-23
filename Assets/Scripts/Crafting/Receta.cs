@@ -1,18 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Crafting
 {
-    [CreateAssetMenu(fileName = "Receta de Crafting", menuName = "Nueva Receta de Crafting")]
-    public class Receta : ScriptableObject
+    public class Receta : MonoBehaviour
     {
-        public Objeto.Datos objetoACraftear;
-        public RecursoCoste[] costes;
-    }
 
-    [System.Serializable]
-    public class RecursoCoste
-    {
-        public Objeto.Datos objeto;
-        public int cantidad;
     }
 }
+

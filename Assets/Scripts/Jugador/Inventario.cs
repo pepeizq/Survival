@@ -94,7 +94,7 @@ namespace Jugador
             return canvasInventario.activeInHierarchy;
         }
 
-        public void AñadirObjeto(Objeto.Datos objeto)
+        public void AñadirObjeto(Assets.Objeto objeto)
         {
             if (objeto.puedeCantidad == true)
             {
@@ -125,7 +125,7 @@ namespace Jugador
             LanzarObjeto(objeto);
         }
 
-        public void LanzarObjeto(Objeto.Datos objeto)
+        public void LanzarObjeto(Assets.Objeto objeto)
         {
             Instantiate(objeto.prefab, posicionSoltarObjeto.position, Quaternion.Euler(Vector3.one * Random.value * 360.0f));
         }
@@ -148,7 +148,7 @@ namespace Jugador
             }
         }
 
-        public Jugador.Objetos.Inventario.Hueco ObtenerCantidad(Objeto.Datos objeto)
+        public Jugador.Objetos.Inventario.Hueco ObtenerCantidad(Assets.Objeto objeto)
         {
             int i = 0;
             while (i < huecos.Length)
@@ -208,21 +208,21 @@ namespace Jugador
                     }
                 }
 
-                if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Consumible)
+                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Consumible)
                 {
                     botonUsar.SetActive(true);
                     botonEquipar.SetActive(false);
                     botonDesequipar.SetActive(false);
                 }
 
-                if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Equipable && huecosInterfaz[posicion].equipado == false)
+                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Equipable && huecosInterfaz[posicion].equipado == false)
                 {
                     botonUsar.SetActive(false);
                     botonEquipar.SetActive(true);
                     botonDesequipar.SetActive(false);
                 }
 
-                if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Equipable && huecosInterfaz[posicion].equipado == true)
+                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Equipable && huecosInterfaz[posicion].equipado == true)
                 {
                     botonUsar.SetActive(false);
                     botonEquipar.SetActive(false);
@@ -251,7 +251,7 @@ namespace Jugador
 
         public void UsarBoton()
         {
-            if (objetoSeleccionado.objeto.tipo == ObjetoTipo.Consumible)
+            if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Consumible)
             {
                 if (objetoSeleccionado.objeto.consumibles.Length > 0)
                 {
@@ -260,19 +260,19 @@ namespace Jugador
                     {
                         switch (objetoSeleccionado.objeto.consumibles[i].tipo)
                         {
-                            case ConsumibleTipo.Salud: 
+                            case Assets.Tipos.Consumible.Salud: 
                                 necesidadesJugador.Curar(objetoSeleccionado.objeto.consumibles[i].valor); 
                                 break;
 
-                            case ConsumibleTipo.Hambre:
+                            case Assets.Tipos.Consumible.Hambre:
                                 necesidadesJugador.Comer(objetoSeleccionado.objeto.consumibles[i].valor);
                                 break;
 
-                            case ConsumibleTipo.Sed:
+                            case Assets.Tipos.Consumible.Sed:
                                 necesidadesJugador.Beber(objetoSeleccionado.objeto.consumibles[i].valor);
                                 break;
 
-                            case ConsumibleTipo.Sueño:
+                            case Assets.Tipos.Consumible.Sueño:
                                 necesidadesJugador.Dormir(objetoSeleccionado.objeto.consumibles[i].valor);
                                 break;
                         }
@@ -347,12 +347,12 @@ namespace Jugador
             ActualizarInterfaz();
         }
 
-        public void QuitarObjeto(Objeto.Datos objeto)
+        public void QuitarObjeto(Assets.Objeto objeto)
         {
 
         }
 
-        public bool TieneObjetos(Objeto.Datos objeto, int cantidad)
+        public bool TieneObjetos(Assets.Objeto objeto, int cantidad)
         {
             return false;
         }
@@ -364,7 +364,7 @@ namespace Jugador.Objetos.Inventario
 {
     public class Hueco
     {
-        public Objeto.Datos objeto;
+        public Assets.Objeto objeto;
         public int cantidad;
     }
 }
