@@ -12,7 +12,10 @@ namespace Crafting
             instancia = this;
         }
 
+        public void AlAbrirInventario()
+        {
 
+        }
     }
 }
 
