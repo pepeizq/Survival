@@ -731,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c777d4f3201b7e542a8d231b29353a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recetas: []
 --- !u!1 &357910276
 GameObject:
   m_ObjectHideFlags: 0
@@ -5233,6 +5234,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5a3ffc3f2ff5e4f923e4767889582b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  receta: {fileID: 0}
+  fondo: {fileID: 0}
+  icono: {fileID: 0}
+  nombre: {fileID: 0}
+  recursosCostes: []
+  siPuedeCraftear: {r: 0, g: 0, b: 0, a: 0}
+  noPuedeCraftear: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1308523442
 PrefabInstance:
   m_ObjectHideFlags: 0
