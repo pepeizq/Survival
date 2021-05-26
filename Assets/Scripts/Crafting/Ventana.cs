@@ -43,6 +43,14 @@ namespace Crafting
             }
 
             Jugador.Inventario.instancia.AñadirObjeto(receta.objetoACraftear);
+
+            int k = 0;
+            while (k < recetas.Length)
+            {
+                recetas[k].ActualizarPuedeCraftear();
+
+                k += 1;
+            }
         }
     }
 }

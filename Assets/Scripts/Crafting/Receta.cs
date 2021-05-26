@@ -17,6 +17,11 @@ namespace Crafting
 
         private bool puedeCraftear;
 
+        public void OnEnable()
+        {
+            ActualizarPuedeCraftear();
+        }
+
         public void ActualizarPuedeCraftear()
         {
             puedeCraftear = true;
@@ -24,12 +29,22 @@ namespace Crafting
             int i = 0;
             while (i < receta.costes.Length)
             {
-                if (Jugador.Inventario.instancia.TieneObjetos(receta.costes[i].objeto, receta.costes[i].cantidad) == true)
+                if (Jugador.Inventario.instancia.TieneObjetos(receta.costes[i].objeto, receta.costes[i].cantidad) == false)
                 {
-
+                    puedeCraftear = false;
+                    break;
                 }
 
                 i += 1;
+            }
+
+            if (puedeCraftear == true)
+            {
+                fondo.color = siPuedeCraftear;
+            }
+            else
+            {
+                fondo.color = noPuedeCraftear;
             }
         }
     }
