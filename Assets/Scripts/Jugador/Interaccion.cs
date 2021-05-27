@@ -52,7 +52,7 @@ namespace Jugador
         public void MostrarMensajeTexto()
         {
             mensajeTexto.gameObject.SetActive(true);
-            mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeDisponible());
+            mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeMostrar());
         }
 
         public void InteractuarInput(InputAction.CallbackContext contexto)
@@ -70,6 +70,6 @@ namespace Jugador
 
 public interface IInteractuable
 {
-    string MensajeDisponible();
+    string MensajeMostrar();
     void Interactuar();
 }

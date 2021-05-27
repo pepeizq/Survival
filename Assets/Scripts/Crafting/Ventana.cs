@@ -47,7 +47,7 @@ namespace Crafting
             int k = 0;
             while (k < recetas.Length)
             {
-                recetas[k].ActualizarPuedeCraftear();
+                recetas[k].ComprobarPuedeCraftear();
 
                 k += 1;
             }

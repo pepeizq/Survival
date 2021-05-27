@@ -349,11 +349,52 @@ namespace Jugador
 
         public void QuitarObjeto(Assets.Objeto objeto)
         {
+            int i = 0;
+            while (i < huecos.Length)
+            {
+                if (huecos[i].objeto == objeto)
+                {
+                    huecos[i].cantidad = huecos[i].cantidad - 1;
 
+                    if (huecos[i].cantidad == 0)
+                    {
+                        if (huecosInterfaz[i].equipado == true)
+                        {
+                            Desequipar(i);
+                        }
+
+                        huecos[i].objeto = null;
+                        LimpiarObjetoSeleccionado();
+                    }
+
+                    ActualizarInterfaz();
+                    return;
+                }
+
+                i += 1;
+            }
         }
 
         public bool TieneObjetos(Assets.Objeto objeto, int cantidad)
         {
+            int cantidadTemp = 0;
+
+            int i = 0;
+            while (i < huecos.Length)
+            {
+                if (huecos[i].objeto == objeto)
+                {
+                    cantidadTemp = cantidadTemp + huecos[i].cantidad;
+                }
+
+                if (cantidadTemp >= cantidad)
+                {
+                    return true;
+                }
+
+                i += 1;
+            }
+
             return false;
         }
     }

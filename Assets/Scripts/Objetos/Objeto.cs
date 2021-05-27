@@ -6,7 +6,7 @@ namespace Objeto
     {
         public Assets.Objeto objeto;
 
-        public string MensajeDisponible()
+        public string MensajeMostrar()
         {
             return string.Format("Coge {0}", objeto.nombre);
         }
