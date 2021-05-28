@@ -15,6 +15,6 @@ MonoBehaviour:
   objetoACraftear: {fileID: 11400000, guid: 9aa3f4525866e9d48912e8fdc5a8f848, type: 2}
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
-    cantidad: 1
+    cantidad: 2
   - objeto: {fileID: 11400000, guid: 2092334c4a46cbf4582c00212219b383, type: 2}
     cantidad: 2
