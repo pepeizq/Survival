@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3259866706503342553}
   - component: {fileID: -8765079465050356145}
   m_Layer: 11
-  m_Name: Espada
+  m_Name: Prefab_Camara_Espada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

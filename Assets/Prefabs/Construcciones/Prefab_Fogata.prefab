@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2009834959885803173}
   - component: {fileID: 1343855494183801172}
   m_Layer: 9
-  m_Name: Fogata
+  m_Name: Prefab_Fogata
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

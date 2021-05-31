@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6165132677483017019}
   - component: {fileID: 2424084578745507174}
   m_Layer: 10
-  m_Name: RecursoPiedra
+  m_Name: Prefab_Recurso_Piedra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

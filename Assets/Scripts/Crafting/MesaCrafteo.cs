@@ -2,7 +2,7 @@
 
 namespace Crafting
 {
-    public class MesaCrafteo : Construccion, IInteractuable
+    public class MesaCrafteo : Construccion.Construir, IInteractuable
     {
         private Ventana ventanaCrafteo;
         private Jugador.Movimientos jugador;

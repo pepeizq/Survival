@@ -12,19 +12,19 @@ namespace Crafting
             instancia = this;
         }
 
-        public void AbrirInventario()
+        public void AlAbrirInventario()
         {
             gameObject.SetActive(false);
         }
 
         public void OnEnable()
         {
-            Jugador.Inventario.instancia.abrirInventario.AddListener(AbrirInventario);
+            Jugador.Inventario.instancia.abrirInventario.AddListener(AlAbrirInventario);
         }
 
         public void OnDisable()
         {
-            Jugador.Inventario.instancia.abrirInventario.RemoveListener(AbrirInventario);
+            Jugador.Inventario.instancia.abrirInventario.RemoveListener(AlAbrirInventario);
         }
 
         public void Craftear(Assets.Receta receta)

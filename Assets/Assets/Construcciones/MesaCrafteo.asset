@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587eb399664e2bd479932d70b5ecb8c6, type: 3}
-  m_Name: Cama
+  m_Name: MesaCrafteo
   m_EditorClassIdentifier: 
-  nombre: Cama
-  icono: {fileID: 21300000, guid: 418f454c7a4b89349822368d3066bf14, type: 3}
-  spawneoPrefab: {fileID: 2279194078670579571, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
+  nombre: Mesa de Crafting
+  icono: {fileID: 21300000, guid: a8b2ae3bbcaf57f4f915abb873bee16a, type: 3}
+  spawneoPrefab: {fileID: 2725400156631677862, guid: fcdda6723e6982b4b9b633712ef67587, type: 3}
   vistaPreviaPrefab: {fileID: 0}
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
-    cantidad: 2
+    cantidad: 3

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7813158162734780490}
   - component: {fileID: 430099889}
   m_Layer: 11
-  m_Name: Hacha
+  m_Name: Prefab_Camara_Hacha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
