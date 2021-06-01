@@ -26,8 +26,11 @@ namespace Jugador
 
         private Rigidbody cuerpo;
 
+        public static Movimientos instancia;
+
         public void Awake()
         {
+            instancia = this;
             cuerpo = GetComponent<Rigidbody>();
         }
 

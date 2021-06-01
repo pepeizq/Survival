@@ -73,7 +73,15 @@ namespace Construccion
 
         public void BotonClick()
         {
-
+            if (puedeConstruir == true)
+            {
+                Jugador.KitConstruccion.instancia.EstablecerNuevaRecetaConstruccion(receta);
+            }
+            else
+            {
+                Jugador.Movimientos.instancia.EnseñarCursor(false);
+                Jugador.KitConstruccion.instancia.ventana.SetActive(false);
+            }
         }
     }
 }

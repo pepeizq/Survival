@@ -51,8 +51,11 @@ namespace Jugador
 
         public void MostrarMensajeTexto()
         {
-            mensajeTexto.gameObject.SetActive(true);
-            mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeMostrar());
+            if (actualInteraccion.MensajeMostrar() != null)
+            {
+                mensajeTexto.gameObject.SetActive(true);
+                mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeMostrar());
+            }
         }
 
         public void InteractuarInput(InputAction.CallbackContext contexto)

@@ -56,10 +56,12 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Construcciones\Ventana.cs" />
     <Compile Include="Assets\Scripts\Jugador\Inventario.cs" />
     <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Camara.cs" />
     <Compile Include="Assets\Scripts\Assets\Construccion.cs" />
+    <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
     <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />
     <Compile Include="Assets\Scripts\Jugador\Interaccion.cs" />
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
@@ -76,8 +78,8 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Construir.cs" />
-    <Compile Include="Assets\Scripts\Construcciones\Ventana.cs" />
-    <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
+    <Compile Include="Assets\Scripts\Jugador\KitConstruccion.cs" />
+    <Compile Include="Assets\Scripts\Construcciones\VistaPrevia.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
