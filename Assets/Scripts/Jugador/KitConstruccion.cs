@@ -68,12 +68,18 @@ namespace Jugador
                 {
                     vistaPrevia.transform.position = hit.point;
                     vistaPrevia.transform.up = hit.normal;
+                    vistaPrevia.transform.Rotate(new Vector3(0, rotacionEjeY, 0), Space.Self);
                 }
             }
 
             if (Keyboard.current.rKey.isPressed == true)
             {
+                rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
 
+                if (rotacionEjeY > 360)
+                {
+                    rotacionEjeY = 0;
+                }
             }
         }
 

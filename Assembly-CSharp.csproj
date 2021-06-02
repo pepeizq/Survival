@@ -67,6 +67,8 @@
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
     <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
     <Compile Include="Assets\Scripts\Assets\Receta.cs" />
+    <Compile Include="Assets\Scripts\Construcciones\VistaPrevia.cs" />
+    <Compile Include="Assets\Scripts\Jugador\KitConstruccion.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Equipar.cs" />
     <Compile Include="Assets\Scripts\Jugador\Necesidades.cs" />
     <Compile Include="Assets\Scripts\Escenario\Cactus.cs" />
@@ -78,8 +80,6 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Construir.cs" />
-    <Compile Include="Assets\Scripts\Jugador\KitConstruccion.cs" />
-    <Compile Include="Assets\Scripts\Construcciones\VistaPrevia.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
