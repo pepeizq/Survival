@@ -51,7 +51,7 @@ namespace Jugador
 
         public void MostrarMensajeTexto()
         {
-            if (actualInteraccion.MensajeMostrar() != null)
+            if (actualInteraccion != null)
             {
                 mensajeTexto.gameObject.SetActive(true);
                 mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeMostrar());

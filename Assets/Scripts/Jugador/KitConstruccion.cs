@@ -37,7 +37,31 @@ namespace Jugador
 
         public override void AtacarInput()
         {
-         
+            if (actualReceta == null || vistaPrevia == null || puedeUbicarConstruccion == false)
+            {
+                return;
+            }
+
+            Instantiate(actualReceta.vistaPreviaPrefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
+
+            int i = 0;
+            while (i < actualReceta.costes.Length)
+            {
+                int j = 0;
+                while (j < actualReceta.costes[i].cantidad)
+                {
+                    Jugador.Inventario.instancia.QuitarObjeto(actualReceta.costes[i].objeto);
+                    j += 1;
+                }
+
+                i += 1;
+            }
+
+            actualReceta = null;
+            Destroy(vistaPrevia.gameObject);
+            vistaPrevia = null;
+            puedeUbicarConstruccion = false;
+            rotacionEjeY = 0;
         }
 
         public override void Atacar2Input()
@@ -69,6 +93,25 @@ namespace Jugador
                     vistaPrevia.transform.position = hit.point;
                     vistaPrevia.transform.up = hit.normal;
                     vistaPrevia.transform.Rotate(new Vector3(0, rotacionEjeY, 0), Space.Self);
+
+                    if (vistaPrevia.ColisionandoConObjetos() == false)
+                    {
+                        if (puedeUbicarConstruccion == false)
+                        {
+                            vistaPrevia.PuedeColocar();
+                        }
+
+                        puedeUbicarConstruccion = true;
+                    }
+                    else
+                    {
+                        if (puedeUbicarConstruccion == true)
+                        {
+                            vistaPrevia.NoPuedeColocar();
+                        }
+
+                        puedeUbicarConstruccion = false;
+                    }
                 }
             }
 
