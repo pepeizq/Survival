@@ -71,16 +71,17 @@ namespace Construccion
             }
         }
 
-        private void OnTriggerEnter(Collider colision)
+        public void OnTriggerEnter(Collider colision)
         {
             //ID de la layer de terreno
             if (colision.gameObject.layer != 12)
             {
                 objetosColisiones.Add(colision.gameObject);
+                Debug.Log(colision.gameObject.name);
             }           
         }
 
-        private void OnTriggerExit(Collider colision)
+        public void OnTriggerExit(Collider colision)
         {
             if (colision.gameObject.layer != 12)
             {

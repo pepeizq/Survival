@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41032183, g: 0.46067667, b: 0.6950699, a: 1}
+  m_IndirectSpecularColor: {r: 0.41040036, g: 0.46084327, b: 0.6953249, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2263,6 +2263,24 @@ MonoBehaviour:
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!1 &377452495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1824348104564124649, guid: 2159d26b6c88afa4187cbe56baf792d6, type: 3}
+  m_PrefabInstance: {fileID: 1553754234598571215}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &377452500
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377452495}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1694289, y: 1.2476128, z: 0.20486365}
+  m_Center: {x: 0.000000014901161, y: 0.6238064, z: 0.017717361}
 --- !u!1 &381102873
 GameObject:
   m_ObjectHideFlags: 0
@@ -15011,24 +15029,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66254bf1cec5d6e4ea48354e5c3b867e, type: 3}
---- !u!1 &2101508216 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2279194078670579571, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
-  m_PrefabInstance: {fileID: 2165917491560177363}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &2101508217
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101508216}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.38398957, y: 0.25196975, z: 0.7668574}
-  m_Center: {x: -0.0002912283, y: 0.11603472, z: 0.00041162968}
 --- !u!1 &2102196013
 GameObject:
   m_ObjectHideFlags: 0
@@ -15714,7 +15714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1553754236199462945, guid: 2159d26b6c88afa4187cbe56baf792d6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3713107
+      value: 3.83
       objectReference: {fileID: 0}
     - target: {fileID: 1553754236199462945, guid: 2159d26b6c88afa4187cbe56baf792d6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15756,7 +15756,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3664947426582687762, guid: 2159d26b6c88afa4187cbe56baf792d6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2159d26b6c88afa4187cbe56baf792d6, type: 3}
 --- !u!1001 &2165917491560177363
 PrefabInstance:
@@ -15765,6 +15766,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1407729299876265602, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.021
+      objectReference: {fileID: 0}
     - target: {fileID: 1784150006471124024, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -15787,7 +15792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945901397472047225, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.21
+      value: 2.58
       objectReference: {fileID: 0}
     - target: {fileID: 5945901397472047225, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
       propertyPath: m_LocalPosition.z

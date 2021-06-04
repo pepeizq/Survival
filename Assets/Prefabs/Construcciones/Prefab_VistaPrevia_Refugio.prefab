@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2337063483766056062}
   - component: {fileID: 4587143951169515241}
   - component: {fileID: 8807413224431201280}
+  - component: {fileID: 4069627951310837605}
   m_Layer: 0
   m_Name: Refugio
   m_TagString: Untagged
@@ -96,6 +97,20 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: b3c02c66df5a2d645856b4e931133835, type: 3}
+--- !u!64 &4069627951310837605
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4316510976370217706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8552134717624371188, guid: b3c02c66df5a2d645856b4e931133835, type: 3}
 --- !u!1 &8807413224490477678
