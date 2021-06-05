@@ -77,7 +77,6 @@ namespace Construccion
             if (colision.gameObject.layer != 12)
             {
                 objetosColisiones.Add(colision.gameObject);
-                Debug.Log(colision.gameObject.name);
             }           
         }
 
