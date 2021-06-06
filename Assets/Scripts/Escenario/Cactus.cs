@@ -5,17 +5,17 @@ using UnityEngine;
 public class Cactus : MonoBehaviour
 {
     public int daño;
-    public float dañoRate;
+    public float dañoVelocidad;
 
     //jugador o enemigos
     private List<iDañable> cosasDañar = new List<iDañable>();
 
     public void Start()
     {
-        StartCoroutine(ManejarDaño());
+        StartCoroutine(HacerDaño());
     }
 
-    IEnumerator ManejarDaño()
+    IEnumerator HacerDaño()
     {
         while(true)
         {
@@ -24,7 +24,7 @@ public class Cactus : MonoBehaviour
                 cosa.RecibirDaño(daño);
             }
 
-            yield return new WaitForSeconds(dañoRate);
+            yield return new WaitForSeconds(dañoVelocidad);
         }
     }
 
