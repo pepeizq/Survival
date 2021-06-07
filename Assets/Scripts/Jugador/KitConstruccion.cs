@@ -42,7 +42,7 @@ namespace Jugador
                 return;
             }
 
-            Instantiate(actualReceta.vistaPreviaPrefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
+            Instantiate(actualReceta.spawneoPrefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
 
             int i = 0;
             while (i < actualReceta.costes.Length)
@@ -66,6 +66,11 @@ namespace Jugador
 
         public override void Atacar2Input()
         {
+            if (vistaPrevia != null)
+            {
+                Destroy(vistaPrevia.gameObject);
+            }
+
             ventana.SetActive(true);
             Movimientos.instancia.EnseñarCursor(true); 
         }
@@ -128,7 +133,10 @@ namespace Jugador
 
         public void OnDestroy()
         {
-            
+            if (vistaPrevia != null)
+            {
+                Destroy(vistaPrevia.gameObject);
+            }
         }
     }
 }

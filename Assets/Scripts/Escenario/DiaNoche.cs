@@ -31,6 +31,13 @@ public class DiaNoche : MonoBehaviour
     public AnimationCurve luzIntesidadMultiplicador;
     public AnimationCurve reflejosIntesidadMultiplicador;
 
+    public static DiaNoche instancia;
+
+    public void Awake()
+    {
+        instancia = this;
+    }
+
     public void Start()
     {
         tiempoIncremento = 1.0f / diaTotalSegundos;

@@ -16,6 +16,13 @@ namespace Jugador
 
         public UnityEvent recibirDañoEvento;
 
+        public static Necesidades instancia;
+
+        public void Awake()
+        {
+            instancia = this;
+        }
+
         public void Start()
         {
             vida.valorActual = vida.valorInicio;

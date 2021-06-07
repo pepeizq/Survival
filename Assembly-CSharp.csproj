@@ -76,11 +76,12 @@
     <Compile Include="Assets\Scripts\Escenario\DiaNoche.cs" />
     <Compile Include="Assets\Scripts\Assets\Objeto.cs" />
     <Compile Include="Assets\Scripts\Crafting\MesaCrafteo.cs" />
+    <Compile Include="Assets\Scripts\Construcciones\Fogata.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Construir.cs" />
-    <Compile Include="Assets\Scripts\Construcciones\Fogata.cs" />
+    <Compile Include="Assets\Scripts\Construcciones\Cama.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
