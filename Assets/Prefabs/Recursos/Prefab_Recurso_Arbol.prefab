@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1553754236199462945}
   - component: {fileID: 1553754236199462944}
   - component: {fileID: 1553754236199462975}
+  - component: {fileID: 8746848954439242267}
   m_Layer: 10
   m_Name: Prefab_Recurso_Arbol
   m_TagString: Untagged
@@ -62,6 +63,22 @@ MonoBehaviour:
   cantidadPorGolpe: 1
   cantidadMaxima: 5
   particulaGolpe: {fileID: 8822901381453245926, guid: edbe9a490c9ca08499d29767efefeaa9, type: 3}
+--- !u!208 &8746848954439242267
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553754236199462946}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 2.234006, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.7024946, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1553754234694833848
 PrefabInstance:
   m_ObjectHideFlags: 0

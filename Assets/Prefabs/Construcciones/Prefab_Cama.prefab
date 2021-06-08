@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5945901397472047225}
   - component: {fileID: 363142788208154906}
   - component: {fileID: 3863827575089741792}
+  - component: {fileID: 6406696916953604999}
   m_Layer: 9
   m_Name: Prefab_Cama
   m_TagString: Untagged
@@ -62,6 +63,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.36557648, y: 0.31565416, z: 0.7687074}
   m_Center: {x: -0.0024218112, y: 0.14042574, z: -0.009836137}
+--- !u!208 &6406696916953604999
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2279194078670579571}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.18278825, y: 0.1578271, z: 0.3843537}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002421811, y: 0.1404257, z: -0.009836137}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1442272470034143593
 PrefabInstance:
   m_ObjectHideFlags: 0

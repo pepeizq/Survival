@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2725400156631677859}
   - component: {fileID: 2725400156631677860}
   - component: {fileID: 2725400156631677861}
+  - component: {fileID: 1481034020318787341}
   m_Layer: 9
   m_Name: Prefab_MesaCrafteo
   m_TagString: Untagged
@@ -58,6 +59,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e336372f27f2e1488896dfc79129485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &1481034020318787341
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725400156631677862}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6879045, y: 0.594361, z: 0.6399405}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.0007734299, y: 0.5257248, z: 0.0000001192093}
+  m_TimeToStationary: 0.5
 --- !u!1001 &2725400156941369458
 PrefabInstance:
   m_ObjectHideFlags: 0
