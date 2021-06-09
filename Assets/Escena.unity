@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41199273, g: 0.46363276, b: 0.69966483, a: 1}
+  m_IndirectSpecularColor: {r: 0.408513, g: 0.4574449, b: 0.68989074, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5272,7 +5272,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0.0000000034557832}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -15585,16 +15585,16 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 180
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &2120759204
@@ -15609,20 +15609,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7293e3a7829273d44a1eac975794fb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vida: 0
-  andarVelocidad: 0
-  correrVelocidad: 0
+  vida: 5
+  andarVelocidad: 3
+  correrVelocidad: 4
   objetosSueltaAlMorir: []
   iaTipo: 0
-  distanciaDetectar: 0
-  distanciaSeguridad: 0
-  distanciaMinimaDeambulando: 0
-  distanciaMaximaDeambulando: 0
-  tiempoMinimoEspera: 0
-  tiempoMaximoEspera: 0
-  "da\xF1o": 0
-  ataqueVelocidad: 0
-  ataqueDistancia: 0
+  distanciaDetectar: 5
+  distanciaSeguridad: 5
+  distanciaMinimaDeambulando: 2
+  distanciaMaximaDeambulando: 4
+  tiempoMinimoEspera: 1
+  tiempoMaximoEspera: 2
+  "da\xF1o": 5
+  ataqueVelocidad: 1.5
+  ataqueDistancia: 2
 --- !u!4 &2120759205
 Transform:
   m_ObjectHideFlags: 0
