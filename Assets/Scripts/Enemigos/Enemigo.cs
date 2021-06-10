@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,7 +19,7 @@ namespace Enemigos
         Huyendo
     }
 
-    public class Enemigo : MonoBehaviour
+    public class Enemigo : MonoBehaviour, iDañable
     {
         [Header("Atributos")]
         public int vida;
@@ -41,7 +42,7 @@ namespace Enemigos
         [Header("Combate")]
         public int daño;
         public float ataqueVelocidad;
-        private float ultimaVezAtacoTiempo;
+        private float ultimaVezAtaque;
         public float distanciaAtaque;
 
         private float distanciaJugador;
@@ -53,6 +54,7 @@ namespace Enemigos
         public void Awake()
         {
             agente = GetComponent<NavMeshAgent>();
+            meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         }
 
         public void Start()
@@ -99,17 +101,39 @@ namespace Enemigos
             else if (iaTipo == IATipo.Asustada && distanciaJugador < distanciaDetectar)
             {
                 CambiarEstado(IAEstado.Huyendo);
+                agente.SetDestination(CalcularNuevaPosicionHuida());
             }
         }
 
         public void ActualizacionAtacando()
         {
+            if (distanciaJugador > distanciaAtaque)
+            {
+                agente.isStopped = false;
+                agente.SetDestination(Jugador.Movimientos.instancia.transform.position);
+            }
+            else
+            {
+                agente.isStopped = true;
 
+                if (Time.time - ultimaVezAtaque > ataqueVelocidad)
+                {
+                    ultimaVezAtaque = Time.time;
+                    Jugador.Movimientos.instancia.GetComponent<iDañable>().RecibirDaño(daño);
+                }
+            }
         }
 
         public void ActualizacionHuyendo()
         {
-
+            if (distanciaJugador < distanciaSeguridad && agente.remainingDistance < 0.1f)
+            {
+                agente.SetDestination(CalcularNuevaPosicionHuida());
+            }
+            else if (distanciaJugador > distanciaSeguridad)
+            {
+                CambiarEstado(IAEstado.Deambulando);
+            }
         }
 
         public void CambiarEstado(IAEstado nuevoEstado)
@@ -135,12 +159,14 @@ namespace Enemigos
                 case IAEstado.Atacando:
                 {
                     agente.speed = ataqueVelocidad;
+                    agente.isStopped = false;
                     break;
                 }
 
                 case IAEstado.Huyendo:
                 {
-                    agente.speed = ataqueVelocidad;
+                    agente.speed = correrVelocidad;
+                    agente.isStopped = false;
                     break;
                 }
             }
@@ -154,10 +180,10 @@ namespace Enemigos
             }
 
             CambiarEstado(IAEstado.Deambulando);
-            agente.SetDestination(CalcularNuevaPosicion());
+            agente.SetDestination(CalcularNuevaPosicionDeambulando());
         }
 
-        public Vector3 CalcularNuevaPosicion()
+        public Vector3 CalcularNuevaPosicionDeambulando()
         {
             NavMeshHit hit;
             NavMesh.SamplePosition(transform.position + (Random.onUnitSphere * Random.Range(distanciaMinimaDeambulando, distanciaMaximaDeambulando)), out hit, distanciaMaximaDeambulando, NavMesh.AllAreas);
@@ -177,6 +203,84 @@ namespace Enemigos
             }
 
             return hit.position;
+        }
+
+        public Vector3 CalcularNuevaPosicionHuida()
+        {
+            NavMeshHit hit;
+            NavMesh.SamplePosition(transform.position + (Random.onUnitSphere * distanciaSeguridad), out hit, distanciaSeguridad, NavMesh.AllAreas);
+
+            int i = 0;
+
+            while (CalcularAngulo(hit.position) > 90 || distanciaJugador < distanciaSeguridad)
+            {
+                NavMesh.SamplePosition(transform.position + (Random.onUnitSphere * distanciaSeguridad), out hit, distanciaSeguridad, NavMesh.AllAreas);
+
+                i += 1;
+
+                if (i == 40)
+                {
+                    break;
+                }
+            }
+
+            return hit.position;
+        }
+
+        public float CalcularAngulo(Vector3 objetivoPosicion)
+        {
+            return Vector3.Angle(transform.position - Jugador.Movimientos.instancia.transform.position, transform.position + objetivoPosicion);
+        }
+
+        public void RecibirDaño(int cantidad)
+        {
+            vida = vida - cantidad;
+
+            if (vida <= 0)
+            {
+                Muerto();
+            }
+
+            StartCoroutine(DañoParpadeo());
+
+            if (iaTipo == IATipo.Pasiva)
+            {
+                CambiarEstado(IAEstado.Huyendo);
+            }
+        }
+
+        public void Muerto()
+        {
+            int i = 0;
+
+            while (i < objetosSueltaAlMorir.Length)
+            {
+                Instantiate(objetosSueltaAlMorir[i].prefab, transform.position, Quaternion.identity);
+                i += 1;
+            }
+
+            Destroy(gameObject);
+        }
+
+        public IEnumerator DañoParpadeo()
+        {
+            int i = 0;
+
+            while (i < meshRenderers.Length)
+            {
+                meshRenderers[i].material.color = new Color(1, 0.6f, 0.6f);
+                i += 1;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
+            i = 0;
+
+            while (i < meshRenderers.Length)
+            {
+                meshRenderers[i].material.color = Color.white;
+                i += 1;
+            }
         }
     }
 }

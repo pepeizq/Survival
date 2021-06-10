@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.408513, g: 0.4574449, b: 0.68989074, a: 1}
+  m_IndirectSpecularColor: {r: 0.41069016, g: 0.4613909, b: 0.6960579, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15611,18 +15611,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 5
   andarVelocidad: 3
-  correrVelocidad: 4
-  objetosSueltaAlMorir: []
-  iaTipo: 0
+  correrVelocidad: 10
+  objetosSueltaAlMorir:
+  - {fileID: 11400000, guid: a46469125b879aa49a9d525d71f2ef92, type: 2}
+  - {fileID: 11400000, guid: a46469125b879aa49a9d525d71f2ef92, type: 2}
+  iaTipo: 2
   distanciaDetectar: 5
-  distanciaSeguridad: 5
+  distanciaSeguridad: 10
   distanciaMinimaDeambulando: 2
   distanciaMaximaDeambulando: 4
   tiempoMinimoEspera: 1
   tiempoMaximoEspera: 2
   "da\xF1o": 5
   ataqueVelocidad: 1.5
-  ataqueDistancia: 2
+  distanciaAtaque: 2
 --- !u!4 &2120759205
 Transform:
   m_ObjectHideFlags: 0
