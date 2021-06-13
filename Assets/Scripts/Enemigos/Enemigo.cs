@@ -54,6 +54,7 @@ namespace Enemigos
         public void Awake()
         {
             agente = GetComponent<NavMeshAgent>();
+            animador = GetComponentInChildren<Animator>();
             meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         }
 
@@ -66,6 +67,15 @@ namespace Enemigos
         {
             distanciaJugador = Vector3.Distance(transform.position, Jugador.Movimientos.instancia.transform.position);
 
+            if (iaEstado == IAEstado.Ausente)
+            {
+                animador.SetBool("moviendo", false);
+            }
+            else
+            {
+                animador.SetBool("moviendo", true);
+            }
+           
             switch (iaEstado)
             {
                 case IAEstado.Ausente:
@@ -120,6 +130,7 @@ namespace Enemigos
                 {
                     ultimaVezAtaque = Time.time;
                     Jugador.Movimientos.instancia.GetComponent<iDañable>().RecibirDaño(daño);
+                    animador.SetTrigger("atacar");
                 }
             }
         }
