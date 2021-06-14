@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1d2b8ca23f10a244a4cb9c5b465d394, type: 3}
-  m_Name: KitConstruccion
+  m_Name: Espada
   m_EditorClassIdentifier: 
-  nombre: "Kit Construcci\xF3n"
-  descripcion: Para construir cosas
+  id: 1
+  nombre: Espada
+  descripcion: Para matar cosas
   tipo: 1
-  icono: {fileID: 21300000, guid: 92bcfba69d0f76543842f882f78c81c8, type: 3}
-  prefab: {fileID: 3265880596152520177, guid: be1a3065262c81c448d372c04655c54e, type: 3}
+  icono: {fileID: 21300000, guid: ee0668b73cff678459e5685b34a76bde, type: 3}
+  prefab: {fileID: 8853118015657672045, guid: 89a7168ef5301ec4dbb1ca0723360d8f, type: 3}
   puedeCantidad: 0
   cantidadMaxima: 0
   consumibles: []
-  objetoEquipado: {fileID: 7575746243049367785, guid: bd05807cd66d0c743889662680143f60, type: 3}
+  objetoEquipado: {fileID: 1519919564978389915, guid: 27677525c7bb4de4d859aab3b515c13a, type: 3}

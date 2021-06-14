@@ -5,6 +5,8 @@ namespace Assets
     [CreateAssetMenu(fileName = "Objeto", menuName = "Nuevo Objeto")]
     public class Objeto : ScriptableObject
     {
+        public string id;
+
         [Header("Datos")]
         public string nombre;
         public string descripcion;

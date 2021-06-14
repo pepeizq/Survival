@@ -10,12 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1d2b8ca23f10a244a4cb9c5b465d394, type: 3}
-  m_Name: Piedra
+  m_Name: Platano
   m_EditorClassIdentifier: 
-  nombre: Piedra
-  descripcion: Es una piedra
-  tipo: 0
-  icono: {fileID: 21300000, guid: 60bc4515c09c9904798289cf0be883c3, type: 3}
-  prefab: {fileID: 7189615784453064362, guid: 6be09ae1842990547a011d9a28cfccb8, type: 3}
+  id: 6
+  nombre: Platano
+  descripcion: De Canarias
+  tipo: 2
+  icono: {fileID: 21300000, guid: 66b9cadb5eb22224ba25174e1983a030, type: 3}
+  prefab: {fileID: 7094807241920235959, guid: 66254bf1cec5d6e4ea48354e5c3b867e, type: 3}
   puedeCantidad: 1
   cantidadMaxima: 20
+  consumibles:
+  - tipo: 0
+    valor: 50
+  - tipo: 1
+    valor: 20
+  objetoEquipado: {fileID: 0}

@@ -42,7 +42,7 @@ namespace Jugador
                 return;
             }
 
-            Instantiate(actualReceta.spawneoPrefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
+            Instantiate(actualReceta.prefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
 
             int i = 0;
             while (i < actualReceta.costes.Length)

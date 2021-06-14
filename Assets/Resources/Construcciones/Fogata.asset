@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587eb399664e2bd479932d70b5ecb8c6, type: 3}
   m_Name: Fogata
   m_EditorClassIdentifier: 
+  id: 2
   nombre: Fogata
   icono: {fileID: 21300000, guid: e9196b0bad7611548b74f21c5e89fb01, type: 3}
-  spawneoPrefab: {fileID: 374761668994661249, guid: ae3dbf193549a4d4589e894527a5c0b1, type: 3}
+  prefab: {fileID: 0}
   vistaPreviaPrefab: {fileID: 5848108909257313400, guid: 32fb39fc3cdbb0646890a61c5053c63f, type: 3}
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
