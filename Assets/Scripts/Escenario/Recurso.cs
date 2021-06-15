@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
 
-public class Recurso : MonoBehaviour
+namespace Escenario
 {
-    public Assets.Objeto objetoADar;
-    public int cantidadPorGolpe = 1;
-    public int cantidadMaxima;
-    public GameObject particulaGolpe;
-
-    public void Recolectar(Vector3 puntoGolpeo, Vector3 puntoNormal)
+    public class Recurso : MonoBehaviour
     {
-        int i = 0;
-        while (i < cantidadPorGolpe)
+        public Assets.Objeto objetoADar;
+        public int cantidadPorGolpe = 1;
+        public int cantidadMaxima;
+        public GameObject particulaGolpe;
+
+        public void Recolectar(Vector3 puntoGolpeo, Vector3 puntoNormal)
         {
-            if (cantidadMaxima <= 0)
+            int i = 0;
+            while (i < cantidadPorGolpe)
             {
-                break;
+                if (cantidadMaxima <= 0)
+                {
+                    break;
+                }
+
+                cantidadMaxima -= 1;
+
+                Jugador.Inventario.instancia.AñadirObjeto(objetoADar);
+                i += 1;
             }
 
-            cantidadMaxima -= 1;
+            Destroy(Instantiate(particulaGolpe, puntoGolpeo, Quaternion.LookRotation(puntoNormal, Vector3.up)), 1f);
 
-            Jugador.Inventario.instancia.AñadirObjeto(objetoADar);
-            i += 1;
-        }
-
-        Destroy(Instantiate(particulaGolpe, puntoGolpeo, Quaternion.LookRotation(puntoNormal, Vector3.up)), 1f);
-
-        if (cantidadMaxima <= 0)
-        {
-            Destroy(gameObject);
+            if (cantidadMaxima <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
+

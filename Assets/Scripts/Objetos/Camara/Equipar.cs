@@ -47,9 +47,9 @@ namespace Objeto
 
             if (Physics.Raycast(ray, out hit, maximaDistancia) == true)
             {
-                if (daRecurso == true && hit.collider.GetComponent<Recurso>() != null)
+                if (daRecurso == true && hit.collider.GetComponent<Escenario.Recurso>() != null)
                 {
-                    hit.collider.GetComponent<Recurso>().Recolectar(hit.point, hit.normal);
+                    hit.collider.GetComponent<Escenario.Recurso>().Recolectar(hit.point, hit.normal);
                 }
 
                 if (haceDaño == true && hit.collider.GetComponent<iDañable>() != null)
