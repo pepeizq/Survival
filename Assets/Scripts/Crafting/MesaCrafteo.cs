@@ -1,8 +1,6 @@
-﻿using UnityEngine;
-
-namespace Crafting
+﻿namespace Crafting
 {
-    public class MesaCrafteo : Construccion.Construir, IInteractuable
+    public class MesaCrafteo : Construccion.Propiedades, IInteractuable
     {
         private Ventana ventanaCrafteo;
         private Jugador.Movimientos jugador;

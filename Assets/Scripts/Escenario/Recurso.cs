@@ -6,7 +6,7 @@ namespace Escenario
     {
         public Assets.Objeto objetoADar;
         public int cantidadPorGolpe = 1;
-        public int cantidadMaxima;
+        public int cantidad;
         public GameObject particulaGolpe;
 
         public void Recolectar(Vector3 puntoGolpeo, Vector3 puntoNormal)
@@ -14,12 +14,12 @@ namespace Escenario
             int i = 0;
             while (i < cantidadPorGolpe)
             {
-                if (cantidadMaxima <= 0)
+                if (cantidad <= 0)
                 {
                     break;
                 }
 
-                cantidadMaxima -= 1;
+                cantidad -= 1;
 
                 Jugador.Inventario.instancia.AñadirObjeto(objetoADar);
                 i += 1;
@@ -27,7 +27,7 @@ namespace Escenario
 
             Destroy(Instantiate(particulaGolpe, puntoGolpeo, Quaternion.LookRotation(puntoNormal, Vector3.up)), 1f);
 
-            if (cantidadMaxima <= 0)
+            if (cantidad <= 0)
             {
                 Destroy(gameObject);
             }

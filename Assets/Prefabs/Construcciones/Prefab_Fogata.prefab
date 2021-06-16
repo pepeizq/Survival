@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962572afecbd3be4fb092338bbfc7ff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asset: {fileID: 11400000, guid: 4ed80e2f75a791f4097b2dd79e1657be, type: 2}
   particulaFuego: {fileID: 5623440227917527963}
   luz: {fileID: 6339332429381709943}
   "da\xF1o": 5

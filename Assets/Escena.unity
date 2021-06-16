@@ -3107,13 +3107,13 @@ MonoBehaviour:
     regenerar: 0
     decaer: 1
     barra: {fileID: 1909669799}
-  sediento:
+  sed:
     valorActual: 0
-    valorMaximo: 500
-    valorInicio: 400
+    valorMaximo: 0
+    valorInicio: 0
     regenerar: 0
-    decaer: 1.5
-    barra: {fileID: 1140413676}
+    decaer: 0
+    barra: {fileID: 0}
   "sue\xF1o":
     valorActual: 0
     valorMaximo: 500
@@ -9004,6 +9004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256031160}
   - component: {fileID: 1256031159}
+  - component: {fileID: 1256031161}
   m_Layer: 0
   m_Name: Juego
   m_TagString: Untagged
@@ -9041,6 +9042,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256031161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256031158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c630fb2cbbbe60b46b4942c562c07136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1274520689
 GameObject:
   m_ObjectHideFlags: 0

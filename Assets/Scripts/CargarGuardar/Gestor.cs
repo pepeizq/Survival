@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Guardar
+namespace CargarGuardar
 {
     public class Gestor : MonoBehaviour
     {

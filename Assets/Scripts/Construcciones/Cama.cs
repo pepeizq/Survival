@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Construccion
 {
-    public class Cama : Construir, IInteractuable
+    public class Cama : Propiedades, IInteractuable
     {
         public float despertarHora;
         public float cuandoPuedeDormirPrincipioHora;

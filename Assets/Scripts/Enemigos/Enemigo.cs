@@ -21,6 +21,8 @@ namespace Enemigos
 
     public class Enemigo : MonoBehaviour, iDañable
     {
+        public Assets.Enemigo asset;
+
         [Header("Atributos")]
         public int vida;
         public float andarVelocidad;
@@ -47,7 +49,8 @@ namespace Enemigos
 
         private float distanciaJugador;
 
-        private NavMeshAgent agente;
+        [HideInInspector]
+        public NavMeshAgent agente;
         private Animator animador;
         private SkinnedMeshRenderer[] meshRenderers;
 

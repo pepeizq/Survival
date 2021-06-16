@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Guardar
+namespace CargarGuardar
 {
     [System.Serializable]
-    public class Guarda 
+    public class Partida 
     {
         public VectorTres jugadorPosicion;
         public VectorTres jugadorRotacion;
@@ -16,11 +16,11 @@ namespace Guardar
 
         public float tiempoDia;
 
-        public InventarioHueco[] inventario;
-        public ObjetoSuelto[] objetosSueltos;
-        public Construccion[] construcciones;
-        public Recurso[] recursos;
-        public Enemigo[] enemigos;
+        public PartidaInventarioHueco[] inventario;
+        public PartidaObjetoSuelto[] objetosSueltos;
+        public PartidaConstruccion[] construcciones;
+        public PartidaRecurso[] recursos;
+        public PartidaEnemigo[] enemigos;
     }
 
     [System.Serializable]
@@ -44,7 +44,7 @@ namespace Guardar
     }
 
     [System.Serializable]
-    public struct InventarioHueco
+    public struct PartidaInventarioHueco
     {
         public bool ocupado;
         public string objetoId;
@@ -53,24 +53,24 @@ namespace Guardar
     }
 
     [System.Serializable]
-    public struct ObjetoSuelto
+    public struct PartidaObjetoSuelto
     {
-        public string objetoId;
+        public string id;
         public VectorTres posicion;
         public VectorTres rotacion;
     }
 
     [System.Serializable]
-    public struct Construccion
+    public struct PartidaConstruccion
     {
-        public string construccionId;
+        public string id;
         public VectorTres posicion;
         public VectorTres rotacion;
         public string propiedades;
     }
 
     [System.Serializable]
-    public struct Recurso
+    public struct PartidaRecurso
     {
         public int index;
         public bool destruido;
@@ -78,14 +78,14 @@ namespace Guardar
     }
 
     [System.Serializable]
-    public struct Enemigo
+    public struct PartidaEnemigo
     {
-        public int prefabId;
+        public string prefabId;
         public VectorTres posicion;
         public VectorTres rotacion;
         public int iaEstado;
         public bool intentaMoverse;
-        public Vector3 posicionDestino;
+        public VectorTres posicionDestino;
     }
 }
 

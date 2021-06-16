@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7293e3a7829273d44a1eac975794fb5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asset: {fileID: 11400000, guid: 594fe14e55dd66941ba7727e4ee22a28, type: 2}
   vida: 5
   andarVelocidad: 3
   correrVelocidad: 10

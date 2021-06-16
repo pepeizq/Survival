@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Construccion
 {
-    public class Fogata : Construir, IInteractuable
+    public class Fogata : Propiedades, IInteractuable
     {
         public GameObject particulaFuego;
         public GameObject luz;
@@ -91,6 +91,26 @@ namespace Construccion
             {
                 cosasDañar.Remove(colision.gameObject.GetComponent<iDañable>());
             }
+        }
+
+        public override string CogerPropiedades()
+        {
+            return estaEncendida.ToString();
+        }
+
+        public override void RecibirPropiedades(string propiedades)
+        {
+            if (propiedades == "true")
+            {
+                estaEncendida = true;
+            }
+            else
+            {
+                estaEncendida = false;
+            }
+
+            particulaFuego.SetActive(estaEncendida);
+            luz.SetActive(estaEncendida);
         }
     }
 }

@@ -1,0 +1,276 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace CargarGuardar
+{
+    public class Fichero : MonoBehaviour
+    {
+        public void Start()
+        {
+            StartCoroutine(CargarPartida());
+        }
+
+        IEnumerator CargarPartida()
+        {
+            yield return new WaitForEndOfFrame();
+
+            if (PlayerPrefs.HasKey("Guardar") == true)
+            {
+                Cargar();
+            }
+        }
+
+        public void Update()
+        {
+            if (Keyboard.current.nKey.wasPressedThisFrame == true)
+            {
+                Guardar();
+            }
+
+            if (Keyboard.current.mKey.wasPressedThisFrame == true)
+            {
+                Cargar();
+            }
+        }
+
+        public void Guardar()
+        {
+            Partida partida = new Partida
+            {
+                jugadorPosicion = new VectorTres(Jugador.Movimientos.instancia.transform.position),
+                jugadorRotacion = new VectorTres(Jugador.Movimientos.instancia.transform.eulerAngles),
+                jugadorMirar = new VectorTres(Jugador.Movimientos.instancia.camaraContenedor.localEulerAngles),
+
+                vida = Jugador.Necesidades.instancia.vida.valorActual,
+                hambre = Jugador.Necesidades.instancia.hambre.valorActual,
+                sed = Jugador.Necesidades.instancia.sed.valorActual,
+                sueño = Jugador.Necesidades.instancia.sueño.valorActual,
+
+                tiempoDia = DiaNoche.instancia.tiempo
+            };
+
+            //------------------------------------------------
+
+            partida.inventario = new PartidaInventarioHueco[Jugador.Inventario.instancia.huecos.Length];
+        
+            int i = 0;
+            while (i < Jugador.Inventario.instancia.huecos.Length)
+            {
+                partida.inventario[i] = new PartidaInventarioHueco();
+
+                if (Jugador.Inventario.instancia.huecos[i] != null)
+                {
+                    partida.inventario[i].ocupado = true;
+
+                    partida.inventario[i].objetoId = Jugador.Inventario.instancia.huecos[i].objeto.id;
+                    partida.inventario[i].cantidad = Jugador.Inventario.instancia.huecos[i].cantidad;
+                    partida.inventario[i].equipado = Jugador.Inventario.instancia.huecosInterfaz[i].equipado;
+                }
+                else
+                {
+                    partida.inventario[i].ocupado = false;
+                    continue;
+                }
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            Objeto.Objeto[] objetos = FindObjectsOfType<Objeto.Objeto>();
+            partida.objetosSueltos = new PartidaObjetoSuelto[objetos.Length];
+
+            i = 0;
+            while (i < objetos.Length)
+            {
+                partida.objetosSueltos[i] = new PartidaObjetoSuelto
+                {
+                    id = objetos[i].objeto.id,
+                    posicion = new VectorTres(objetos[i].transform.position),
+                    rotacion = new VectorTres(objetos[i].transform.localEulerAngles)
+                };
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            Construccion.Propiedades[] construcciones = FindObjectsOfType<Construccion.Propiedades>();
+            partida.construcciones = new PartidaConstruccion[construcciones.Length];
+
+            i = 0;
+            while (i < construcciones.Length)
+            {
+                partida.construcciones[i] = new PartidaConstruccion
+                {
+                    id = construcciones[i].asset.id,
+                    posicion = new VectorTres(construcciones[i].asset.prefab.transform.position),
+                    rotacion = new VectorTres(construcciones[i].asset.prefab.transform.localEulerAngles),
+                    propiedades = construcciones[i].CogerPropiedades()
+                };
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            partida.recursos = new PartidaRecurso[Gestor.instancia.recursos.Length];
+
+            i = 0;
+            while (i < Gestor.instancia.recursos.Length)
+            {
+                partida.recursos[i] = new PartidaRecurso();
+                partida.recursos[i].index = i;
+
+                if (Gestor.instancia.recursos[i] == null)
+                {
+                    partida.recursos[i].destruido = true;
+                }
+                else
+                {
+                    partida.recursos[i].destruido = false;
+                    partida.recursos[i].capacidad = Gestor.instancia.recursos[i].cantidad;
+                }           
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            Enemigos.Enemigo[] enemigos = FindObjectsOfType<Enemigos.Enemigo>();
+            partida.enemigos = new PartidaEnemigo[enemigos.Length];
+
+            i = 0;
+            while (i < enemigos.Length)
+            {
+                partida.enemigos[i] = new PartidaEnemigo
+                {
+                    prefabId = enemigos[i].asset.id,
+                    posicion = new VectorTres(enemigos[i].asset.prefab.transform.position),
+                    rotacion = new VectorTres(enemigos[i].asset.prefab.transform.localEulerAngles),
+                    iaEstado = (int)enemigos[i].iaTipo,
+                    intentaMoverse = !enemigos[i].agente.isStopped,
+                    posicionDestino = new VectorTres(enemigos[i].agente.destination)
+                };
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            string datos = JsonUtility.ToJson(partida);
+            PlayerPrefs.SetString("Guardar", datos);
+        }
+
+        public void Cargar()
+        {
+            Partida partida = JsonUtility.FromJson<Partida>(PlayerPrefs.GetString("Guardar"));
+
+            Jugador.Movimientos.instancia.transform.position = partida.jugadorPosicion.ObtenerVector3();
+            Jugador.Movimientos.instancia.transform.eulerAngles = partida.jugadorRotacion.ObtenerVector3();
+            Jugador.Movimientos.instancia.camaraContenedor.eulerAngles = partida.jugadorMirar.ObtenerVector3();
+
+            Jugador.Necesidades.instancia.vida.valorActual = partida.vida;
+            Jugador.Necesidades.instancia.hambre.valorActual = partida.hambre;
+            Jugador.Necesidades.instancia.sed.valorActual = partida.sed;
+            Jugador.Necesidades.instancia.sueño.valorActual = partida.sueño;
+
+            //------------------------------------------------
+
+            int i = 0;
+            while (i < partida.inventario.Length)
+            {
+                if (partida.inventario[i].ocupado == false)
+                {
+                    continue;
+                }
+                else
+                {
+                    Jugador.Inventario.instancia.huecos[i].objeto = Gestor.instancia.ObtenerObjeto(partida.inventario[i].objetoId);
+                    Jugador.Inventario.instancia.huecos[i].cantidad = partida.inventario[i].cantidad;
+
+                    if (partida.inventario[i].equipado == true)
+                    {
+                        Jugador.Inventario.instancia.SeleccionarObjeto(i);
+                        Jugador.Inventario.instancia.EquiparBoton();
+                    }
+                }
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            Objeto.Objeto[] objetos = FindObjectsOfType<Objeto.Objeto>();
+
+            i = 0;
+            while (i < objetos.Length)
+            {
+                Destroy(objetos[i].gameObject);
+
+                i += 1;
+            }
+
+            i = 0;
+            while (i < partida.objetosSueltos.Length)
+            {
+                GameObject prefab = Gestor.instancia.ObtenerObjeto(partida.objetosSueltos[i].id).prefab;
+                Instantiate(prefab, partida.objetosSueltos[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.objetosSueltos[i].rotacion.ObtenerVector3()));
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            i = 0;
+            while (i < partida.construcciones.Length)
+            {
+                GameObject prefab = Gestor.instancia.ObtenerConstruccion(partida.construcciones[i].id).prefab;
+                GameObject construccion = Instantiate(prefab, partida.construcciones[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.construcciones[i].rotacion.ObtenerVector3()));
+                construccion.GetComponent<Construccion.Propiedades>().RecibirPropiedades(partida.construcciones[i].propiedades);
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            i = 0;
+            while (i < Gestor.instancia.recursos.Length)
+            {
+                if (partida.recursos[i].destruido == true)
+                {
+                    Destroy(Gestor.instancia.recursos[i].gameObject);
+                    continue;
+                }
+                else
+                {
+                    Gestor.instancia.recursos[i].cantidad = partida.recursos[i].capacidad;
+                }
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
+            Enemigos.Enemigo[] enemigos = FindObjectsOfType<Enemigos.Enemigo>();
+
+            i = 0;
+            while (i < enemigos.Length)
+            {
+                Destroy(enemigos[i].gameObject);
+
+                i += 1;
+            }
+
+            i = 0;
+            while (i < partida.enemigos.Length)
+            {
+            
+
+                i += 1;
+            }
+        }
+    }
+}
+

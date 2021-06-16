@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f5d825bb966fd46830f7f714470bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asset: {fileID: 11400000, guid: c3cd377cde5da0840a819697da39fcd0, type: 2}
   despertarHora: 0.3
   cuandoPuedeDormirPrincipioHora: 0.7
   cuandoPuedeDormirFinHora: 0.2
