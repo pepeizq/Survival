@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 4
   nombre: Refugio
   icono: {fileID: 21300000, guid: 42c7ad298c2ea89418f7302d4b05f250, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 4782280854683423963, guid: 3c332d2983419cd4898d42601551eed3, type: 3}
   vistaPreviaPrefab: {fileID: 8807413224490477678, guid: e80485a1da4a75948ad291d6a677ce5e, type: 3}
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}

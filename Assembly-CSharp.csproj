@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\Assets\Enemigo.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
     <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />
+    <Compile Include="Assets\Scripts\CargarGuardar\Fichero.cs" />
     <Compile Include="Assets\Scripts\Jugador\Interaccion.cs" />
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
     <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
-    <Compile Include="Assets\Scripts\CargarGuardar\Fichero.cs" />
+    <Compile Include="Assets\Scripts\Menu\Principal.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

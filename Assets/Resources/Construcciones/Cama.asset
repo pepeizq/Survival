@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   nombre: Cama
   icono: {fileID: 21300000, guid: 418f454c7a4b89349822368d3066bf14, type: 3}
-  prefab: {fileID: 0}
+  prefab: {fileID: 2279194078670579571, guid: c3b5fe434916c6145b941f918cc10309, type: 3}
   vistaPreviaPrefab: {fileID: 8588968733741035288, guid: 60369ea2ebf1e774faac6488de24dedd, type: 3}
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}

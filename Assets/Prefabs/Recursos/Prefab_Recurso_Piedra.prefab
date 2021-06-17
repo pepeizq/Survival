@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objetoADar: {fileID: 11400000, guid: 2092334c4a46cbf4582c00212219b383, type: 2}
   cantidadPorGolpe: 1
-  cantidadMaxima: 5
+  cantidad: 5
   particulaGolpe: {fileID: 4173311699488838890, guid: 1f987560e038b0d4d8447d7e1a113254, type: 3}
 --- !u!208 &42675559532080224
 NavMeshObstacle:

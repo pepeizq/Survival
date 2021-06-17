@@ -54,6 +54,19 @@ namespace CargarGuardar
 
             return null;
         }
+
+        public Assets.Enemigo ObtenerEnemigo(string id)
+        {
+            foreach (Assets.Enemigo enemigo in enemigos)
+            {
+                if (enemigo.id == id)
+                {
+                    return enemigo;
+                }
+            }
+
+            return null;
+        }
     }
 }
 

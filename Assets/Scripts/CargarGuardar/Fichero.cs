@@ -63,9 +63,12 @@ namespace CargarGuardar
                 {
                     partida.inventario[i].ocupado = true;
 
-                    partida.inventario[i].objetoId = Jugador.Inventario.instancia.huecos[i].objeto.id;
-                    partida.inventario[i].cantidad = Jugador.Inventario.instancia.huecos[i].cantidad;
-                    partida.inventario[i].equipado = Jugador.Inventario.instancia.huecosInterfaz[i].equipado;
+                    if (Jugador.Inventario.instancia.huecos[i].objeto != null)
+                    {
+                        partida.inventario[i].objetoId = Jugador.Inventario.instancia.huecos[i].objeto.id;
+                        partida.inventario[i].cantidad = Jugador.Inventario.instancia.huecos[i].cantidad;
+                        partida.inventario[i].equipado = Jugador.Inventario.instancia.huecosInterfaz[i].equipado;
+                    }                  
                 }
                 else
                 {
@@ -149,7 +152,7 @@ namespace CargarGuardar
                     prefabId = enemigos[i].asset.id,
                     posicion = new VectorTres(enemigos[i].asset.prefab.transform.position),
                     rotacion = new VectorTres(enemigos[i].asset.prefab.transform.localEulerAngles),
-                    iaEstado = (int)enemigos[i].iaTipo,
+                    iaEstado = (int)enemigos[i].iaEstado,
                     intentaMoverse = !enemigos[i].agente.isStopped,
                     posicionDestino = new VectorTres(enemigos[i].agente.destination)
                 };
@@ -176,7 +179,11 @@ namespace CargarGuardar
             Jugador.Necesidades.instancia.sed.valorActual = partida.sed;
             Jugador.Necesidades.instancia.sueño.valorActual = partida.sueño;
 
+            DiaNoche.instancia.tiempo = partida.tiempoDia;
+
             //------------------------------------------------
+
+            int objetoEquipado = 99999;
 
             int i = 0;
             while (i < partida.inventario.Length)
@@ -192,12 +199,17 @@ namespace CargarGuardar
 
                     if (partida.inventario[i].equipado == true)
                     {
-                        Jugador.Inventario.instancia.SeleccionarObjeto(i);
-                        Jugador.Inventario.instancia.EquiparBoton();
+                        objetoEquipado = i;
                     }
                 }
 
                 i += 1;
+            }
+
+            if (objetoEquipado != 99999)
+            {
+                Jugador.Inventario.instancia.SeleccionarObjeto(objetoEquipado);
+                Jugador.Inventario.instancia.EquiparBoton();
             }
 
             //------------------------------------------------
@@ -266,8 +278,18 @@ namespace CargarGuardar
             i = 0;
             while (i < partida.enemigos.Length)
             {
-            
+                GameObject prefab = Gestor.instancia.ObtenerEnemigo(partida.enemigos[i].prefabId).prefab;
+                GameObject enemigoObjeto = Instantiate(prefab, partida.enemigos[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.enemigos[i].rotacion.ObtenerVector3()));
+                Enemigos.Enemigo enemigo = enemigoObjeto.GetComponent<Enemigos.Enemigo>();
 
+                enemigo.iaEstado = (Enemigos.IAEstado)partida.enemigos[i].iaEstado;
+                enemigo.agente.isStopped = !partida.enemigos[i].intentaMoverse;
+
+                if (enemigo.agente.isStopped == false)
+                {
+                    enemigo.agente.SetDestination(partida.enemigos[i].posicionDestino.ObtenerVector3());
+                }
+               
                 i += 1;
             }
         }

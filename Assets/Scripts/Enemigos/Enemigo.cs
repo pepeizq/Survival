@@ -31,7 +31,7 @@ namespace Enemigos
 
         [Header("IA")]
         public IATipo iaTipo;
-        private IAEstado iaEstado;
+        public IAEstado iaEstado;
         public float distanciaDetectar;
         public float distanciaSeguridad;
 
