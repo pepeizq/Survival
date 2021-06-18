@@ -29,14 +29,14 @@ namespace Construccion
 
             if (resultado == true)
             {
-                DiaNoche.instancia.tiempo = despertarHora;
+                Escenario.DiaNoche.instancia.tiempo = despertarHora;
                 Jugador.Necesidades.instancia.Dormir(sueñoQuitado);
             }
         }
 
         public bool PuedeDormir()
         {
-            float hora = DiaNoche.instancia.tiempo;
+            float hora = Escenario.DiaNoche.instancia.tiempo;
 
             if (hora >= cuandoPuedeDormirPrincipioHora || hora <= cuandoPuedeDormirFinHora)
             {

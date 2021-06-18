@@ -47,7 +47,7 @@ namespace CargarGuardar
                 sed = Jugador.Necesidades.instancia.sed.valorActual,
                 sueño = Jugador.Necesidades.instancia.sueño.valorActual,
 
-                tiempoDia = DiaNoche.instancia.tiempo
+                tiempoDia = Escenario.DiaNoche.instancia.tiempo
             };
 
             //------------------------------------------------
@@ -179,7 +179,7 @@ namespace CargarGuardar
             Jugador.Necesidades.instancia.sed.valorActual = partida.sed;
             Jugador.Necesidades.instancia.sueño.valorActual = partida.sueño;
 
-            DiaNoche.instancia.tiempo = partida.tiempoDia;
+            Escenario.DiaNoche.instancia.tiempo = partida.tiempoDia;
 
             //------------------------------------------------
 
@@ -234,6 +234,16 @@ namespace CargarGuardar
             }
 
             //------------------------------------------------
+
+            Construccion.Propiedades[] construcciones = FindObjectsOfType<Construccion.Propiedades>();
+
+            i = 0;
+            while (i < construcciones.Length)
+            {
+                Destroy(construcciones[i].gameObject);
+
+                i += 1;
+            }
 
             i = 0;
             while (i < partida.construcciones.Length)
