@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4797c16ec9722284095b15f179ddf53a, type: 3}
+  m_Name: Terreno 49
+  m_EditorClassIdentifier: 
+  id: 4
+  idDebug: 49
+  modelo: {fileID: 919132149155446097, guid: 93c07d8fcf9154f49992303295130b3b, type: 3}
+  edificable: 0
+  recurso: 0
+  posicion: {x: 0, y: 0, z: 0}
+  rotacion: 0

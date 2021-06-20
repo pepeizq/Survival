@@ -8,7 +8,7 @@ namespace CargarGuardar
     {
         public void Start()
         {
-            StartCoroutine(CargarPartida());
+            //StartCoroutine(CargarPartida());
         }
 
         IEnumerator CargarPartida()

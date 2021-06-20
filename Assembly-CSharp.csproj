@@ -88,6 +88,11 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
+    <Compile Include="Assets\Scripts\Assets\Terreno.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Casillas\Vectores.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Casillas\Generar.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Casillas\Portapapeles.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Casillas\Limites.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
