@@ -62,9 +62,7 @@
     <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Camara.cs" />
     <Compile Include="Assets\Scripts\Assets\Construccion.cs" />
-    <Compile Include="Assets\Scripts\Escenario\Casillas\Limites.cs" />
     <Compile Include="Assets\Scripts\Assets\Enemigo.cs" />
-    <Compile Include="Assets\Scripts\Escenario\Casillas\Portapapeles.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
     <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />
     <Compile Include="Assets\Scripts\CargarGuardar\Fichero.cs" />
@@ -73,7 +71,6 @@
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
     <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
     <Compile Include="Assets\Scripts\Assets\Receta.cs" />
-    <Compile Include="Assets\Scripts\Escenario\Casillas\Vectores.cs" />
     <Compile Include="Assets\Scripts\Menu\Principal.cs" />
     <Compile Include="Assets\Scripts\Construcciones\VistaPrevia.cs" />
     <Compile Include="Assets\Scripts\Enemigos\Enemigo.cs" />
@@ -84,7 +81,6 @@
     <Compile Include="Assets\Scripts\Escenario\Recurso.cs" />
     <Compile Include="Assets\Scripts\Escenario\DiaNoche.cs" />
     <Compile Include="Assets\Scripts\Assets\Objeto.cs" />
-    <Compile Include="Assets\Scripts\Escenario\Casillas\Generar.cs" />
     <Compile Include="Assets\Scripts\Crafting\MesaCrafteo.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Fogata.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
