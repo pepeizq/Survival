@@ -25,9 +25,10 @@ namespace Escenario.Generar
         public Casilla[,] terrenos = new Casilla[1, 1];
 
         [Header("Opciones")]
-        public float alturaMaxima;
-        public int tamañoEscenarioX;
-        public int tamañoEscenarioZ;
+        public float alturaMaxima = 10f;
+        public int tamañoEscenarioX = 100;
+        public int tamañoEscenarioZ = 100;
+        public float casillasEscala = 1f;
 
         [HideInInspector]
         public int limitesMapa = 3;
