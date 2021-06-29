@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41084102, g: 0.46152902, b: 0.69630224, a: 1}
+  m_IndirectSpecularColor: {r: 0.40862378, g: 0.45768708, b: 0.6903264, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5132,6 +5132,7 @@ MonoBehaviour:
   alturaMaxima: 8
   "tama\xF1oEscenarioX": 100
   "tama\xF1oEscenarioZ": 100
+  casillasEscala: 2
   limitesMapa: 3
 --- !u!114 &681689837
 MonoBehaviour:

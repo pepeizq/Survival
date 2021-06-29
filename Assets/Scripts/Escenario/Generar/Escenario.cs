@@ -5117,11 +5117,17 @@ new Vector3(41, 0.25f, 97),
                 if (terrenos[x, z] == null)
                 {
                     Vector3 posicionFinal = terreno.posicion;
-                    posicionFinal.x = posicionFinal.x + posicionFinal.x / 2;
-                    posicionFinal.z = posicionFinal.z + posicionFinal.z / 2;
 
+                    if (casillasEscala != 0.5f)
+                    {
+                        posicionFinal.x = (posicionFinal.x + posicionFinal.x * (casillasEscala * 1.5f)) - (tamañoEscenarioX / 2);
+                        posicionFinal.y = posicionFinal.y + posicionFinal.y * (casillasEscala * 1.5f);
+                        posicionFinal.z = (posicionFinal.z + posicionFinal.z * (casillasEscala * 1.5f)) - (tamañoEscenarioZ / 2);
+                    }
+                    
                     Casilla terreno2 = Instantiate(casillasFinal[id], posicionFinal, Quaternion.identity);
                     terreno2.gameObject.transform.Rotate(Vector3.up, terreno.rotacion, Space.World);
+                    terreno2.gameObject.transform.localScale = new Vector3(casillasEscala, casillasEscala, casillasEscala);
                     terreno2.rotacion = terreno.rotacion;
                     terreno2.posicion = terreno.posicion;
                     terreno2.idDebug = terreno.idDebug;
@@ -5363,6 +5369,11 @@ new Vector3(41, 0.25f, 97),
 
         private void PonerLlano2(float altura)
         {
+            foreach (Casilla casilla in terrenos)
+            {
+
+            }
+
             for (int x = 0; x < terrenos.GetLength(0); x++)
             {
                 for (int z = 0; z < terrenos.GetLength(1); z++)
