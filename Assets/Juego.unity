@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40862378, g: 0.45768708, b: 0.6903264, a: 1}
+  m_IndirectSpecularColor: {r: 0.41179416, g: 0.4632036, b: 0.6989522, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1664,7 +1664,7 @@ GameObject:
   - component: {fileID: 245741303}
   - component: {fileID: 245741305}
   m_Layer: 0
-  m_Name: CameraEquipo
+  m_Name: CamaraEquipo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5076,7 +5076,7 @@ MonoBehaviour:
   aleatorio: 1
   coloresGeneracion: 0
   agua: 0
-  ponerLlano: 0
+  ponerLlano: 1
   portapapeles: 0
   casillasDebug:
   - {fileID: 2780593435017622348, guid: d6ae6d03a1772984097fed33fd0a1eb5, type: 3}
@@ -5129,9 +5129,9 @@ MonoBehaviour:
   - {fileID: -7027327411161887106, guid: efba6aa38d7e1644a9b650f3e639d4e7, type: 3}
   - {fileID: 7650354689073980575, guid: 27e311d1278edfd4291999fefe6d06d8, type: 3}
   - {fileID: 2691962698343940219, guid: 965ac60f61958264a99e4eaa8703ba37, type: 3}
-  alturaMaxima: 8
-  "tama\xF1oEscenarioX": 100
-  "tama\xF1oEscenarioZ": 100
+  alturaMaxima: 12
+  "tama\xF1oEscenarioX": 200
+  "tama\xF1oEscenarioZ": 200
   casillasEscala: 2
   limitesMapa: 3
 --- !u!114 &681689837
@@ -5220,7 +5220,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 9.1835e-41, y: 7.438685e-39, z: 9.78048e-39, w: 1.37787e-40}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -7398,7 +7398,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 10
   field of view: 70
   orthographic: 0
   orthographic size: 5

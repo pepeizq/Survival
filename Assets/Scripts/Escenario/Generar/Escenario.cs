@@ -5369,11 +5369,6 @@ new Vector3(41, 0.25f, 97),
 
         private void PonerLlano2(float altura)
         {
-            foreach (Casilla casilla in terrenos)
-            {
-
-            }
-
             for (int x = 0; x < terrenos.GetLength(0); x++)
             {
                 for (int z = 0; z < terrenos.GetLength(1); z++)
