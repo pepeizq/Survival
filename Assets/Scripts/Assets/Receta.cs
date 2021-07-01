@@ -2,7 +2,7 @@
 
 namespace Assets
 {
-    [CreateAssetMenu(fileName = "Receta de Crafting", menuName = "Assets/Nueva Receta de Crafting")]
+    [CreateAssetMenu(fileName = "Receta de Crafting", menuName = "Assets/Receta de Crafting")]
     public class Receta : ScriptableObject
     {
         public Objeto objetoACraftear;

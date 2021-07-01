@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41179416, g: 0.4632036, b: 0.6989522, a: 1}
+  m_IndirectSpecularColor: {r: 0.41275275, g: 0.46496165, b: 0.70172805, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5130,8 +5130,8 @@ MonoBehaviour:
   - {fileID: 7650354689073980575, guid: 27e311d1278edfd4291999fefe6d06d8, type: 3}
   - {fileID: 2691962698343940219, guid: 965ac60f61958264a99e4eaa8703ba37, type: 3}
   alturaMaxima: 12
-  "tama\xF1oEscenarioX": 200
-  "tama\xF1oEscenarioZ": 200
+  "tama\xF1oEscenarioX": 100
+  "tama\xF1oEscenarioZ": 100
   casillasEscala: 2
   limitesMapa: 3
 --- !u!114 &681689837
@@ -7398,7 +7398,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 10
+  far clip plane: 200
   field of view: 70
   orthographic: 0
   orthographic size: 5

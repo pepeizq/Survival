@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets
 {
-    [CreateAssetMenu(fileName = "Construccion", menuName = "Assets/Nueva Construccion")]
+    [CreateAssetMenu(fileName = "Construccion", menuName = "Assets/Construccion")]
     public class Construccion : ScriptableObject
     {
         public string id;

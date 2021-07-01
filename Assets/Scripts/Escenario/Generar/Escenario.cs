@@ -5120,9 +5120,9 @@ new Vector3(41, 0.25f, 97),
 
                     if (casillasEscala != 0.5f)
                     {
-                        posicionFinal.x = (posicionFinal.x + posicionFinal.x * (casillasEscala * 1.5f)) - (tamañoEscenarioX / 2);
+                        posicionFinal.x = (posicionFinal.x + posicionFinal.x * (casillasEscala * 1.5f)) - (tamañoEscenarioX / (casillasEscala + 0.5f));
                         posicionFinal.y = posicionFinal.y + posicionFinal.y * (casillasEscala * 1.5f);
-                        posicionFinal.z = (posicionFinal.z + posicionFinal.z * (casillasEscala * 1.5f)) - (tamañoEscenarioZ / 2);
+                        posicionFinal.z = (posicionFinal.z + posicionFinal.z * (casillasEscala * 1.5f)) - (tamañoEscenarioZ / (casillasEscala + 0.5f));
                     }
                     
                     Casilla terreno2 = Instantiate(casillasFinal[id], posicionFinal, Quaternion.identity);
