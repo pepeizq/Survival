@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Camara.cs" />
     <Compile Include="Assets\Scripts\Assets\Construccion.cs" />
+    <Compile Include="Assets\Scripts\Assets\Casilla.cs" />
     <Compile Include="Assets\Scripts\Assets\Enemigo.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Vectores.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
-    <Compile Include="Assets\Scripts\Assets\Casilla.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
