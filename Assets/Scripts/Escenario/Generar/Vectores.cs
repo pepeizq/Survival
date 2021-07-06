@@ -13,7 +13,7 @@ namespace Escenario.Generar
             instancia = this;
         }
 
-        public List<Vector3> GenerarTerreno(Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
+        public List<Vector3> GenerarTerreno(Assets.Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
         {
             List<Vector3> listado = new List<Vector3>();
             Portapapeles.instancia.Limpiar();
@@ -32,7 +32,7 @@ namespace Escenario.Generar
 
                 bool añadir = true;
 
-                foreach (Casilla casilla in terrenos)
+                foreach (Assets.Casilla casilla in terrenos)
                 {
                     if (casilla != null)
                     {
@@ -181,7 +181,7 @@ namespace Escenario.Generar
             return listado;
         }
 
-        public List<Vector3> GenerarAgua(Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
+        public List<Vector3> GenerarAgua(Assets.Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
         {
             List<Vector3> listado = null;
             Portapapeles.instancia.Texto("listadoAguaInicial = new List<Vector3> {");

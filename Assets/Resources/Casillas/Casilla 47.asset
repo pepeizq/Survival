@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57eff73a10a166d4d9d7e3350d6e0a9d, type: 3}
   m_Name: Casilla 47
   m_EditorClassIdentifier: 
-  id: 0
-  idDebug: 0
-  prefab: {fileID: 0}
+  id: 2
+  idDebug: 47
+  prefab: {fileID: 1077620406249435018, guid: efba6aa38d7e1644a9b650f3e639d4e7, type: 3}
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0

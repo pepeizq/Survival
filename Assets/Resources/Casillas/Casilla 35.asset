@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Casilla 35
   m_EditorClassIdentifier: 
   id: 0
-  idDebug: 0
-  prefab: {fileID: 0}
+  idDebug: 35
+  prefab: {fileID: 6147886842935846390, guid: 08d5c975bb0845246bbffd571acea6a0, type: 3}
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0

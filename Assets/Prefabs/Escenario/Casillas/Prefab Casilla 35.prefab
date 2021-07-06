@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6780870926516715340}
   - component: {fileID: 7617176567827034345}
   - component: {fileID: 5643383011548496931}
-  - component: {fileID: 548248073992812898}
   - component: {fileID: -5328489347857470827}
   m_Layer: 0
   m_Name: Prefab Casilla 35
@@ -85,24 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &548248073992812898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6147886842935846390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 865e37f1651bd6544a1dccf065cbfe9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  idDebug: 35
-  edificable: 1
-  arbolable: 0
-  posicion: {x: 0, y: 0, z: 0}
-  rotacion: 0
 --- !u!64 &-5328489347857470827
 MeshCollider:
   m_ObjectHideFlags: 0

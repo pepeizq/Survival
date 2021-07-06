@@ -13,16 +13,17 @@ namespace Escenario.Generar
         public bool agua;
         public bool ponerLlano;
         public bool portapapeles;
+        public bool colocarJugador;
 
         [Header("Prefabs")]
-        public Casilla[] casillasDebug;
+        public Assets.Casilla[] casillasDebug;
         //public Terreno[] casillasInvierno;
         //public Terreno[] casillasPrimavera;
         //public Terreno[] casillasVerano;
         //public Terreno[] casillasOtoño;
 
         [HideInInspector]
-        public Casilla[,] terrenos = new Casilla[1, 1];
+        public Assets.Casilla[,] terrenos = new Assets.Casilla[1, 1];
 
         [Header("Opciones")]
         public float alturaMaxima = 10f;
@@ -42,13 +43,13 @@ namespace Escenario.Generar
 
         public void Start()
         {
-            terrenos = new Casilla[tamañoEscenarioX, tamañoEscenarioZ];
+            terrenos = new Assets.Casilla[tamañoEscenarioX, tamañoEscenarioZ];
 
             List<Vector3> listadoTerrenoInicial = new List<Vector3>();
 
             if (aleatorio == true)
             {
-                listadoTerrenoInicial = Vectores.instancia.GenerarTerreno(terrenos, (int)tamañoEscenarioX, (int)tamañoEscenarioZ, alturaMaxima, limitesMapa);
+                listadoTerrenoInicial = Vectores.instancia.GenerarTerreno(terrenos, tamañoEscenarioX, tamañoEscenarioZ, alturaMaxima, limitesMapa);
             }
             else
             {
@@ -441,7 +442,7 @@ new Vector3(56, 1, 32),
 
                 if (aleatorio == true)
                 {
-                    listadoAguaInicial = Vectores.instancia.GenerarAgua(terrenos, (int)tamañoEscenarioX, (int)tamañoEscenarioZ, alturaMaxima, limitesMapa);
+                    listadoAguaInicial = Vectores.instancia.GenerarAgua(terrenos, tamañoEscenarioX, tamañoEscenarioZ, alturaMaxima, limitesMapa);
                 }
                 else
                 {
@@ -959,8 +960,11 @@ new Vector3(41, 0.25f, 97),
             {
                 PonerLlano2(alturaMaxima2);
             }
-
           
+            if (colocarJugador == true)
+            {
+                ColocarJugador2();
+            }
         }
 
         public void Update()
@@ -980,14 +984,14 @@ new Vector3(41, 0.25f, 97),
                     {
                         if (terrenos[(int)casillaInicial.x, (int)casillaInicial.z] == null)
                         {
-                            PonerCasilla(new Casilla(0, 0, casillaInicial));
+                            PonerCasilla(new Assets.Casilla(0, 0, casillaInicial));
                             listadoTerrenoInicial.Remove(casillaInicial);
                         }
                     }
                 }
             }
 
-            foreach (Casilla subcasilla in terrenos)
+            foreach (Assets.Casilla subcasilla in terrenos)
             {
                 if (subcasilla != null)
                 {
@@ -1051,7 +1055,7 @@ new Vector3(41, 0.25f, 97),
         //Verde - esquina2rotacion180
         private void CalcularTerreno_Xmenos1_Zmenos1(int x, float y, int z)
         {
-            Casilla rampas4rotacion90 = new Casilla(4, 90, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla rampas4rotacion90 = new Assets.Casilla(4, 90, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x - 2, z - 2], y, 0) == true && ComprobarVacio(terrenos[x - 2, z]) == true && ComprobarVacio(terrenos[x, z - 2]) == true)
             {
@@ -1072,7 +1076,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla plano = new Casilla(0, 0, new Vector3(x - 1, y + 0.5f, z - 1));
+            Assets.Casilla plano = new Assets.Casilla(0, 0, new Vector3(x - 1, y + 0.5f, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x - 1, z], y, 0) == true && ComprobarTerreno1(terrenos[x - 1, z - 2], y, 270) == true)
             {
@@ -1109,7 +1113,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion90 = new Casilla(3, 90, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(3, 90, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 180) == true && ComprobarTerreno1(terrenos[x - 2, z - 1], y, 0) == true)
             {
@@ -1150,7 +1154,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion270 = new Casilla(3, 270, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla esquina3rotacion270 = new Assets.Casilla(3, 270, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 180) == true && ComprobarTerreno2(terrenos[x - 1, z - 2], y, 270) == true)
             {
@@ -1187,7 +1191,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion180 = new Casilla(3, 180, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla esquina3rotacion180 = new Assets.Casilla(3, 180, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x - 2, z], y, 0) == true && ComprobarTerreno2(terrenos[x, z - 2], y, 270) == true)
             {
@@ -1204,7 +1208,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion90 = new Casilla(1, 90, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla rampa1rotacion90 = new Assets.Casilla(1, 90, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x - 2, z], y, 90) == true)
             {
@@ -1241,7 +1245,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion180 = new Casilla(1, 180, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla rampa1rotacion180 = new Assets.Casilla(1, 180, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 180) == true && ComprobarTerreno2(terrenos[x, z - 2], y, 270) == true)
             {
@@ -1278,7 +1282,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina2rotacion180 = new Casilla(2, 180, new Vector3(x - 1, y, z - 1));
+            Assets.Casilla esquina2rotacion180 = new Assets.Casilla(2, 180, new Vector3(x - 1, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -1293,7 +1297,7 @@ new Vector3(41, 0.25f, 97),
         //Gris - esquina2rotacion270
         private void CalcularTerreno_Xmenos1_Zmas1(int x, float y, int z)
         {
-            Casilla rampas4rotacion0 = new Casilla(39, 0, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla rampas4rotacion0 = new Assets.Casilla(39, 0, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x - 2, z + 2], y, 90) == true && ComprobarVacio(terrenos[x - 2, z]) == true && ComprobarVacio(terrenos[x, z + 2]) == true)
             {
@@ -1322,7 +1326,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla plano = new Casilla(35, 0, new Vector3(x - 1, y + 0.5f, z + 1));
+            Assets.Casilla plano = new Assets.Casilla(35, 0, new Vector3(x - 1, y + 0.5f, z + 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 270) == true && ComprobarTerreno1(terrenos[x - 2, z + 1], y, 0) == true && ComprobarTerreno1(terrenos[x - 1, z + 2], y, 90) == true)
             {
@@ -1355,7 +1359,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion180 = new Casilla(38, 180, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla esquina3rotacion180 = new Assets.Casilla(38, 180, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 270) == true && ComprobarTerreno1(terrenos[x - 1, z + 2], y, 90) == true)
             {
@@ -1392,7 +1396,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion0 = new Casilla(38, 0, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla esquina3rotacion0 = new Assets.Casilla(38, 0, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno1(terrenos[x - 2, z + 1], y, 0) == true)
             {
@@ -1433,7 +1437,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion90 = new Casilla(38, 270, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(38, 270, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x, z + 2], y, 0) == true && ComprobarTerreno2(terrenos[x - 1, z], y, 0) == true)
             {
@@ -1442,7 +1446,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion270 = new Casilla(36, 270, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla rampa1rotacion270 = new Assets.Casilla(36, 270, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x - 2, z], y, 0) == true)
             {
@@ -1479,7 +1483,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion180 = new Casilla(36, 180, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla rampa1rotacion180 = new Assets.Casilla(36, 180, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x, z + 1], y, 0) == true)
             {
@@ -1516,7 +1520,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina2rotacion270 = new Casilla(37, 270, new Vector3(x - 1, y, z + 1));
+            Assets.Casilla esquina2rotacion270 = new Assets.Casilla(37, 270, new Vector3(x - 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -1531,7 +1535,7 @@ new Vector3(41, 0.25f, 97),
         //Marron Claro - esquina2rotacion90 
         private void CalcularTerreno_Xmas1_Zmenos1(int x, float y, int z)
         {
-            Casilla rampas4rotacion0 = new Casilla(34, 0, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla rampas4rotacion0 = new Assets.Casilla(34, 0, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 2, z - 2], y, 270) == true && ComprobarVacio(terrenos[x + 2, z]) == true && ComprobarTerreno2(terrenos[x, z - 2], y - 0.5f, 0) == true && ComprobarVacio(terrenos[x + 1, z]) == true)
             {
@@ -1584,7 +1588,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla plano = new Casilla(30, 0, new Vector3(x + 1, y + 0.5f, z - 1));
+            Assets.Casilla plano = new Assets.Casilla(30, 0, new Vector3(x + 1, y + 0.5f, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x + 1, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z - 2], y, 270) == true)
             {
@@ -1621,7 +1625,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion180 = new Casilla(33, 180, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla esquina3rotacion180 = new Assets.Casilla(33, 180, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 90) == true && ComprobarTerreno2(terrenos[x + 2, z - 1], y, 180) == true)
             {
@@ -1702,7 +1706,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion0 = new Casilla(33, 0, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla esquina3rotacion0 = new Assets.Casilla(33, 0, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 90) == true && ComprobarTerreno1(terrenos[x + 1, z - 2], y, 270) == true)
             {
@@ -1739,7 +1743,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion90 = new Casilla(33, 90, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(33, 90, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 90) == true && ComprobarTerreno0(terrenos[x + 2, z], y, 0) == true && ComprobarTerreno2(terrenos[x, z - 2], y, 0) == true)
             {
@@ -1850,7 +1854,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion0 = new Casilla(31, 0, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla rampa1rotacion0 = new Assets.Casilla(31, 0, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 90) == true && ComprobarTerreno2(terrenos[x, z - 2], y, 0) == true)
             {
@@ -1879,7 +1883,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion90 = new Casilla(31, 90, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla rampa1rotacion90 = new Assets.Casilla(31, 90, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 90) == true && ComprobarTerreno2(terrenos[x + 1, z], y, 180) == true)
             {
@@ -1916,7 +1920,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina2rotacion90 = new Casilla(32, 90, new Vector3(x + 1, y, z - 1));
+            Assets.Casilla esquina2rotacion90 = new Assets.Casilla(32, 90, new Vector3(x + 1, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -1931,7 +1935,7 @@ new Vector3(41, 0.25f, 97),
         //Morado - esquina2rotacion0
         private void CalcularTerreno_Xmas1_Zmas1(int x, float y, int z)
         {
-            Casilla rampas4rotacion90 = new Casilla(29, 90, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla rampas4rotacion90 = new Assets.Casilla(29, 90, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(terrenos[x + 2, z], y - 0.5f, 270) == true && ComprobarVacio(terrenos[x, z + 2]) == true)
             {
@@ -1992,7 +1996,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla plano = new Casilla(25, 0, new Vector3(x + 1, y + 0.5f, z + 1));
+            Assets.Casilla plano = new Assets.Casilla(25, 0, new Vector3(x + 1, y + 0.5f, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z], y, 270) == true && ComprobarTerreno1(terrenos[x + 2, z + 1], y, 180) == true && ComprobarTerreno1(terrenos[x + 1, z + 2], y, 90) == true)
             {
@@ -2193,7 +2197,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion0 = new Casilla(28, 0, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla esquina3rotacion0 = new Assets.Casilla(28, 0, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z], y, 270) == true && ComprobarTerreno2(terrenos[x, z + 2], y, 90) == true)
             {
@@ -2298,7 +2302,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion90 = new Casilla(28, 90, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(28, 90, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 2, z + 2], y, 180) == true && ComprobarVacio(terrenos[x + 2, z]) == true && ComprobarVacio(terrenos[x + 1, z]) == true && ComprobarVacio(terrenos[x, z + 2]) == false)
             {
@@ -2371,7 +2375,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion270 = new Casilla(28, 270, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla esquina3rotacion270 = new Assets.Casilla(28, 270, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(terrenos[x + 2, z], y, 270) == true)
             {
@@ -2836,7 +2840,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion270 = new Casilla(26, 270, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla rampa1rotacion270 = new Assets.Casilla(26, 270, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z], y, 270) == true)
             {
@@ -2873,7 +2877,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion0 = new Casilla(26, 0, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla rampa1rotacion0 = new Assets.Casilla(26, 0, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x, z + 1], y, 90) == true)
             {
@@ -2910,7 +2914,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina2rotacion0 = new Casilla(27, 0, new Vector3(x + 1, y, z + 1));
+            Assets.Casilla esquina2rotacion0 = new Assets.Casilla(27, 0, new Vector3(x + 1, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -2925,7 +2929,7 @@ new Vector3(41, 0.25f, 97),
         //Rojo - rampa1rotacion90
         private void CalcularTerreno_X0_Zmenos1(int x, float y, int z)
         {
-            Casilla plano = new Casilla(20, 0, new Vector3(x, y + 0.5f, z - 1));
+            Assets.Casilla plano = new Assets.Casilla(20, 0, new Vector3(x, y + 0.5f, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 180) == true && ComprobarTerreno1(terrenos[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z - 2], y, 270) == true)
             {
@@ -3098,7 +3102,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion90 = new Casilla(23, 90, new Vector3(x, y, z - 1));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(23, 90, new Vector3(x, y, z - 1));
 
             if (ComprobarTerreno1(terrenos[x, z], y, 90) == true && ComprobarTerreno2(terrenos[x - 1, z - 1], y, 90) == true)
             {
@@ -3195,7 +3199,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion180 = new Casilla(23, 180, new Vector3(x, y, z - 1));
+            Assets.Casilla esquina3rotacion180 = new Assets.Casilla(23, 180, new Vector3(x, y, z - 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 180) == true && ComprobarTerreno1(terrenos[x + 1, z - 1], y, 180) == true)
             {
@@ -3296,7 +3300,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion90 = new Casilla(21, 90, new Vector3(x, y, z - 1));
+            Assets.Casilla rampa1rotacion90 = new Assets.Casilla(21, 90, new Vector3(x, y, z - 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -3319,7 +3323,7 @@ new Vector3(41, 0.25f, 97),
         //Marron Oscuro - rampa1rotacion180
         private void CalcularTerreno_Xmenos1_Z0(int x, float y, int z)
         {
-            Casilla plano = new Casilla(5, 0, new Vector3(x - 1, y + 0.5f, z));
+            Assets.Casilla plano = new Assets.Casilla(5, 0, new Vector3(x - 1, y + 0.5f, z));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 180) == true && ComprobarTerreno1(terrenos[x - 1, z + 1], y, 90) == true && ComprobarTerreno2(terrenos[x - 2, z - 1], y, 0) == true)
             {
@@ -3500,7 +3504,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion270 = new Casilla(8, 270, new Vector3(x - 1, y, z));
+            Assets.Casilla esquina3rotacion270 = new Assets.Casilla(8, 270, new Vector3(x - 1, y, z));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 270) == true && ComprobarTerreno1(terrenos[x - 1, z - 1], y, 270) == true)
             {
@@ -3597,7 +3601,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion180 = new Casilla(8, 180, new Vector3(x - 1, y, z));
+            Assets.Casilla esquina3rotacion180 = new Assets.Casilla(8, 180, new Vector3(x - 1, y, z));
 
             if (ComprobarTerreno1(terrenos[x, z], y, 180) == true && ComprobarTerreno2(terrenos[x - 1, z + 1], y, 180) == true)
             {
@@ -3690,7 +3694,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion180 = new Casilla(6, 180, new Vector3(x - 1, y, z));
+            Assets.Casilla rampa1rotacion180 = new Assets.Casilla(6, 180, new Vector3(x - 1, y, z));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -3713,7 +3717,7 @@ new Vector3(41, 0.25f, 97),
         //Blanco - rampa1rotacion270
         private void CalcularTerreno_X0_Zmas1(int x, float y, int z)
         {
-            Casilla plano = new Casilla(10, 0, new Vector3(x, y + 0.5f, z + 1));
+            Assets.Casilla plano = new Assets.Casilla(10, 0, new Vector3(x, y + 0.5f, z + 1));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 0) == true && ComprobarTerreno1(terrenos[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z + 2], y, 180) == true)
             {
@@ -3914,7 +3918,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion0 = new Casilla(13, 0, new Vector3(x, y, z + 1));
+            Assets.Casilla esquina3rotacion0 = new Assets.Casilla(13, 0, new Vector3(x, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x - 1, z + 1], y, 90) == true)
             {
@@ -4007,7 +4011,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion270 = new Casilla(13, 270, new Vector3(x, y, z + 1));
+            Assets.Casilla esquina3rotacion270 = new Assets.Casilla(13, 270, new Vector3(x, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z + 1], y, 180) == true)
             {
@@ -4108,7 +4112,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion270 = new Casilla(11, 270, new Vector3(x, y, z + 1));
+            Assets.Casilla rampa1rotacion270 = new Assets.Casilla(11, 270, new Vector3(x, y, z + 1));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -4131,7 +4135,7 @@ new Vector3(41, 0.25f, 97),
         //Amarillo - rampa1rotacion0
         private void CalcularTerreno_Xmas1_Z0(int x, float y, int z)
         {
-            Casilla plano = new Casilla(15, 0, new Vector3(x + 1, y + 0.5f, z));
+            Assets.Casilla plano = new Assets.Casilla(15, 0, new Vector3(x + 1, y + 0.5f, z));
 
             if (ComprobarTerreno1(terrenos[x, z], y, 0) == true && ComprobarTerreno1(terrenos[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(terrenos[x + 2, z], y, 180) == true)
             {
@@ -4636,7 +4640,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion0 = new Casilla(18, 0, new Vector3(x + 1, y, z));
+            Assets.Casilla esquina3rotacion0 = new Assets.Casilla(18, 0, new Vector3(x + 1, y, z));
 
             if (ComprobarTerreno2(terrenos[x, z], y, 0) == true && ComprobarTerreno0(terrenos[x + 1, z - 1], y, 0) == true && ComprobarTerreno0(terrenos[x + 2, z - 1], y, 0) == true)
             {
@@ -4741,7 +4745,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina3rotacion90 = new Casilla(18, 90, new Vector3(x + 1, y, z));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(18, 90, new Vector3(x + 1, y, z));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true && ComprobarTerreno2(terrenos[x + 1, z + 1], y, 180) == true)
             {
@@ -4846,7 +4850,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion0 = new Casilla(16, 0, new Vector3(x + 1, y, z));
+            Assets.Casilla rampa1rotacion0 = new Assets.Casilla(16, 0, new Vector3(x + 1, y, z));
 
             if (ComprobarTerreno0(terrenos[x, z], y, 0) == true)
             {
@@ -4876,13 +4880,13 @@ new Vector3(41, 0.25f, 97),
                 {
                     if (terrenos[(int)casillaInicial.x, (int)casillaInicial.z] == null)
                     {
-                        PonerCasilla(new Casilla(40, 0, casillaInicial));
+                        PonerCasilla(new Assets.Casilla(40, 0, casillaInicial));
                         listadoAguaInicial.Remove(casillaInicial);
                     }
                 }
             }
 
-            foreach (Casilla subcasilla in terrenos)
+            foreach (Assets.Casilla subcasilla in terrenos)
             {
                 if (subcasilla != null)
                 {
@@ -4940,7 +4944,7 @@ new Vector3(41, 0.25f, 97),
 
         private void CalcularAgua_Xmenos1_Zmenos1(int x, int z)
         {
-            Casilla esquina3rotacion0 = new Casilla(43, 0, new Vector3(x - 1, 0, z - 1));
+            Assets.Casilla esquina3rotacion0 = new Assets.Casilla(43, 0, new Vector3(x - 1, 0, z - 1));
 
             if (ComprobarVacio(terrenos[x - 1, z]) == true && ComprobarVacio(terrenos[x, z - 1]) == true)
             {
@@ -4954,7 +4958,7 @@ new Vector3(41, 0.25f, 97),
 
         private void CalcularAgua_Xmas1_Zmas1(int x, int z)
         {
-            Casilla esquina3rotacion180 = new Casilla(43, 180, new Vector3(x + 1, 0, z + 1));
+            Assets.Casilla esquina3rotacion180 = new Assets.Casilla(43, 180, new Vector3(x + 1, 0, z + 1));
 
             if (ComprobarVacio(terrenos[x + 1, z]) == true && ComprobarVacio(terrenos[x, z + 1]) == true)
             {
@@ -4971,7 +4975,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina2rotacion180 = new Casilla(42, 180, new Vector3(x + 1, 0, z + 1));
+            Assets.Casilla esquina2rotacion180 = new Assets.Casilla(42, 180, new Vector3(x + 1, 0, z + 1));
 
             if (ComprobarAgua0(x + 1, z) == true && ComprobarAgua0(x, z + 1) == true && ComprobarAgua0(x + 1, z + 2) == false)
             {
@@ -4981,7 +4985,7 @@ new Vector3(41, 0.25f, 97),
 
         private void CalcularAgua_Xmenos1_Zmas1(int x, int z)
         {
-            Casilla esquina3rotacion90 = new Casilla(43, 90, new Vector3(x - 1, 0, z + 1));
+            Assets.Casilla esquina3rotacion90 = new Assets.Casilla(43, 90, new Vector3(x - 1, 0, z + 1));
 
             if (ComprobarVacio(terrenos[x - 1, z]) == true && ComprobarVacio(terrenos[x, z + 1]) == true)
             {
@@ -4995,7 +4999,7 @@ new Vector3(41, 0.25f, 97),
 
         private void CalcularAgua_Xmas1_Zmenos1(int x, int z)
         {
-            Casilla esquina3rotacion270 = new Casilla(43, 270, new Vector3(x + 1, 0, z - 1));
+            Assets.Casilla esquina3rotacion270 = new Assets.Casilla(43, 270, new Vector3(x + 1, 0, z - 1));
 
             if (ComprobarVacio(terrenos[x + 1, z]) == true && ComprobarVacio(terrenos[x, z - 1]) == true)
             {
@@ -5009,7 +5013,7 @@ new Vector3(41, 0.25f, 97),
 
         private void CalcularAgua_X0_Zmenos1(int x, int z)
         {
-            Casilla esquina2rotacion0 = new Casilla(42, 0, new Vector3(x, 0, z - 1));
+            Assets.Casilla esquina2rotacion0 = new Assets.Casilla(42, 0, new Vector3(x, 0, z - 1));
 
             if (ComprobarAgua0(x + 1, z - 1) == true)
             {
@@ -5018,14 +5022,14 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion270 = new Casilla(41, 270, new Vector3(x, 0, z - 1));
+            Assets.Casilla rampa1rotacion270 = new Assets.Casilla(41, 270, new Vector3(x, 0, z - 1));
 
             PonerCasilla(rampa1rotacion270);
         }
 
         private void CalcularAgua_X0_Zmas1(int x, int z)
         {
-            Casilla esquina2rotacion90 = new Casilla(42, 90, new Vector3(x, 0, z + 1));
+            Assets.Casilla esquina2rotacion90 = new Assets.Casilla(42, 90, new Vector3(x, 0, z + 1));
 
             if (ComprobarAgua0(x + 1, z + 1) == true && ComprobarVacio(terrenos[x - 1, z + 2]) == true)
             {
@@ -5034,21 +5038,21 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion90 = new Casilla(41, 90, new Vector3(x, 0, z + 1));
+            Assets.Casilla rampa1rotacion90 = new Assets.Casilla(41, 90, new Vector3(x, 0, z + 1));
 
             PonerCasilla(rampa1rotacion90);
         }
 
         private void CalcularAgua_Xmenos1_Z0(int x, int z)
         {
-            Casilla rampa1rotacion0 = new Casilla(41, 0, new Vector3(x - 1, 0, z));
+            Assets.Casilla rampa1rotacion0 = new Assets.Casilla(41, 0, new Vector3(x - 1, 0, z));
 
             PonerCasilla(rampa1rotacion0);
         }
 
         private void CalcularAgua_Xmas1_Z0(int x, int z)
         {
-            Casilla plano = new Casilla(40, 0, new Vector3(x + 1, 0.25f, z));
+            Assets.Casilla plano = new Assets.Casilla(40, 0, new Vector3(x + 1, 0.25f, z));
 
             if (ComprobarAgua0(x + 1, z - 1) == true && ComprobarAgua0(x + 1, z + 1) == true)
             {
@@ -5057,7 +5061,7 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla esquina2rotacion270 = new Casilla(42, 270, new Vector3(x + 1, 0, z));
+            Assets.Casilla esquina2rotacion270 = new Assets.Casilla(42, 270, new Vector3(x + 1, 0, z));
 
             if (ComprobarAgua0(x + 1, z + 1) == true && ComprobarVacio(terrenos[x + 2, z - 1]) == true)
             {
@@ -5066,16 +5070,16 @@ new Vector3(41, 0.25f, 97),
 
             //---------------------------------------
 
-            Casilla rampa1rotacion180 = new Casilla(41, 180, new Vector3(x + 1, 0, z));
+            Assets.Casilla rampa1rotacion180 = new Assets.Casilla(41, 180, new Vector3(x + 1, 0, z));
 
             PonerCasilla(rampa1rotacion180);
         }
 
         //------------------------------------------------------------------------------------------------------------------------------------
 
-        private void PonerCasilla(Casilla terreno)
+        private void PonerCasilla(Assets.Casilla terreno)
         {
-            Casilla[] casillasFinal;
+            Assets.Casilla[] casillasFinal;
             int id = terreno.id;
 
             if (coloresGeneracion == false)
@@ -5124,15 +5128,16 @@ new Vector3(41, 0.25f, 97),
                         posicionFinal.y = posicionFinal.y + posicionFinal.y * (casillasEscala * 1.5f);
                         posicionFinal.z = (posicionFinal.z + posicionFinal.z * (casillasEscala * 1.5f)) - (tamañoEscenarioZ / (casillasEscala + 0.5f));
                     }
-                    
-                    Casilla terreno2 = Instantiate(casillasFinal[id], posicionFinal, Quaternion.identity);
+
+                    GameObject terreno2 = Instantiate(casillasFinal[id].prefab, posicionFinal, Quaternion.identity);
                     terreno2.gameObject.transform.Rotate(Vector3.up, terreno.rotacion, Space.World);
                     terreno2.gameObject.transform.localScale = new Vector3(casillasEscala, casillasEscala, casillasEscala);
-                    terreno2.rotacion = terreno.rotacion;
-                    terreno2.posicion = terreno.posicion;
-                    terreno2.idDebug = terreno.idDebug;
 
-                    terrenos[x, z] = terreno2;
+                    Assets.Casilla terreno3 = new Assets.Casilla(id, terreno.rotacion, terreno.posicion);
+                    terreno3.id = id;
+                    terreno3.idDebug = terreno.idDebug;
+
+                    terrenos[x, z] = terreno3;
                 }
             }
         }
@@ -5175,7 +5180,7 @@ new Vector3(41, 0.25f, 97),
             return id;
         }
 
-        private bool ComprobarTerreno0(Casilla terreno, float altura, int rotacion)
+        private bool ComprobarTerreno0(Assets.Casilla terreno, float altura, int rotacion)
         {
             if (terreno != null)
             {
@@ -5197,7 +5202,7 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarTerreno1(Casilla terreno, float altura, int rotacion)
+        private bool ComprobarTerreno1(Assets.Casilla terreno, float altura, int rotacion)
         {
             if (terreno != null)
             {
@@ -5219,7 +5224,7 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarTerreno2(Casilla terreno, float altura, int rotacion)
+        private bool ComprobarTerreno2(Assets.Casilla terreno, float altura, int rotacion)
         {
             if (terreno != null)
             {
@@ -5241,7 +5246,7 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarTerreno3(Casilla terreno, float altura, int rotacion)
+        private bool ComprobarTerreno3(Assets.Casilla terreno, float altura, int rotacion)
         {
             if (terreno != null)
             {
@@ -5263,7 +5268,7 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarVacio(Casilla terreno)
+        private bool ComprobarVacio(Assets.Casilla terreno)
         {
             if (terreno != null)
             {
@@ -5377,12 +5382,20 @@ new Vector3(41, 0.25f, 97),
                     {
                         if (x >= limitesMapa && z >= limitesMapa && x <= tamañoEscenarioX - limitesMapa && z <= tamañoEscenarioZ - limitesMapa)
                         {
-                            Casilla plano = new Casilla(0, 0, new Vector3(x, altura, z));
+                            Assets.Casilla plano = new Assets.Casilla(0, 0, new Vector3(x, altura, z));
                             PonerCasilla(plano);
                         }
                     }
                 }
             }
+        }
+
+        private void ColocarJugador2()
+        {
+            Vector3 posicion = terrenos[(int)(tamañoEscenarioX / 2), (int)(tamañoEscenarioZ / 2)].posicion;
+            posicion.y = posicion.y + 1.85f;
+
+            Jugador.Movimientos.instancia.transform.position = posicion;
         }
     }
 }
