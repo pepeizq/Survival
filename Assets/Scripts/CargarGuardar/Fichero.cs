@@ -23,15 +23,15 @@ namespace CargarGuardar
 
         public void Update()
         {
-            if (Keyboard.current.nKey.wasPressedThisFrame == true)
-            {
-                Guardar();
-            }
+            //if (Keyboard.current.nKey.wasPressedThisFrame == true)
+            //{
+            //    Guardar();
+            //}
 
-            if (Keyboard.current.mKey.wasPressedThisFrame == true)
-            {
-                Cargar();
-            }
+            //if (Keyboard.current.mKey.wasPressedThisFrame == true)
+            //{
+            //    Cargar();
+            //}
         }
 
         public void Guardar()

@@ -5393,7 +5393,13 @@ new Vector3(41, 0.25f, 97),
         private void ColocarJugador2()
         {
             Vector3 posicion = terrenos[(int)(tamañoEscenarioX / 2), (int)(tamañoEscenarioZ / 2)].posicion;
-            posicion.y = posicion.y + 1.85f;
+
+            if (casillasEscala != 0.5f)
+            {
+                posicion.x = (posicion.x + posicion.x * (casillasEscala * 1.5f)) - (tamañoEscenarioX / (casillasEscala + 0.5f));
+                posicion.y = 1.85f + posicion.y + posicion.y * (casillasEscala * 1.5f);
+                posicion.z = (posicion.z + posicion.z * (casillasEscala * 1.5f)) - (tamañoEscenarioZ / (casillasEscala + 0.5f));
+            }
 
             Jugador.Movimientos.instancia.transform.position = posicion;
         }

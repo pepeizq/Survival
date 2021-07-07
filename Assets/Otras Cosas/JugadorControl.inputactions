@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Inventario",
+                    "name": "Inventario AbrirCerrar",
                     "type": "Button",
                     "id": "5e351795-9550-41bd-ba4f-d06c7b6e07e8",
                     "expectedControlType": "Button",
@@ -66,6 +66,14 @@
                     "type": "Value",
                     "id": "db345eb7-9355-443d-adde-4a6d17ad8e1b",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mapa AbrirCerrar",
+                    "type": "Button",
+                    "id": "c8a4e303-282c-4868-bec3-956ce27f1e4b",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -166,7 +174,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventario",
+                    "action": "Inventario AbrirCerrar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -200,6 +208,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mirar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fa9c806-2fa4-4b3f-9287-65ded763417e",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa AbrirCerrar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
