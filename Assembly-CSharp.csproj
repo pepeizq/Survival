@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\Assets\Objeto.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Portapapeles.cs" />
     <Compile Include="Assets\Scripts\Crafting\MesaCrafteo.cs" />
+    <Compile Include="Assets\Scripts\Jugador\Mapa.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Fogata.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Escenario.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
@@ -93,7 +94,6 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
-    <Compile Include="Assets\Scripts\Jugador\Mapa.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

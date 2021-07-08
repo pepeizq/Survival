@@ -76,6 +76,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Mapa Movimiento",
+                    "type": "Value",
+                    "id": "684ec8f4-9495-4066-98b8-1037a8dec08a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -221,6 +229,61 @@
                     "action": "Mapa AbrirCerrar",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "Mapa Movimiento",
+                    "id": "df980564-35ed-4913-9c1b-e8efdcfc6a79",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Movimiento",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "647fe421-0a7e-495e-839b-0df8b4c45a0f",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Movimiento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "0cad0ab5-1d51-4fa1-bd1f-fa8739ebad0c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Movimiento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c3956c39-ce8e-462e-9f09-7e0cf9a81af1",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Movimiento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "8c2ea837-832d-4a21-b810-5b892099ebfa",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Movimiento",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

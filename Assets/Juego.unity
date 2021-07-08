@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41030753, g: 0.46064353, b: 0.69501877, a: 1}
+  m_IndirectSpecularColor: {r: 0.41044298, g: 0.46092975, b: 0.695456, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3163,6 +3163,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c8a4e303-282c-4868-bec3-956ce27f1e4b
     m_ActionName: Principal/Mapa
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 487785798}
+        m_TargetAssemblyTypeName: Jugador.Mapa, Assembly-CSharp
+        m_MethodName: MapaMovimientoInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 684ec8f4-9495-4066-98b8-1037a8dec08a
+    m_ActionName: Principal/Mapa Izquierda[/Keyboard/a]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Principal
@@ -3320,6 +3336,7 @@ MonoBehaviour:
   canvasMapa: {fileID: 1349943657}
   zoomCerca: 0.5
   zoomLejos: 25
+  velocidad: 10
 --- !u!1 &496158733
 GameObject:
   m_ObjectHideFlags: 0

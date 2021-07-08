@@ -14,6 +14,8 @@ namespace Jugador
         public float zoomCerca = 0.5f;
         public float zoomLejos = 25f;
 
+        public int velocidad = 20;
+
         private Vector3 ratonOrigenPunto;
         private Vector3 offset;
 
@@ -21,6 +23,7 @@ namespace Jugador
         private bool rotando;
 
         private int rotacion = 0;
+        private Vector2 actualMapaInput;
 
         public static Mapa instancia;
 
@@ -40,6 +43,18 @@ namespace Jugador
             if (contexto.phase == InputActionPhase.Started)
             {
                 AbrirCerrar();
+            }
+        }
+
+        public void MapaMovimientoInput(InputAction.CallbackContext contexto)
+        {
+            if (contexto.phase == InputActionPhase.Performed)
+            {
+                actualMapaInput = contexto.ReadValue<Vector2>();
+            }
+            else if (contexto.phase == InputActionPhase.Canceled)
+            {
+                actualMapaInput = Vector2.zero;
             }
         }
 
@@ -63,49 +78,54 @@ namespace Jugador
 
         public void FixedUpdate()
         {
-            //if (juego.canvas.gameObject.GetComponent<CanvasGroup>().alpha == 1 || juego.ocultarEnseñarInterfaz == true)
-            //{
-            int velocidad = 20;
-
-            if (rotando == false)
-            {
-                if (arrastrando == false)
-                {
-                    //if (Input.GetKey(teclaMovimientoDerecha))
-                    //{
-                    //    Movimiento(velocidad * Time.deltaTime, 0);
-                    //}
-                    //else if (Input.GetKey(teclaMovimientoIzquierda))
-                    //{
-                    //    Movimiento(-velocidad * Time.deltaTime, 0);
-                    //}
-                    //else if (Input.GetKey(teclaMovimientoAbajo))
-                    //{
-                    //    Movimiento(0, -velocidad * Time.deltaTime);
-                    //}
-                    //else if (Input.GetKey(teclaMovimientoArriba))
-                    //{
-                    //    Movimiento(0, velocidad * Time.deltaTime);
-                    //}
-
-                    //if (Input.GetKeyDown(teclaRotacionIzquierda))
-                    //{
-                    //    RotacionIzquierda(false);
-                    //}
-                    //else if (Input.GetKeyDown(teclaRotacionDerecha))
-                    //{
-                    //    RotacionDerecha(false);
-                    //}
-                }
-            }
-            //}
+            Movimiento();
         }
 
-        private void Movimiento(float x, float y)
+        //public void FixedUpdate()
+        //{
+        //    //if (juego.canvas.gameObject.GetComponent<CanvasGroup>().alpha == 1 || juego.ocultarEnseñarInterfaz == true)
+        //    //{
+        //    //int velocidad = 20;
+
+        //    if (rotando == false)
+        //    {
+        //        if (arrastrando == false)
+        //        {
+        //            //if (Input.GetKey(teclaMovimientoDerecha))
+        //            //{
+        //            //    Movimiento(velocidad * Time.deltaTime, 0);
+        //            //}
+        //            //else if (Input.GetKey(teclaMovimientoIzquierda))
+        //            //{
+        //            //    Movimiento(-velocidad * Time.deltaTime, 0);
+        //            //}
+        //            //else if (Input.GetKey(teclaMovimientoAbajo))
+        //            //{
+        //            //    Movimiento(0, -velocidad * Time.deltaTime);
+        //            //}
+        //            //else if (Input.GetKey(teclaMovimientoArriba))
+        //            //{
+        //            //    Movimiento(0, velocidad * Time.deltaTime);
+        //            //}
+
+        //            //if (Input.GetKeyDown(teclaRotacionIzquierda))
+        //            //{
+        //            //    RotacionIzquierda(false);
+        //            //}
+        //            //else if (Input.GetKeyDown(teclaRotacionDerecha))
+        //            //{
+        //            //    RotacionDerecha(false);
+        //            //}
+        //        }
+        //    }
+        //    //}
+        //}
+
+        private void Movimiento()
         {
             Transform posicionFinal = transform;
 
-            transform.Translate(new Vector3(x * 2, y * 2, 0));
+            transform.Translate(new Vector3(actualMapaInput.x * 10, actualMapaInput.y * 10, 0));
 
             //if (rotacion == 0)
             //{
