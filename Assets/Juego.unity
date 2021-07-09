@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41044298, g: 0.46092975, b: 0.695456, a: 1}
+  m_IndirectSpecularColor: {r: 0.41173384, g: 0.46307355, b: 0.6987286, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1432,7 +1432,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.002
-  far clip plane: 100
+  far clip plane: 1000
   field of view: 60
   orthographic: 1
   orthographic size: 10
@@ -3179,6 +3179,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 684ec8f4-9495-4066-98b8-1037a8dec08a
     m_ActionName: Principal/Mapa Izquierda[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 487785798}
+        m_TargetAssemblyTypeName: Jugador.Mapa, Assembly-CSharp
+        m_MethodName: MapaZoomInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e05316cb-222e-4283-a0b1-a7c573089520
+    m_ActionName: Principal/Mapa Zoom[/Mouse/scroll/y,/Mouse/scroll/y]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Principal

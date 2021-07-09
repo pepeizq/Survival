@@ -8,6 +8,7 @@ namespace Jugador
     {
         public GameObject camaraJugador;
         public GameObject camaraMapa;
+        private Camera camara;
         public GameObject canvasJugador;
         public GameObject canvasMapa;
 
@@ -23,7 +24,12 @@ namespace Jugador
         private bool rotando;
 
         private int rotacion = 0;
-        private Vector2 actualMapaInput;
+
+        private Vector2 actualMapaMovimientoInput;
+        private float actualMapaZoomInput;
+        private bool bloqueo = true;
+        private Vector3 temporalJugadorPosicion;
+        private Vector3 temporalJugadorRotacion;
 
         public static Mapa instancia;
 
@@ -35,7 +41,7 @@ namespace Jugador
         public void Start()
         {
             canvasMapa.SetActive(false);
-            transform.position = new Vector3(Escenario.Generar.Escenario.instancia.tamañoEscenarioX / 10, 60, Escenario.Generar.Escenario.instancia.tamañoEscenarioZ / 10);
+            camara = camaraMapa.GetComponentInChildren<Camera>();
         }
 
         public void MapaInput(InputAction.CallbackContext contexto)
@@ -50,11 +56,19 @@ namespace Jugador
         {
             if (contexto.phase == InputActionPhase.Performed)
             {
-                actualMapaInput = contexto.ReadValue<Vector2>();
+                actualMapaMovimientoInput = contexto.ReadValue<Vector2>();
             }
             else if (contexto.phase == InputActionPhase.Canceled)
             {
-                actualMapaInput = Vector2.zero;
+                actualMapaMovimientoInput = Vector2.zero;
+            }
+        }
+
+        public void MapaZoomInput(InputAction.CallbackContext contexto)
+        {
+            if (contexto.phase == InputActionPhase.Performed)
+            {
+                actualMapaZoomInput = contexto.ReadValue<float>();
             }
         }
 
@@ -66,6 +80,12 @@ namespace Jugador
                 camaraMapa.SetActive(false);
                 canvasJugador.SetActive(true);
                 canvasMapa.SetActive(false);
+
+                Jugador.Movimientos.instancia.Bloquear(false);
+                bloqueo = true;
+
+                transform.position = temporalJugadorPosicion;
+                transform.eulerAngles = temporalJugadorRotacion;
             }
             else
             {              
@@ -73,12 +93,27 @@ namespace Jugador
                 camaraMapa.SetActive(true);
                 canvasJugador.SetActive(false);
                 canvasMapa.SetActive(true);
+
+                Jugador.Movimientos.instancia.Bloquear(true);
+                bloqueo = false;
+
+                temporalJugadorPosicion = transform.position;
+                temporalJugadorRotacion = transform.eulerAngles;
+                transform.position = new Vector3(0, 0, 0);
+                transform.eulerAngles = new Vector3(0, 0, 0);
+
+                camara.transform.position = new Vector3(temporalJugadorPosicion.x + 10, 60, temporalJugadorPosicion.z + 10);
+                camara.transform.eulerAngles = new Vector3(45, 45, 0);
             }
         }
 
         public void FixedUpdate()
         {
-            Movimiento();
+            if (bloqueo == false)
+            {
+                Movimiento();
+                Zoom();
+            }          
         }
 
         //public void FixedUpdate()
@@ -123,9 +158,25 @@ namespace Jugador
 
         private void Movimiento()
         {
-            Transform posicionFinal = transform;
+            if (actualMapaMovimientoInput.x > 0 && actualMapaMovimientoInput.y == 0)
+            {
+                camara.transform.Translate(new Vector3(velocidad * Time.deltaTime * 10, 0, 0));
+            }
+            else if (actualMapaMovimientoInput.x < 0 && actualMapaMovimientoInput.y == 0)
+            {
+                camara.transform.Translate(new Vector3(-velocidad * Time.deltaTime * 10, 0, 0));
+            }
+            else if (actualMapaMovimientoInput.x == 0 && actualMapaMovimientoInput.y > 0)
+            {
+                camara.transform.Translate(new Vector3(0, velocidad * Time.deltaTime * 10, 0));
+            }
+            else if (actualMapaMovimientoInput.x == 0 && actualMapaMovimientoInput.y < 0)
+            {
+                camara.transform.Translate(new Vector3(0, -velocidad * Time.deltaTime * 10, 0));
+            }
 
-            transform.Translate(new Vector3(actualMapaInput.x * 10, actualMapaInput.y * 10, 0));
+            camara.transform.position = new Vector3(camara.transform.position.x, 60, camara.transform.position.z);
+
 
             //if (rotacion == 0)
             //{
@@ -170,6 +221,36 @@ namespace Jugador
             //    {
             //        transform.Translate(new Vector3(-x * 20, -y * 20, 0));
             //    }
+            //}
+        }
+
+        private void Zoom()
+        {
+            if (actualMapaZoomInput >= 0)
+            {
+                actualMapaZoomInput = 0.1f;
+            }
+            else if (actualMapaZoomInput < 0)
+            {
+                actualMapaZoomInput = -0.1f;
+            }
+
+            camara.orthographicSize = Mathf.Clamp(camara.orthographicSize -= actualMapaZoomInput *
+                (10f * camara.orthographicSize * .1f), zoomCerca, zoomLejos);
+
+            //if (Input.GetMouseButton(2))
+            //{
+            //    offset = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position);
+
+            //    if (arrastrando == false)
+            //    {
+            //        arrastrando = true;
+            //        ratonOrigenPunto = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //    }
+            //}
+            //else
+            //{
+            //    arrastrando = false;
             //}
         }
 

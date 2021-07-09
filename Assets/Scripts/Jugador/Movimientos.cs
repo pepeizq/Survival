@@ -21,6 +21,8 @@ namespace Jugador
         public float sensibilidadMirar;
         [HideInInspector]
         public bool puedeMirar = true;
+        [HideInInspector]
+        private bool bloqueo = false;
 
         private Vector2 ratonDelta;
 
@@ -41,15 +43,21 @@ namespace Jugador
 
         public void FixedUpdate()
         {
-            Movimiento();
+            if (bloqueo == false)
+            {
+                Movimiento();
+            }            
         }
 
         public void LateUpdate()
         {
-            if (puedeMirar == true)
+            if (bloqueo == false)
             {
-                MirarCamara();
-            }         
+                if (puedeMirar == true)
+                {
+                    MirarCamara();
+                }
+            }                
         }
 
         public void Movimiento()
@@ -146,6 +154,12 @@ namespace Jugador
                 Cursor.lockState = CursorLockMode.Locked;
                 puedeMirar = true;
             }
+        }
+
+        public void Bloquear(bool estado)
+        {
+            bloqueo = estado;
+            cuerpo.isKinematic = estado;
         }
     }
 }

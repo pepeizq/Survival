@@ -84,6 +84,14 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Mapa Zoom",
+                    "type": "PassThrough",
+                    "id": "e05316cb-222e-4283-a0b1-a7c573089520",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -284,6 +292,17 @@
                     "action": "Mapa Movimiento",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "a4de47a6-b686-409f-bc25-5d03278c289c",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
