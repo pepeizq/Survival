@@ -92,6 +92,22 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Mapa Arrastre",
+                    "type": "Button",
+                    "id": "140c6865-efbe-4e5a-92d0-da00fbcbaaf0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Raton",
+                    "type": "PassThrough",
+                    "id": "73e14591-89b0-4f4d-8095-d7e84ec3f216",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -301,6 +317,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mapa Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "095d8c4c-e326-4218-9a4d-9ad49ed0a3a5",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mapa Arrastre",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47e6b118-4cf3-414e-83bc-60a354c1d2b7",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Raton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
