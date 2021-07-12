@@ -176,6 +176,7 @@ namespace Jugador
 
             //------------------------------
 
+            Debug.Log(actualMapaArrastreInput.ToString());
             if (actualMapaArrastreInput != 0)
             {
                 Vector3 ratonPosicion = new Vector3(actualRatonPosicionInput.x, 0, actualRatonPosicionInput.y);
