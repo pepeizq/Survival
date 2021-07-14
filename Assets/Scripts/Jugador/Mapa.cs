@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,12 +21,9 @@ namespace Jugador
 
         private bool arrastrando;
 
-        private int rotacion = 0;
-
         private Vector2 actualMapaMovimientoInput;
         private float actualMapaZoomInput;
         private float actualMapaArrastreInput;
-        public Vector2 actualRatonPosicionInput;
 
         private bool bloqueo = true;
         private Vector3 temporalJugadorPosicion;
@@ -80,13 +76,9 @@ namespace Jugador
             {
                 actualMapaArrastreInput = contexto.ReadValue<float>();
             }
-        }
-
-        public void RatonPosicionInput(InputAction.CallbackContext contexto)
-        {
-            if (contexto.phase == InputActionPhase.Performed)
+            else if (contexto.phase == InputActionPhase.Canceled)
             {
-                actualRatonPosicionInput = contexto.ReadValue<Vector2>();
+                actualMapaArrastreInput = 0;
             }
         }
 
@@ -153,7 +145,10 @@ namespace Jugador
                 camara.transform.Translate(new Vector3(0, -velocidad * Time.deltaTime * 10, 0));
             }
 
-            camara.transform.position = new Vector3(camara.transform.position.x, 60, camara.transform.position.z);
+            if (arrastrando == false)
+            {
+                camara.transform.position = new Vector3(camara.transform.position.x, 60, camara.transform.position.z);
+            }                
         }
 
         private void ZoomArrastre()
@@ -175,23 +170,30 @@ namespace Jugador
                 (10f * camara.orthographicSize * .1f), zoomCerca, zoomLejos);
 
             //------------------------------
-
            
             if (actualMapaArrastreInput != 0)
             {
-                Vector3 ratonPosicion = new Vector3(actualRatonPosicionInput.x, 0, actualRatonPosicionInput.y);
-                Debug.Log(actualMapaArrastreInput.ToString());
-                offset = camara.ScreenToWorldPoint(ratonPosicion) - camara.transform.position;
+                Vector2 tempPosicion = Mouse.current.position.ReadValue();
+                Vector3 ratonPosicion = new Vector3(tempPosicion.x, tempPosicion.y, 0);
+
+                offset = camara.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
 
                 if (arrastrando == false)
                 {
                     arrastrando = true;
-                    ratonOrigenPunto = camara.ScreenToWorldPoint(ratonPosicion);
+                    ratonOrigenPunto = camara.ScreenToWorldPoint(Mouse.current.position.ReadValue());
                 }
             }
             else
             {
                 arrastrando = false;
+            }
+
+            if (arrastrando == true)
+            {       
+                Vector3 posicionFinal = ratonOrigenPunto - offset;
+                Debug.Log(posicionFinal.y.ToString());
+                camara.transform.position = new Vector3(posicionFinal.x, 60, posicionFinal.z);
             }
         }
     }

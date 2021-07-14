@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41017526, g: 0.46035534, b: 0.694551, a: 1}
+  m_IndirectSpecularColor: {r: 0.4096968, g: 0.45965523, b: 0.6934239, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3211,22 +3211,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 140c6865-efbe-4e5a-92d0-da00fbcbaaf0
     m_ActionName: Principal/Mapa Arrastre[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 487785798}
-        m_TargetAssemblyTypeName: Jugador.Mapa, Assembly-CSharp
-        m_MethodName: RatonPosicionInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 73e14591-89b0-4f4d-8095-d7e84ec3f216
-    m_ActionName: Principal/Raton[/Mouse/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Principal
@@ -3383,9 +3367,8 @@ MonoBehaviour:
   canvasJugador: {fileID: 960059084}
   canvasMapa: {fileID: 1349943657}
   zoomCerca: 0.5
-  zoomLejos: 25
+  zoomLejos: 35
   velocidad: 10
-  actualRatonPosicionInput: {x: 0, y: 0}
 --- !u!1 &496158733
 GameObject:
   m_ObjectHideFlags: 0
