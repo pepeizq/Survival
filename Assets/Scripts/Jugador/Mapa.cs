@@ -16,14 +16,10 @@ namespace Jugador
 
         public int velocidad = 20;
 
-        private Vector3 ratonOrigenPunto;
-        private Vector3 offset;
-
         private bool arrastrando;
 
         private Vector2 actualMapaMovimientoInput;
         private float actualMapaZoomInput;
-        private float actualMapaArrastreInput;
 
         private bool bloqueo = true;
         private Vector3 temporalJugadorPosicion;
@@ -67,18 +63,6 @@ namespace Jugador
             if (contexto.phase == InputActionPhase.Performed)
             {
                 actualMapaZoomInput = contexto.ReadValue<float>();
-            }
-        }
-
-        public void MapaArrastreInput(InputAction.CallbackContext contexto)
-        {
-            if (contexto.phase == InputActionPhase.Performed)
-            {
-                actualMapaArrastreInput = contexto.ReadValue<float>();
-            }
-            else if (contexto.phase == InputActionPhase.Canceled)
-            {
-                actualMapaArrastreInput = 0;
             }
         }
 
@@ -168,33 +152,6 @@ namespace Jugador
 
             camara.orthographicSize = Mathf.Clamp(camara.orthographicSize -= actualMapaZoomInput *
                 (10f * camara.orthographicSize * .1f), zoomCerca, zoomLejos);
-
-            //------------------------------
-           
-            if (actualMapaArrastreInput != 0)
-            {
-                Vector2 tempPosicion = Mouse.current.position.ReadValue();
-                Vector3 ratonPosicion = new Vector3(tempPosicion.x, tempPosicion.y, 0);
-
-                offset = camara.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
-
-                if (arrastrando == false)
-                {
-                    arrastrando = true;
-                    ratonOrigenPunto = camara.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                }
-            }
-            else
-            {
-                arrastrando = false;
-            }
-
-            if (arrastrando == true)
-            {       
-                Vector3 posicionFinal = ratonOrigenPunto - offset;
-                Debug.Log(posicionFinal.y.ToString());
-                camara.transform.position = new Vector3(posicionFinal.x, 60, posicionFinal.z);
-            }
         }
     }
 }

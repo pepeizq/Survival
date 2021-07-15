@@ -17,10 +17,6 @@ namespace Escenario.Generar
 
         [Header("Prefabs")]
         public Assets.Casilla[] casillasDebug;
-        //public Terreno[] casillasInvierno;
-        //public Terreno[] casillasPrimavera;
-        //public Terreno[] casillasVerano;
-        //public Terreno[] casillasOtoño;
 
         [HideInInspector]
         public Assets.Casilla[,] terrenos = new Assets.Casilla[1, 1];
