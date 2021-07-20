@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4096968, g: 0.45965523, b: 0.6934239, a: 1}
+  m_IndirectSpecularColor: {r: 0.40896147, g: 0.458408, b: 0.691413, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3367,7 +3367,7 @@ MonoBehaviour:
   canvasJugador: {fileID: 960059084}
   canvasMapa: {fileID: 1349943657}
   zoomCerca: 0.5
-  zoomLejos: 35
+  zoomLejos: 50
   velocidad: 10
 --- !u!1 &496158733
 GameObject:
@@ -5246,10 +5246,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aleatorio: 1
-  coloresGeneracion: 0
+  coloresGeneracion: 1
   agua: 0
-  ponerLlano: 1
-  portapapeles: 0
+  ponerLlano: 0
+  portapapeles: 1
   colocarJugador: 1
   casillasDebug:
   - {fileID: 11400000, guid: 9bcfb3b7d5c9f2c48b270874b4d09493, type: 2}
@@ -5302,9 +5302,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5af2f17b122fa4c49883561388b7187c, type: 2}
   - {fileID: 11400000, guid: 5868304beda0dce4a9611e19d2490402, type: 2}
   - {fileID: 11400000, guid: 250e29f93553ce141b242354e621d79b, type: 2}
-  alturaMaxima: 12
-  "tama\xF1oEscenarioX": 100
-  "tama\xF1oEscenarioZ": 100
+  islas:
+  - {fileID: 11400000, guid: 705839facceadcf43aac95df8d5434d4, type: 2}
+  - {fileID: 11400000, guid: 18efefe1b96bccc4bb153232e7baf906, type: 2}
   casillasEscala: 2
   limitesMapa: 3
 --- !u!114 &681689837

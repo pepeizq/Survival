@@ -7,7 +7,7 @@ namespace Escenario.Generar
 {
     public class Escenario : MonoBehaviour
     {
-        [Header("Debug")]
+        [Header("Opciones")]
         public bool aleatorio;
         public bool coloresGeneracion;
         public bool agua;
@@ -17,16 +17,15 @@ namespace Escenario.Generar
 
         [Header("Casillas")]
         public Assets.Casilla[] casillasDebug;
-        public Assets.Casilla[] casillasIsla1;
-        public Assets.Casilla[] casillasIsla2;
+        public Assets.Isla[] islas;
 
         [HideInInspector]
         public Assets.Casilla[,] casillas = new Assets.Casilla[1, 1];
 
-        [Header("Opciones")]
-        public float alturaMaxima = 10f;
-        public int tamañoEscenarioX = 100;
-        public int tamañoEscenarioZ = 100;
+        private int tamañoEscenarioX = 0;
+        private int tamañoEscenarioZ = 0;
+
+        [HideInInspector]
         public float casillasEscala = 1f;
 
         [HideInInspector]
@@ -41,364 +40,632 @@ namespace Escenario.Generar
 
         public void Start()
         {
+            int alturaMaxima = 1;
+
+            foreach (Assets.Isla isla in islas)
+            {
+                if (isla.alturaMaxima > alturaMaxima)
+                {
+                    alturaMaxima = (int)isla.alturaMaxima;
+                }
+
+                tamañoEscenarioX = tamañoEscenarioX + (int)isla.extensionMaxima.x + 50;
+                tamañoEscenarioZ = tamañoEscenarioZ + (int)isla.extensionMaxima.y + 50;
+            }
+
             casillas = new Assets.Casilla[tamañoEscenarioX, tamañoEscenarioZ];
 
             List<Vector3> listadoTerrenoInicial = new List<Vector3>();
 
             if (aleatorio == true)
             {
-                listadoTerrenoInicial = Vectores.instancia.GenerarTerreno(casillas, tamañoEscenarioX, tamañoEscenarioZ, alturaMaxima, limitesMapa);
+                listadoTerrenoInicial = Vectores.instancia.GenerarCasillas(casillas, islas, limitesMapa);
             }
             else
             {
-                listadoTerrenoInicial = new List<Vector3> {
-new Vector3(67, 4, 5),
-new Vector3(70, 3.5f, 8),
-new Vector3(63, 3.5f, 5),
-new Vector3(63, 3.5f, 5),
-new Vector3(70, 3.5f, 2),
-new Vector3(72, 3, 10),
-new Vector3(72, 3, 10),
-new Vector3(61, 3, 5),
-new Vector3(73, 3, 5),
-new Vector3(59, 2.5f, 6),
-new Vector3(59, 2.5f, 3),
-new Vector3(59, 2.5f, 7),
-new Vector3(59, 2.5f, 2),
-new Vector3(75, 2, 13),
-new Vector3(75, 2, 14),
-new Vector3(75, 2, 15),
-new Vector3(76, 2, 13),
-new Vector3(76, 2, 14),
-new Vector3(76, 2, 15),
-new Vector3(77, 2, 13),
-new Vector3(77, 2, 14),
-new Vector3(77, 2, 15),
-new Vector3(63, 2, 14),
-new Vector3(63, 2, 15),
-new Vector3(63, 2, 16),
-new Vector3(64, 2, 14),
-new Vector3(64, 2, 15),
-new Vector3(64, 2, 16),
-new Vector3(65, 2, 14),
-new Vector3(65, 2, 15),
-new Vector3(65, 2, 16),
-new Vector3(76, 2, 5),
-new Vector3(76, 2, 6),
-new Vector3(76, 2, 7),
-new Vector3(77, 2, 5),
-new Vector3(77, 2, 6),
-new Vector3(77, 2, 7),
-new Vector3(78, 2, 5),
-new Vector3(78, 2, 6),
-new Vector3(78, 2, 7),
-new Vector3(75, 2, 13),
-new Vector3(75, 2, 14),
-new Vector3(75, 2, 15),
-new Vector3(76, 2, 13),
-new Vector3(76, 2, 14),
-new Vector3(76, 2, 15),
-new Vector3(77, 2, 13),
-new Vector3(77, 2, 14),
-new Vector3(77, 2, 15),
-new Vector3(56, 2, 3),
-new Vector3(56, 2, 4),
-new Vector3(56, 2, 5),
-new Vector3(57, 2, 3),
-new Vector3(57, 2, 4),
-new Vector3(57, 2, 5),
-new Vector3(58, 2, 3),
-new Vector3(58, 2, 4),
-new Vector3(58, 2, 5),
-new Vector3(77, 1.5f, 15),
-new Vector3(77, 1.5f, 16),
-new Vector3(77, 1.5f, 17),
-new Vector3(78, 1.5f, 15),
-new Vector3(78, 1.5f, 16),
-new Vector3(78, 1.5f, 17),
-new Vector3(79, 1.5f, 15),
-new Vector3(79, 1.5f, 16),
-new Vector3(79, 1.5f, 17),
-new Vector3(77, 1.5f, 15),
-new Vector3(77, 1.5f, 16),
-new Vector3(77, 1.5f, 17),
-new Vector3(78, 1.5f, 15),
-new Vector3(78, 1.5f, 16),
-new Vector3(78, 1.5f, 17),
-new Vector3(79, 1.5f, 15),
-new Vector3(79, 1.5f, 16),
-new Vector3(79, 1.5f, 17),
-new Vector3(62, 1.5f, 16),
-new Vector3(62, 1.5f, 17),
-new Vector3(62, 1.5f, 18),
-new Vector3(63, 1.5f, 16),
-new Vector3(63, 1.5f, 17),
-new Vector3(63, 1.5f, 18),
-new Vector3(64, 1.5f, 16),
-new Vector3(64, 1.5f, 17),
-new Vector3(64, 1.5f, 18),
-new Vector3(78, 1, 16),
-new Vector3(78, 1, 17),
-new Vector3(78, 1, 18),
-new Vector3(78, 1, 19),
-new Vector3(78, 1, 20),
-new Vector3(79, 1, 16),
-new Vector3(79, 1, 17),
-new Vector3(79, 1, 18),
-new Vector3(79, 1, 19),
-new Vector3(79, 1, 20),
-new Vector3(80, 1, 16),
-new Vector3(80, 1, 17),
-new Vector3(80, 1, 18),
-new Vector3(80, 1, 19),
-new Vector3(80, 1, 20),
-new Vector3(81, 1, 16),
-new Vector3(81, 1, 17),
-new Vector3(81, 1, 18),
-new Vector3(81, 1, 19),
-new Vector3(81, 1, 20),
-new Vector3(82, 1, 16),
-new Vector3(82, 1, 17),
-new Vector3(82, 1, 18),
-new Vector3(82, 1, 19),
-new Vector3(82, 1, 20),
-new Vector3(52, 1, 16),
-new Vector3(52, 1, 17),
-new Vector3(52, 1, 18),
-new Vector3(52, 1, 19),
-new Vector3(52, 1, 20),
-new Vector3(53, 1, 16),
-new Vector3(53, 1, 17),
-new Vector3(53, 1, 18),
-new Vector3(53, 1, 19),
-new Vector3(53, 1, 20),
-new Vector3(54, 1, 16),
-new Vector3(54, 1, 17),
-new Vector3(54, 1, 18),
-new Vector3(54, 1, 19),
-new Vector3(54, 1, 20),
-new Vector3(55, 1, 16),
-new Vector3(55, 1, 17),
-new Vector3(55, 1, 18),
-new Vector3(55, 1, 19),
-new Vector3(55, 1, 20),
-new Vector3(56, 1, 16),
-new Vector3(56, 1, 17),
-new Vector3(56, 1, 18),
-new Vector3(56, 1, 19),
-new Vector3(56, 1, 20),
-new Vector3(78, 1, 16),
-new Vector3(78, 1, 17),
-new Vector3(78, 1, 18),
-new Vector3(78, 1, 19),
-new Vector3(78, 1, 20),
-new Vector3(79, 1, 16),
-new Vector3(79, 1, 17),
-new Vector3(79, 1, 18),
-new Vector3(79, 1, 19),
-new Vector3(79, 1, 20),
-new Vector3(80, 1, 16),
-new Vector3(80, 1, 17),
-new Vector3(80, 1, 18),
-new Vector3(80, 1, 19),
-new Vector3(80, 1, 20),
-new Vector3(81, 1, 16),
-new Vector3(81, 1, 17),
-new Vector3(81, 1, 18),
-new Vector3(81, 1, 19),
-new Vector3(81, 1, 20),
-new Vector3(82, 1, 16),
-new Vector3(82, 1, 17),
-new Vector3(82, 1, 18),
-new Vector3(82, 1, 19),
-new Vector3(82, 1, 20),
-new Vector3(65, 1, 17),
-new Vector3(65, 1, 18),
-new Vector3(65, 1, 19),
-new Vector3(65, 1, 20),
-new Vector3(65, 1, 21),
-new Vector3(66, 1, 17),
-new Vector3(66, 1, 18),
-new Vector3(66, 1, 19),
-new Vector3(66, 1, 20),
-new Vector3(66, 1, 21),
-new Vector3(67, 1, 17),
-new Vector3(67, 1, 18),
-new Vector3(67, 1, 19),
-new Vector3(67, 1, 20),
-new Vector3(67, 1, 21),
-new Vector3(68, 1, 17),
-new Vector3(68, 1, 18),
-new Vector3(68, 1, 19),
-new Vector3(68, 1, 20),
-new Vector3(68, 1, 21),
-new Vector3(69, 1, 17),
-new Vector3(69, 1, 18),
-new Vector3(69, 1, 19),
-new Vector3(69, 1, 20),
-new Vector3(69, 1, 21),
-new Vector3(62, 1, 17),
-new Vector3(62, 1, 18),
-new Vector3(62, 1, 19),
-new Vector3(62, 1, 20),
-new Vector3(62, 1, 21),
-new Vector3(63, 1, 17),
-new Vector3(63, 1, 18),
-new Vector3(63, 1, 19),
-new Vector3(63, 1, 20),
-new Vector3(63, 1, 21),
-new Vector3(64, 1, 17),
-new Vector3(64, 1, 18),
-new Vector3(64, 1, 19),
-new Vector3(64, 1, 20),
-new Vector3(64, 1, 21),
-new Vector3(65, 1, 17),
-new Vector3(65, 1, 18),
-new Vector3(65, 1, 19),
-new Vector3(65, 1, 20),
-new Vector3(65, 1, 21),
-new Vector3(66, 1, 17),
-new Vector3(66, 1, 18),
-new Vector3(66, 1, 19),
-new Vector3(66, 1, 20),
-new Vector3(66, 1, 21),
-new Vector3(36, 5, 31),
-new Vector3(36, 4.5f, 35),
-new Vector3(35, 4.5f, 35),
-new Vector3(32, 4.5f, 30),
-new Vector3(36, 4.5f, 35),
-new Vector3(31, 4, 26),
-new Vector3(30, 4, 32),
-new Vector3(31, 4, 26),
-new Vector3(41, 4, 26),
-new Vector3(43, 3.5f, 38),
-new Vector3(26, 3, 33),
-new Vector3(45, 3, 22),
-new Vector3(46, 3, 34),
-new Vector3(46, 3, 28),
-new Vector3(34, 3, 21),
-new Vector3(27, 3, 22),
-new Vector3(46, 3, 32),
-new Vector3(24, 2.5f, 35),
-new Vector3(36, 2.5f, 43),
-new Vector3(48, 2.5f, 29),
-new Vector3(38, 2.5f, 43),
-new Vector3(31, 2.5f, 43),
-new Vector3(38, 2.5f, 43),
-new Vector3(48, 2.5f, 27),
-new Vector3(48, 2, 17),
-new Vector3(48, 2, 18),
-new Vector3(48, 2, 19),
-new Vector3(49, 2, 17),
-new Vector3(49, 2, 18),
-new Vector3(49, 2, 19),
-new Vector3(50, 2, 17),
-new Vector3(50, 2, 18),
-new Vector3(50, 2, 19),
-new Vector3(49, 2, 35),
-new Vector3(49, 2, 36),
-new Vector3(49, 2, 37),
-new Vector3(50, 2, 35),
-new Vector3(50, 2, 36),
-new Vector3(50, 2, 37),
-new Vector3(51, 2, 35),
-new Vector3(51, 2, 36),
-new Vector3(51, 2, 37),
-new Vector3(22, 2, 17),
-new Vector3(22, 2, 18),
-new Vector3(22, 2, 19),
-new Vector3(23, 2, 17),
-new Vector3(23, 2, 18),
-new Vector3(23, 2, 19),
-new Vector3(24, 2, 17),
-new Vector3(24, 2, 18),
-new Vector3(24, 2, 19),
-new Vector3(48, 2, 43),
-new Vector3(48, 2, 44),
-new Vector3(48, 2, 45),
-new Vector3(49, 2, 43),
-new Vector3(49, 2, 44),
-new Vector3(49, 2, 45),
-new Vector3(50, 2, 43),
-new Vector3(50, 2, 44),
-new Vector3(50, 2, 45),
-new Vector3(48, 2, 17),
-new Vector3(48, 2, 18),
-new Vector3(48, 2, 19),
-new Vector3(49, 2, 17),
-new Vector3(49, 2, 18),
-new Vector3(49, 2, 19),
-new Vector3(50, 2, 17),
-new Vector3(50, 2, 18),
-new Vector3(50, 2, 19),
-new Vector3(19, 1.5f, 25),
+                listadoTerrenoInicial = new List<Vector3>{new Vector3(34, 1.5f, 17),
+new Vector3(34, 1.5f, 18),
+new Vector3(18, 1.5f, 27),
+new Vector3(18, 1.5f, 28),
 new Vector3(19, 1.5f, 26),
 new Vector3(19, 1.5f, 27),
-new Vector3(20, 1.5f, 25),
-new Vector3(20, 1.5f, 26),
-new Vector3(20, 1.5f, 27),
-new Vector3(21, 1.5f, 25),
-new Vector3(21, 1.5f, 26),
-new Vector3(21, 1.5f, 27),
-new Vector3(51, 1.5f, 33),
-new Vector3(51, 1.5f, 34),
-new Vector3(51, 1.5f, 35),
-new Vector3(52, 1.5f, 33),
-new Vector3(52, 1.5f, 34),
-new Vector3(52, 1.5f, 35),
-new Vector3(53, 1.5f, 33),
-new Vector3(53, 1.5f, 34),
-new Vector3(53, 1.5f, 35),
-new Vector3(52, 1, 31),
-new Vector3(52, 1, 32),
-new Vector3(52, 1, 33),
-new Vector3(52, 1, 34),
-new Vector3(52, 1, 35),
-new Vector3(53, 1, 31),
-new Vector3(53, 1, 32),
-new Vector3(53, 1, 33),
-new Vector3(53, 1, 34),
-new Vector3(53, 1, 35),
-new Vector3(54, 1, 31),
-new Vector3(54, 1, 32),
-new Vector3(54, 1, 33),
-new Vector3(54, 1, 34),
-new Vector3(54, 1, 35),
-new Vector3(55, 1, 31),
-new Vector3(55, 1, 32),
-new Vector3(55, 1, 33),
-new Vector3(55, 1, 34),
-new Vector3(55, 1, 35),
-new Vector3(56, 1, 31),
-new Vector3(56, 1, 32),
-new Vector3(56, 1, 33),
-new Vector3(56, 1, 34),
-new Vector3(56, 1, 35),
-new Vector3(52, 1, 28),
-new Vector3(52, 1, 29),
-new Vector3(52, 1, 30),
-new Vector3(52, 1, 31),
-new Vector3(52, 1, 32),
-new Vector3(53, 1, 28),
-new Vector3(53, 1, 29),
-new Vector3(53, 1, 30),
-new Vector3(53, 1, 31),
-new Vector3(53, 1, 32),
-new Vector3(54, 1, 28),
-new Vector3(54, 1, 29),
-new Vector3(54, 1, 30),
-new Vector3(54, 1, 31),
-new Vector3(54, 1, 32),
-new Vector3(55, 1, 28),
-new Vector3(55, 1, 29),
-new Vector3(55, 1, 30),
-new Vector3(55, 1, 31),
-new Vector3(55, 1, 32),
-new Vector3(56, 1, 28),
-new Vector3(56, 1, 29),
-new Vector3(56, 1, 30),
-new Vector3(56, 1, 31),
-new Vector3(56, 1, 32),
+new Vector3(19, 1.5f, 28),
+new Vector3(31, 1.5f, 12),
+new Vector3(31, 1.5f, 13),
+new Vector3(31, 1.5f, 14),
+new Vector3(32, 1.5f, 12),
+new Vector3(32, 1.5f, 13),
+new Vector3(32, 1.5f, 14),
+new Vector3(33, 1.5f, 12),
+new Vector3(33, 1.5f, 13),
+new Vector3(33, 1.5f, 14),
+new Vector3(14, 1, 27),
+new Vector3(14, 1, 28),
+new Vector3(14, 1, 29),
+new Vector3(14, 1, 30),
+new Vector3(14, 1, 31),
+new Vector3(15, 1, 27),
+new Vector3(15, 1, 28),
+new Vector3(15, 1, 29),
+new Vector3(15, 1, 30),
+new Vector3(15, 1, 31),
+new Vector3(16, 1, 27),
+new Vector3(16, 1, 28),
+new Vector3(16, 1, 29),
+new Vector3(16, 1, 30),
+new Vector3(16, 1, 31),
+new Vector3(17, 1, 27),
+new Vector3(17, 1, 28),
+new Vector3(17, 1, 29),
+new Vector3(17, 1, 30),
+new Vector3(17, 1, 31),
+new Vector3(18, 1, 27),
+new Vector3(18, 1, 28),
+new Vector3(18, 1, 29),
+new Vector3(18, 1, 30),
+new Vector3(18, 1, 31),
+new Vector3(33, 1, 18),
+new Vector3(33, 1, 19),
+new Vector3(33, 1, 20),
+new Vector3(33, 1, 21),
+new Vector3(33, 1, 22),
+new Vector3(34, 1, 18),
+new Vector3(34, 1, 19),
+new Vector3(34, 1, 20),
+new Vector3(34, 1, 21),
+new Vector3(34, 1, 22),
+new Vector3(35, 1, 18),
+new Vector3(35, 1, 19),
+new Vector3(35, 1, 20),
+new Vector3(35, 1, 21),
+new Vector3(35, 1, 22),
+new Vector3(36, 1, 18),
+new Vector3(36, 1, 19),
+new Vector3(36, 1, 20),
+new Vector3(36, 1, 21),
+new Vector3(36, 1, 22),
+new Vector3(37, 1, 18),
+new Vector3(37, 1, 19),
+new Vector3(37, 1, 20),
+new Vector3(37, 1, 21),
+new Vector3(37, 1, 22),
+new Vector3(32, 1, 9),
+new Vector3(32, 1, 10),
+new Vector3(32, 1, 11),
+new Vector3(32, 1, 12),
+new Vector3(32, 1, 13),
+new Vector3(33, 1, 9),
+new Vector3(33, 1, 10),
+new Vector3(33, 1, 11),
+new Vector3(33, 1, 12),
+new Vector3(33, 1, 13),
+new Vector3(34, 1, 9),
+new Vector3(34, 1, 10),
+new Vector3(34, 1, 11),
+new Vector3(34, 1, 12),
+new Vector3(34, 1, 13),
+new Vector3(35, 1, 9),
+new Vector3(35, 1, 10),
+new Vector3(35, 1, 11),
+new Vector3(35, 1, 12),
+new Vector3(35, 1, 13),
+new Vector3(36, 1, 9),
+new Vector3(36, 1, 10),
+new Vector3(36, 1, 11),
+new Vector3(36, 1, 12),
+new Vector3(36, 1, 13),
+new Vector3(13, 1, 18),
+new Vector3(13, 1, 19),
+new Vector3(13, 1, 20),
+new Vector3(13, 1, 21),
+new Vector3(13, 1, 22),
+new Vector3(14, 1, 18),
+new Vector3(14, 1, 19),
+new Vector3(14, 1, 20),
+new Vector3(14, 1, 21),
+new Vector3(14, 1, 22),
+new Vector3(15, 1, 18),
+new Vector3(15, 1, 19),
+new Vector3(15, 1, 20),
+new Vector3(15, 1, 21),
+new Vector3(15, 1, 22),
+new Vector3(16, 1, 18),
+new Vector3(16, 1, 19),
+new Vector3(16, 1, 20),
+new Vector3(16, 1, 21),
+new Vector3(16, 1, 22),
+new Vector3(17, 1, 18),
+new Vector3(17, 1, 19),
+new Vector3(17, 1, 20),
+new Vector3(17, 1, 21),
+new Vector3(17, 1, 22),
+new Vector3(24, 1, 8),
+new Vector3(24, 1, 9),
+new Vector3(24, 1, 10),
+new Vector3(24, 1, 11),
+new Vector3(24, 1, 12),
+new Vector3(25, 1, 8),
+new Vector3(25, 1, 9),
+new Vector3(25, 1, 10),
+new Vector3(25, 1, 11),
+new Vector3(25, 1, 12),
+new Vector3(26, 1, 8),
+new Vector3(26, 1, 9),
+new Vector3(26, 1, 10),
+new Vector3(26, 1, 11),
+new Vector3(26, 1, 12),
+new Vector3(27, 1, 8),
+new Vector3(27, 1, 9),
+new Vector3(27, 1, 10),
+new Vector3(27, 1, 11),
+new Vector3(27, 1, 12),
+new Vector3(28, 1, 8),
+new Vector3(28, 1, 9),
+new Vector3(28, 1, 10),
+new Vector3(28, 1, 11),
+new Vector3(28, 1, 12),
+new Vector3(14, 1, 9),
+new Vector3(14, 1, 10),
+new Vector3(14, 1, 11),
+new Vector3(14, 1, 12),
+new Vector3(14, 1, 13),
+new Vector3(15, 1, 9),
+new Vector3(15, 1, 10),
+new Vector3(15, 1, 11),
+new Vector3(15, 1, 12),
+new Vector3(15, 1, 13),
+new Vector3(16, 1, 9),
+new Vector3(16, 1, 10),
+new Vector3(16, 1, 11),
+new Vector3(16, 1, 12),
+new Vector3(16, 1, 13),
+new Vector3(17, 1, 9),
+new Vector3(17, 1, 10),
+new Vector3(17, 1, 11),
+new Vector3(17, 1, 12),
+new Vector3(17, 1, 13),
+new Vector3(18, 1, 9),
+new Vector3(18, 1, 10),
+new Vector3(18, 1, 11),
+new Vector3(18, 1, 12),
+new Vector3(18, 1, 13),
+new Vector3(14, 1, 9),
+new Vector3(14, 1, 10),
+new Vector3(14, 1, 11),
+new Vector3(14, 1, 12),
+new Vector3(14, 1, 13),
+new Vector3(15, 1, 9),
+new Vector3(15, 1, 10),
+new Vector3(15, 1, 11),
+new Vector3(15, 1, 12),
+new Vector3(15, 1, 13),
+new Vector3(16, 1, 9),
+new Vector3(16, 1, 10),
+new Vector3(16, 1, 11),
+new Vector3(16, 1, 12),
+new Vector3(16, 1, 13),
+new Vector3(17, 1, 9),
+new Vector3(17, 1, 10),
+new Vector3(17, 1, 11),
+new Vector3(17, 1, 12),
+new Vector3(17, 1, 13),
+new Vector3(18, 1, 9),
+new Vector3(18, 1, 10),
+new Vector3(18, 1, 11),
+new Vector3(18, 1, 12),
+new Vector3(18, 1, 13),
+new Vector3(82, 4, 18),
+new Vector3(86, 3.5f, 17),
+new Vector3(79, 3.5f, 21),
+new Vector3(83, 3, 12),
+new Vector3(82, 3, 24),
+new Vector3(77, 3, 23),
+new Vector3(82, 2.5f, 10),
+new Vector3(90, 2.5f, 16),
+new Vector3(89, 2.5f, 11),
+new Vector3(75, 2.5f, 11),
+new Vector3(77, 2, 27),
+new Vector3(77, 2, 28),
+new Vector3(77, 2, 29),
+new Vector3(78, 2, 27),
+new Vector3(78, 2, 28),
+new Vector3(78, 2, 29),
+new Vector3(79, 2, 27),
+new Vector3(79, 2, 28),
+new Vector3(79, 2, 29),
+new Vector3(72, 2, 26),
+new Vector3(72, 2, 27),
+new Vector3(72, 2, 28),
+new Vector3(73, 2, 26),
+new Vector3(73, 2, 27),
+new Vector3(73, 2, 28),
+new Vector3(74, 2, 26),
+new Vector3(74, 2, 27),
+new Vector3(74, 2, 28),
+new Vector3(84, 2, 27),
+new Vector3(84, 2, 28),
+new Vector3(84, 2, 29),
+new Vector3(85, 2, 27),
+new Vector3(85, 2, 28),
+new Vector3(85, 2, 29),
+new Vector3(86, 2, 27),
+new Vector3(86, 2, 28),
+new Vector3(86, 2, 29),
+new Vector3(71, 2, 14),
+new Vector3(71, 2, 15),
+new Vector3(71, 2, 16),
+new Vector3(72, 2, 14),
+new Vector3(72, 2, 15),
+new Vector3(72, 2, 16),
+new Vector3(73, 2, 14),
+new Vector3(73, 2, 15),
+new Vector3(73, 2, 16),
+new Vector3(93, 1.5f, 14),
+new Vector3(93, 1.5f, 15),
+new Vector3(93, 1.5f, 16),
+new Vector3(94, 1.5f, 14),
+new Vector3(94, 1.5f, 15),
+new Vector3(94, 1.5f, 16),
+new Vector3(95, 1.5f, 14),
+new Vector3(95, 1.5f, 15),
+new Vector3(95, 1.5f, 16),
+new Vector3(83, 1.5f, 29),
+new Vector3(83, 1.5f, 30),
+new Vector3(83, 1.5f, 31),
+new Vector3(84, 1.5f, 29),
+new Vector3(84, 1.5f, 30),
+new Vector3(84, 1.5f, 31),
+new Vector3(85, 1.5f, 29),
+new Vector3(85, 1.5f, 30),
+new Vector3(85, 1.5f, 31),
+new Vector3(92, 1.5f, 6),
+new Vector3(92, 1.5f, 7),
+new Vector3(92, 1.5f, 8),
+new Vector3(93, 1.5f, 6),
+new Vector3(93, 1.5f, 7),
+new Vector3(93, 1.5f, 8),
+new Vector3(94, 1.5f, 6),
+new Vector3(94, 1.5f, 7),
+new Vector3(94, 1.5f, 8),
+new Vector3(93, 1.5f, 15),
+new Vector3(93, 1.5f, 16),
+new Vector3(93, 1.5f, 17),
+new Vector3(94, 1.5f, 15),
+new Vector3(94, 1.5f, 16),
+new Vector3(94, 1.5f, 17),
+new Vector3(95, 1.5f, 15),
+new Vector3(95, 1.5f, 16),
+new Vector3(95, 1.5f, 17),
+new Vector3(92, 1.5f, 6),
+new Vector3(92, 1.5f, 7),
+new Vector3(92, 1.5f, 8),
+new Vector3(93, 1.5f, 6),
+new Vector3(93, 1.5f, 7),
+new Vector3(93, 1.5f, 8),
+new Vector3(94, 1.5f, 6),
+new Vector3(94, 1.5f, 7),
+new Vector3(94, 1.5f, 8),
+new Vector3(67, 1, 3),
+new Vector3(67, 1, 4),
+new Vector3(67, 1, 5),
+new Vector3(67, 1, 6),
+new Vector3(67, 1, 7),
+new Vector3(68, 1, 3),
+new Vector3(68, 1, 4),
+new Vector3(68, 1, 5),
+new Vector3(68, 1, 6),
+new Vector3(68, 1, 7),
+new Vector3(69, 1, 3),
+new Vector3(69, 1, 4),
+new Vector3(69, 1, 5),
+new Vector3(69, 1, 6),
+new Vector3(69, 1, 7),
+new Vector3(70, 1, 3),
+new Vector3(70, 1, 4),
+new Vector3(70, 1, 5),
+new Vector3(70, 1, 6),
+new Vector3(70, 1, 7),
+new Vector3(71, 1, 3),
+new Vector3(71, 1, 4),
+new Vector3(71, 1, 5),
+new Vector3(71, 1, 6),
+new Vector3(71, 1, 7),
+new Vector3(66, 1, 20),
+new Vector3(66, 1, 21),
+new Vector3(66, 1, 22),
+new Vector3(66, 1, 23),
+new Vector3(66, 1, 24),
+new Vector3(67, 1, 20),
+new Vector3(67, 1, 21),
+new Vector3(67, 1, 22),
+new Vector3(67, 1, 23),
+new Vector3(67, 1, 24),
+new Vector3(68, 1, 20),
+new Vector3(68, 1, 21),
+new Vector3(68, 1, 22),
+new Vector3(68, 1, 23),
+new Vector3(68, 1, 24),
+new Vector3(69, 1, 20),
+new Vector3(69, 1, 21),
+new Vector3(69, 1, 22),
+new Vector3(69, 1, 23),
+new Vector3(69, 1, 24),
+new Vector3(70, 1, 20),
+new Vector3(70, 1, 21),
+new Vector3(70, 1, 22),
+new Vector3(70, 1, 23),
+new Vector3(70, 1, 24),
+new Vector3(93, 1, 3),
+new Vector3(93, 1, 4),
+new Vector3(93, 1, 5),
+new Vector3(93, 1, 6),
+new Vector3(93, 1, 7),
+new Vector3(94, 1, 3),
+new Vector3(94, 1, 4),
+new Vector3(94, 1, 5),
+new Vector3(94, 1, 6),
+new Vector3(94, 1, 7),
+new Vector3(95, 1, 3),
+new Vector3(95, 1, 4),
+new Vector3(95, 1, 5),
+new Vector3(95, 1, 6),
+new Vector3(95, 1, 7),
+new Vector3(96, 1, 3),
+new Vector3(96, 1, 4),
+new Vector3(96, 1, 5),
+new Vector3(96, 1, 6),
+new Vector3(96, 1, 7),
+new Vector3(97, 1, 3),
+new Vector3(97, 1, 4),
+new Vector3(97, 1, 5),
+new Vector3(97, 1, 6),
+new Vector3(97, 1, 7),
+new Vector3(67, 1, 3),
+new Vector3(67, 1, 4),
+new Vector3(67, 1, 5),
+new Vector3(67, 1, 6),
+new Vector3(67, 1, 7),
+new Vector3(68, 1, 3),
+new Vector3(68, 1, 4),
+new Vector3(68, 1, 5),
+new Vector3(68, 1, 6),
+new Vector3(68, 1, 7),
+new Vector3(69, 1, 3),
+new Vector3(69, 1, 4),
+new Vector3(69, 1, 5),
+new Vector3(69, 1, 6),
+new Vector3(69, 1, 7),
+new Vector3(70, 1, 3),
+new Vector3(70, 1, 4),
+new Vector3(70, 1, 5),
+new Vector3(70, 1, 6),
+new Vector3(70, 1, 7),
+new Vector3(71, 1, 3),
+new Vector3(71, 1, 4),
+new Vector3(71, 1, 5),
+new Vector3(71, 1, 6),
+new Vector3(71, 1, 7),
+new Vector3(93, 1, 3),
+new Vector3(93, 1, 4),
+new Vector3(93, 1, 5),
+new Vector3(93, 1, 6),
+new Vector3(93, 1, 7),
+new Vector3(94, 1, 3),
+new Vector3(94, 1, 4),
+new Vector3(94, 1, 5),
+new Vector3(94, 1, 6),
+new Vector3(94, 1, 7),
+new Vector3(95, 1, 3),
+new Vector3(95, 1, 4),
+new Vector3(95, 1, 5),
+new Vector3(95, 1, 6),
+new Vector3(95, 1, 7),
+new Vector3(96, 1, 3),
+new Vector3(96, 1, 4),
+new Vector3(96, 1, 5),
+new Vector3(96, 1, 6),
+new Vector3(96, 1, 7),
+new Vector3(97, 1, 3),
+new Vector3(97, 1, 4),
+new Vector3(97, 1, 5),
+new Vector3(97, 1, 6),
+new Vector3(97, 1, 7),
+new Vector3(81, 1, 30),
+new Vector3(81, 1, 31),
+new Vector3(81, 1, 32),
+new Vector3(81, 1, 33),
+new Vector3(81, 1, 34),
+new Vector3(82, 1, 30),
+new Vector3(82, 1, 31),
+new Vector3(82, 1, 32),
+new Vector3(82, 1, 33),
+new Vector3(82, 1, 34),
+new Vector3(83, 1, 30),
+new Vector3(83, 1, 31),
+new Vector3(83, 1, 32),
+new Vector3(83, 1, 33),
+new Vector3(83, 1, 34),
+new Vector3(84, 1, 30),
+new Vector3(84, 1, 31),
+new Vector3(84, 1, 32),
+new Vector3(84, 1, 33),
+new Vector3(84, 1, 34),
+new Vector3(85, 1, 30),
+new Vector3(85, 1, 31),
+new Vector3(85, 1, 32),
+new Vector3(85, 1, 33),
+new Vector3(85, 1, 34),
+new Vector3(9, 3, 19),
+new Vector3(5, 2.5f, 18),
+new Vector3(5, 2.5f, 19),
+new Vector3(8, 2, 24),
+new Vector3(8, 2, 25),
+new Vector3(8, 2, 26),
+new Vector3(9, 2, 24),
+new Vector3(9, 2, 25),
+new Vector3(9, 2, 26),
+new Vector3(10, 2, 24),
+new Vector3(10, 2, 25),
+new Vector3(10, 2, 26),
+new Vector3(16, 1.5f, 18),
+new Vector3(16, 1.5f, 19),
+new Vector3(16, 1.5f, 20),
+new Vector3(17, 1.5f, 18),
+new Vector3(17, 1.5f, 19),
+new Vector3(17, 1.5f, 20),
+new Vector3(18, 1.5f, 18),
+new Vector3(18, 1.5f, 19),
+new Vector3(18, 1.5f, 20),
+new Vector3(16, 1, 8),
+new Vector3(16, 1, 9),
+new Vector3(16, 1, 10),
+new Vector3(16, 1, 11),
+new Vector3(16, 1, 12),
+new Vector3(17, 1, 8),
+new Vector3(17, 1, 9),
+new Vector3(17, 1, 10),
+new Vector3(17, 1, 11),
+new Vector3(17, 1, 12),
+new Vector3(18, 1, 8),
+new Vector3(18, 1, 9),
+new Vector3(18, 1, 10),
+new Vector3(18, 1, 11),
+new Vector3(18, 1, 12),
+new Vector3(19, 1, 8),
+new Vector3(19, 1, 9),
+new Vector3(19, 1, 10),
+new Vector3(19, 1, 11),
+new Vector3(19, 1, 12),
+new Vector3(20, 1, 8),
+new Vector3(20, 1, 9),
+new Vector3(20, 1, 10),
+new Vector3(20, 1, 11),
+new Vector3(20, 1, 12),
+new Vector3(8, 1, 27),
+new Vector3(8, 1, 28),
+new Vector3(8, 1, 29),
+new Vector3(8, 1, 30),
+new Vector3(8, 1, 31),
+new Vector3(9, 1, 27),
+new Vector3(9, 1, 28),
+new Vector3(9, 1, 29),
+new Vector3(9, 1, 30),
+new Vector3(9, 1, 31),
+new Vector3(10, 1, 27),
+new Vector3(10, 1, 28),
+new Vector3(10, 1, 29),
+new Vector3(10, 1, 30),
+new Vector3(10, 1, 31),
+new Vector3(11, 1, 27),
+new Vector3(11, 1, 28),
+new Vector3(11, 1, 29),
+new Vector3(11, 1, 30),
+new Vector3(11, 1, 31),
+new Vector3(12, 1, 27),
+new Vector3(12, 1, 28),
+new Vector3(12, 1, 29),
+new Vector3(12, 1, 30),
+new Vector3(12, 1, 31),
+new Vector3(3, 1, 27),
+new Vector3(3, 1, 28),
+new Vector3(3, 1, 29),
+new Vector3(3, 1, 30),
+new Vector3(3, 1, 31),
+new Vector3(4, 1, 27),
+new Vector3(4, 1, 28),
+new Vector3(4, 1, 29),
+new Vector3(4, 1, 30),
+new Vector3(4, 1, 31),
+new Vector3(5, 1, 27),
+new Vector3(5, 1, 28),
+new Vector3(5, 1, 29),
+new Vector3(5, 1, 30),
+new Vector3(5, 1, 31),
+new Vector3(6, 1, 27),
+new Vector3(6, 1, 28),
+new Vector3(6, 1, 29),
+new Vector3(6, 1, 30),
+new Vector3(6, 1, 31),
+new Vector3(7, 1, 27),
+new Vector3(7, 1, 28),
+new Vector3(7, 1, 29),
+new Vector3(7, 1, 30),
+new Vector3(7, 1, 31),
+new Vector3(16, 1, 26),
+new Vector3(16, 1, 27),
+new Vector3(16, 1, 28),
+new Vector3(16, 1, 29),
+new Vector3(16, 1, 30),
+new Vector3(17, 1, 26),
+new Vector3(17, 1, 27),
+new Vector3(17, 1, 28),
+new Vector3(17, 1, 29),
+new Vector3(17, 1, 30),
+new Vector3(18, 1, 26),
+new Vector3(18, 1, 27),
+new Vector3(18, 1, 28),
+new Vector3(18, 1, 29),
+new Vector3(18, 1, 30),
+new Vector3(19, 1, 26),
+new Vector3(19, 1, 27),
+new Vector3(19, 1, 28),
+new Vector3(19, 1, 29),
+new Vector3(19, 1, 30),
+new Vector3(20, 1, 26),
+new Vector3(20, 1, 27),
+new Vector3(20, 1, 28),
+new Vector3(20, 1, 29),
+new Vector3(20, 1, 30),
+new Vector3(9, 1, 27),
+new Vector3(9, 1, 28),
+new Vector3(9, 1, 29),
+new Vector3(9, 1, 30),
+new Vector3(9, 1, 31),
+new Vector3(10, 1, 27),
+new Vector3(10, 1, 28),
+new Vector3(10, 1, 29),
+new Vector3(10, 1, 30),
+new Vector3(10, 1, 31),
+new Vector3(11, 1, 27),
+new Vector3(11, 1, 28),
+new Vector3(11, 1, 29),
+new Vector3(11, 1, 30),
+new Vector3(11, 1, 31),
+new Vector3(12, 1, 27),
+new Vector3(12, 1, 28),
+new Vector3(12, 1, 29),
+new Vector3(12, 1, 30),
+new Vector3(12, 1, 31),
+new Vector3(13, 1, 27),
+new Vector3(13, 1, 28),
+new Vector3(13, 1, 29),
+new Vector3(13, 1, 30),
+new Vector3(13, 1, 31),
+new Vector3(6, 1, 27),
+new Vector3(6, 1, 28),
+new Vector3(6, 1, 29),
+new Vector3(6, 1, 30),
+new Vector3(6, 1, 31),
+new Vector3(7, 1, 27),
+new Vector3(7, 1, 28),
+new Vector3(7, 1, 29),
+new Vector3(7, 1, 30),
+new Vector3(7, 1, 31),
+new Vector3(8, 1, 27),
+new Vector3(8, 1, 28),
+new Vector3(8, 1, 29),
+new Vector3(8, 1, 30),
+new Vector3(8, 1, 31),
+new Vector3(9, 1, 27),
+new Vector3(9, 1, 28),
+new Vector3(9, 1, 29),
+new Vector3(9, 1, 30),
+new Vector3(9, 1, 31),
+new Vector3(10, 1, 27),
+new Vector3(10, 1, 28),
+new Vector3(10, 1, 29),
+new Vector3(10, 1, 30),
+new Vector3(10, 1, 31),
 };
             }
 
@@ -1055,19 +1322,19 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla rampas4rotacion90 = new Assets.Casilla(4, 90, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z - 2]) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z - 2]) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z - 2]) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z - 2]) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarTerreno2(casillas[x, z - 2], y - 0.5f, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarCasilla2(casillas[x, z - 2], y - 0.5f, 180) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z - 2]) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z - 2]) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
@@ -1076,35 +1343,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla plano = new Assets.Casilla(0, 0, new Vector3(x - 1, y + 0.5f, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z - 2], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
@@ -1113,39 +1380,39 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(3, 90, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 2, z - 1], y, 0) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 2], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 2], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
@@ -1154,35 +1421,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion270 = new Assets.Casilla(3, 270, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 270) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
@@ -1191,15 +1458,15 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion180 = new Assets.Casilla(3, 180, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true && ComprobarTerreno0(casillas[x, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true && ComprobarCasilla0(casillas[x, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
@@ -1208,35 +1475,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion90 = new Assets.Casilla(1, 90, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
@@ -1245,35 +1512,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion180 = new Assets.Casilla(1, 180, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x, z - 1], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z - 1], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x, z - 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
@@ -1282,11 +1549,11 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina2rotacion180 = new Assets.Casilla(2, 180, new Vector3(x - 1, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(esquina2rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true)
             {
                 PonerCasilla(esquina2rotacion180);
             }
@@ -1297,27 +1564,27 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla rampas4rotacion0 = new Assets.Casilla(39, 0, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 2], y, 90) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z + 2]) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 2], y, 90) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z + 2]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 2], y, 90) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 2], y, 90) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 180) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 2], y, 90) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z + 2]) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 2], y, 90) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z + 2]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z + 2]) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarVacio(casillas[x, z + 2]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarTerreno1(casillas[x, z + 2], y - 0.5f, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarCasilla1(casillas[x, z + 2], y - 0.5f, 180) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarTerreno3(casillas[x, z + 2], y - 0.5f, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x - 2, z]) == true && ComprobarCasilla3(casillas[x, z + 2], y - 0.5f, 180) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
@@ -1326,31 +1593,31 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla plano = new Assets.Casilla(35, 0, new Vector3(x - 1, y + 0.5f, z + 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 2, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 2], y, 90) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 2, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
@@ -1359,35 +1626,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion180 = new Assets.Casilla(38, 180, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 2], y, 90) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
@@ -1396,39 +1663,39 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(38, 0, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 2, z + 1], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
@@ -1437,7 +1704,7 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(38, 270, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
@@ -1446,35 +1713,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion270 = new Assets.Casilla(36, 270, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
@@ -1483,35 +1750,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion180 = new Assets.Casilla(36, 180, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
@@ -1520,11 +1787,11 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina2rotacion270 = new Assets.Casilla(37, 270, new Vector3(x - 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(esquina2rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true)
             {
                 PonerCasilla(esquina2rotacion270);
             }
@@ -1535,51 +1802,51 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla rampas4rotacion0 = new Assets.Casilla(34, 0, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno2(casillas[x, z - 2], y - 0.5f, 0) == true && ComprobarVacio(casillas[x + 1, z]) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla2(casillas[x, z - 2], y - 0.5f, 0) == true && ComprobarVacio(casillas[x + 1, z]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno2(casillas[x + 2, z], y - 0.5f, 180) == true && ComprobarVacio(casillas[x, z - 2]) == true && ComprobarVacio(casillas[x + 1, z]) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla2(casillas[x + 2, z], y - 0.5f, 180) == true && ComprobarVacio(casillas[x, z - 2]) == true && ComprobarVacio(casillas[x + 1, z]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarTerreno1(casillas[x, z - 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarCasilla1(casillas[x, z - 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno1(casillas[x, z - 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla1(casillas[x, z - 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno1(casillas[x, z - 2], y - 0.5f, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla1(casillas[x, z - 2], y - 0.5f, 270) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno2(casillas[x, z - 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla2(casillas[x, z - 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarTerreno2(casillas[x, z - 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarCasilla2(casillas[x, z - 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarTerreno2(casillas[x, z - 2], y - 0.5f, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarCasilla2(casillas[x, z - 2], y - 0.5f, 90) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno1(casillas[x, z - 2], y - 0.5f, 270) == true && ComprobarVacio(casillas[x + 1, z]) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla1(casillas[x, z - 2], y - 0.5f, 270) == true && ComprobarVacio(casillas[x + 1, z]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno3(casillas[x, z - 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla3(casillas[x, z - 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno3(casillas[x, z - 2], y - 0.5f, 0) == true && ComprobarVacio(casillas[x + 1, z]) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla3(casillas[x, z - 2], y - 0.5f, 0) == true && ComprobarVacio(casillas[x + 1, z]) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarTerreno1(casillas[x, z - 2], y - 0.5f, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z - 1]) == true && ComprobarCasilla1(casillas[x, z - 2], y - 0.5f, 270) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
@@ -1588,35 +1855,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla plano = new Assets.Casilla(30, 0, new Vector3(x + 1, y + 0.5f, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z - 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z - 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
@@ -1625,79 +1892,79 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion180 = new Assets.Casilla(33, 180, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 180) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 1, z - 2]) == true && ComprobarVacio(casillas[x + 2, z]) == false)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarVacio(casillas[x + 1, z - 2]) == true && ComprobarVacio(casillas[x + 2, z]) == false)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
@@ -1706,35 +1973,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(33, 0, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 2], y, 270) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
@@ -1743,109 +2010,109 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(33, 90, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x, z - 2], y, 0) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
 
             //---------------------------------------
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 2], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 2], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true && ComprobarTerreno1(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true && ComprobarCasilla1(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
 
             //---------------------------------------
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 2], y, 270) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampas4rotacion0);
             }
@@ -1854,27 +2121,27 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion0 = new Assets.Casilla(31, 0, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 2], y, 0) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z - 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
@@ -1883,35 +2150,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion90 = new Assets.Casilla(31, 90, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
@@ -1920,11 +2187,11 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina2rotacion90 = new Assets.Casilla(32, 90, new Vector3(x + 1, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(esquina2rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true)
             {
                 PonerCasilla(esquina2rotacion90);
             }
@@ -1935,59 +2202,59 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla rampas4rotacion90 = new Assets.Casilla(29, 90, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y - 0.5f, 270) == true && ComprobarVacio(casillas[x, z + 2]) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y - 0.5f, 270) == true && ComprobarVacio(casillas[x, z + 2]) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z], y - 0.5f, 180) == true && ComprobarVacio(casillas[x, z + 2]) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z], y - 0.5f, 180) == true && ComprobarVacio(casillas[x, z + 2]) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 90) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 90) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno3(casillas[x, z + 2], y - 0.5f, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla3(casillas[x, z + 2], y - 0.5f, 90) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno1(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla1(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno1(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla1(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno1(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla1(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 90) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno0(casillas[x + 1, z], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla0(casillas[x + 1, z], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno1(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla1(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarTerreno2(casillas[x, z + 2], y - 0.5f, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarCasilla2(casillas[x, z + 2], y - 0.5f, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
@@ -1996,199 +2263,199 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla plano = new Assets.Casilla(25, 0, new Vector3(x + 1, y + 0.5f, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
@@ -2197,103 +2464,103 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(28, 0, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarVacio(casillas[x + 1, z]) == false)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarVacio(casillas[x + 1, z]) == false)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == false && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == false && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == false)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == false)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == false)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == false)
             {
                 PonerCasilla(esquina3rotacion0);
             }
@@ -2302,71 +2569,71 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(28, 90, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x, z + 2]) == false)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarVacio(casillas[x + 2, z]) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x, z + 2]) == false)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z + 2]) == true && ComprobarVacio(casillas[x + 2, z]) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 2, z + 2]) == true && ComprobarVacio(casillas[x + 2, z]) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarVacio(casillas[x, z + 1]) == false)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarVacio(casillas[x + 1, z]) == true && ComprobarVacio(casillas[x + 2, z + 1]) == true && ComprobarVacio(casillas[x, z + 1]) == false)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
@@ -2375,463 +2642,463 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion270 = new Assets.Casilla(28, 270, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarVacio(casillas[x + 1, z + 2]) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarVacio(casillas[x + 1, z + 2]) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarVacio(casillas[x + 1, z + 2]) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarVacio(casillas[x + 1, z + 2]) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno3(casillas[x + 2, z + 2], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla3(casillas[x + 2, z + 2], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
 
             //---------------------------------------
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
 
             //---------------------------------------
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 2], y, 180) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 2], y, 0) == true)
             {
                 PonerCasilla(rampas4rotacion90);
             }
 
             //---------------------------------------
 
-            if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
 
             //---------------------------------------
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
@@ -2840,35 +3107,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion270 = new Assets.Casilla(26, 270, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
@@ -2877,35 +3144,35 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion0 = new Assets.Casilla(26, 0, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 1], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
@@ -2914,11 +3181,11 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina2rotacion0 = new Assets.Casilla(27, 0, new Vector3(x + 1, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(esquina2rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(esquina2rotacion0);
             }
@@ -2929,171 +3196,171 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla plano = new Assets.Casilla(20, 0, new Vector3(x, y + 0.5f, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x, z - 2], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x, z - 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
@@ -3102,95 +3369,95 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(23, 90, new Vector3(x, y, z - 1));
 
-            if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true)
+            if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
@@ -3199,99 +3466,99 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion180 = new Assets.Casilla(23, 180, new Vector3(x, y, z - 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 2], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 2], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
@@ -3300,19 +3567,19 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion90 = new Assets.Casilla(21, 90, new Vector3(x, y, z - 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion90);
             }
@@ -3323,179 +3590,179 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla plano = new Assets.Casilla(5, 0, new Vector3(x - 1, y + 0.5f, z));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
@@ -3504,95 +3771,95 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion270 = new Assets.Casilla(8, 270, new Vector3(x - 1, y, z));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
@@ -3601,91 +3868,91 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion180 = new Assets.Casilla(8, 180, new Vector3(x - 1, y, z));
 
-            if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 2, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 2, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion180);
             }
@@ -3694,19 +3961,19 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion180 = new Assets.Casilla(6, 180, new Vector3(x - 1, y, z));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 180) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion180);
             }
@@ -3717,199 +3984,199 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla plano = new Assets.Casilla(10, 0, new Vector3(x, y + 0.5f, z + 1));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x, z + 2], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 2], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
@@ -3918,91 +4185,91 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(13, 0, new Vector3(x, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x - 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x - 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x - 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x - 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
@@ -4011,99 +4278,99 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion270 = new Assets.Casilla(13, 270, new Vector3(x, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 2], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 2], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion270);
             }
@@ -4112,19 +4379,19 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion270 = new Assets.Casilla(11, 270, new Vector3(x, y, z + 1));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 270) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion270);
             }
@@ -4135,503 +4402,503 @@ new Vector3(41, 0.25f, 97),
         {
             Assets.Casilla plano = new Assets.Casilla(15, 0, new Vector3(x + 1, y + 0.5f, z));
 
-            if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 180) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z], y, 270) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z], y, 0) == true)
             {
                 PonerCasilla(plano);
             }
@@ -4640,103 +4907,103 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(18, 0, new Vector3(x + 1, y, z));
 
-            if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z - 1], y, 270) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z - 1], y, 270) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z - 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z - 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion0);
             }
@@ -4745,103 +5012,103 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(18, 90, new Vector3(x + 1, y, z));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno1(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla1(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 2, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 2, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 180) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 180) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 2, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 2, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 1], y, 90) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 1], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno0(casillas[x, z], y, 0) == true && ComprobarTerreno0(casillas[x + 1, z + 1], y, 0) == true)
+            else if (ComprobarCasilla0(casillas[x, z], y, 0) == true && ComprobarCasilla0(casillas[x + 1, z + 1], y, 0) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true && ComprobarTerreno2(casillas[x, z + 1], y, 0) == true && ComprobarTerreno2(casillas[x + 1, z + 2], y, 90) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true && ComprobarCasilla2(casillas[x, z + 1], y, 0) == true && ComprobarCasilla2(casillas[x + 1, z + 2], y, 90) == true)
             {
                 PonerCasilla(esquina3rotacion90);
             }
@@ -4850,19 +5117,19 @@ new Vector3(41, 0.25f, 97),
 
             Assets.Casilla rampa1rotacion0 = new Assets.Casilla(16, 0, new Vector3(x + 1, y, z));
 
-            if (ComprobarTerreno0(casillas[x, z], y, 0) == true)
+            if (ComprobarCasilla0(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno1(casillas[x, z], y, 0) == true)
+            else if (ComprobarCasilla1(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 0) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 0) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
-            else if (ComprobarTerreno2(casillas[x, z], y, 90) == true)
+            else if (ComprobarCasilla2(casillas[x, z], y, 90) == true)
             {
                 PonerCasilla(rampa1rotacion0);
             }
@@ -5075,50 +5342,38 @@ new Vector3(41, 0.25f, 97),
 
         //------------------------------------------------------------------------------------------------------------------------------------
 
-        private void PonerCasilla(Assets.Casilla terreno)
+        private void PonerCasilla(Assets.Casilla casilla)
         {
             Assets.Casilla[] casillasFinal;
-            int id = terreno.id;
+            int id = casilla.id;
 
             if (coloresGeneracion == false)
             {
-                //if (estacion == 0)
-                //{
-                //    casillasFinal = casillasInvierno;
-                //}
-                //else if (estacion == 1)
-                //{
-                //    casillasFinal = casillasPrimavera;
-                //}
-                //else if (estacion == 2)
-                //{
-                //    casillasFinal = casillasVerano;
-                //}
-                //else if (estacion == 3)
-                //{
-                //    casillasFinal = casillasOtoño;
-                //}
-                //else
-                //{
-                //    casillasFinal = casillasDebug;
-                //}
-                casillasFinal = casillasDebug;
-                id = CalcularIDFinal(terreno.id);
+                if (casilla.isla != null)
+                {
+                    casillasFinal = casilla.isla.casillas;
+                    id = casilla.id;
+                }
+                else
+                {
+                    casillasFinal = casillasDebug;
+                    id = CalcularIDFinal(casilla.id);
+                }
             }
             else
             {
                 casillasFinal = casillasDebug;
-                id = terreno.id;
+                id = casilla.id;
             }
 
-            int x = (int)terreno.posicion.x;
-            int z = (int)terreno.posicion.z;
+            int x = (int)casilla.posicion.x;
+            int z = (int)casilla.posicion.z;
 
             if (Limites.Comprobar(x, 3, tamañoEscenarioX) == true && Limites.Comprobar(z, 3, tamañoEscenarioZ) == true)
             {
                 if (casillas[x, z] == null)
                 {
-                    Vector3 posicionFinal = terreno.posicion;
+                    Vector3 posicionFinal = casilla.posicion;
 
                     if (casillasEscala != 0.5f)
                     {
@@ -5128,12 +5383,12 @@ new Vector3(41, 0.25f, 97),
                     }
 
                     GameObject terreno2 = Instantiate(casillasFinal[id].prefab, posicionFinal, Quaternion.identity);
-                    terreno2.gameObject.transform.Rotate(Vector3.up, terreno.rotacion, Space.World);
+                    terreno2.gameObject.transform.Rotate(Vector3.up, casilla.rotacion, Space.World);
                     terreno2.gameObject.transform.localScale = new Vector3(casillasEscala, casillasEscala, casillasEscala);
 
-                    Assets.Casilla terreno3 = new Assets.Casilla(id, terreno.rotacion, terreno.posicion);
+                    Assets.Casilla terreno3 = new Assets.Casilla(id, casilla.rotacion, casilla.posicion);
                     terreno3.id = id;
-                    terreno3.idDebug = terreno.idDebug;
+                    terreno3.idDebug = casilla.idDebug;
 
                     casillas[x, z] = terreno3;
                 }
@@ -5178,19 +5433,61 @@ new Vector3(41, 0.25f, 97),
             return id;
         }
 
-        private bool ComprobarTerreno0(Assets.Casilla terreno, float altura, int rotacion)
+        private bool ComprobarCasilla0(Assets.Casilla casilla, float altura, int rotacion)
         {
-            if (terreno != null)
+            if (casilla != null)
             {
-                if (ComprobarLimiteX((int)terreno.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)terreno.posicion.z, limitesMapa) == true)
+                if (ComprobarLimiteX((int)casilla.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)casilla.posicion.z, limitesMapa) == true)
                 {
-                    if (terreno.posicion.y == (altura + 0.5f))
+                    if (casilla.posicion.y == (altura + 0.5f))
                     {
-                        if (terreno.rotacion == rotacion)
+                        if (casilla.rotacion == rotacion)
                         {
-                            if (terreno.id == 0)
+                            if (coloresGeneracion == false)
                             {
-                                return true;
+                                if (casilla.id == 0)
+                                {
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                if (CalcularIDFinal(casilla.idDebug) == 0)
+                                {
+                                    return true;
+                                }
+                            }                            
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool ComprobarCasilla1(Assets.Casilla casilla, float altura, int rotacion)
+        {
+            if (casilla != null)
+            {
+                if (ComprobarLimiteX((int)casilla.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)casilla.posicion.z, limitesMapa) == true)
+                {
+                    if (casilla.posicion.y == (altura + 0.5f))
+                    {
+                        if (casilla.rotacion == rotacion)
+                        {
+                            if (coloresGeneracion == false)
+                            {
+                                if (casilla.id == 1)
+                                {
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                if (CalcularIDFinal(casilla.idDebug) == 1)
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -5200,19 +5497,29 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarTerreno1(Assets.Casilla terreno, float altura, int rotacion)
+        private bool ComprobarCasilla2(Assets.Casilla casilla, float altura, int rotacion)
         {
-            if (terreno != null)
+            if (casilla != null)
             {
-                if (ComprobarLimiteX((int)terreno.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)terreno.posicion.z, limitesMapa) == true)
+                if (ComprobarLimiteX((int)casilla.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)casilla.posicion.z, limitesMapa) == true)
                 {
-                    if (terreno.posicion.y == (altura + 0.5f))
+                    if (casilla.posicion.y == (altura + 0.5f))
                     {
-                        if (terreno.rotacion == rotacion)
+                        if (casilla.rotacion == rotacion)
                         {
-                            if (terreno.id == 1)
+                            if (coloresGeneracion == false)
                             {
-                                return true;
+                                if (casilla.id == 2)
+                                {
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                if (CalcularIDFinal(casilla.idDebug) == 2)
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -5222,41 +5529,29 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarTerreno2(Assets.Casilla terreno, float altura, int rotacion)
+        private bool ComprobarCasilla3(Assets.Casilla casilla, float altura, int rotacion)
         {
-            if (terreno != null)
+            if (casilla != null)
             {
-                if (ComprobarLimiteX((int)terreno.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)terreno.posicion.z, limitesMapa) == true)
+                if (ComprobarLimiteX((int)casilla.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)casilla.posicion.z, limitesMapa) == true)
                 {
-                    if (terreno.posicion.y == (altura + 0.5f))
+                    if (casilla.posicion.y == (altura + 0.5f))
                     {
-                        if (terreno.rotacion == rotacion)
+                        if (casilla.rotacion == rotacion)
                         {
-                            if (terreno.id == 2)
+                            if (coloresGeneracion == false)
                             {
-                                return true;
+                                if (casilla.id == 3)
+                                {
+                                    return true;
+                                }
                             }
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private bool ComprobarTerreno3(Assets.Casilla terreno, float altura, int rotacion)
-        {
-            if (terreno != null)
-            {
-                if (ComprobarLimiteX((int)terreno.posicion.x, limitesMapa) == true && ComprobarLimiteZ((int)terreno.posicion.z, limitesMapa) == true)
-                {
-                    if (terreno.posicion.y == (altura + 0.5f))
-                    {
-                        if (terreno.rotacion == rotacion)
-                        {
-                            if (terreno.id == 3)
+                            else
                             {
-                                return true;
+                                if (CalcularIDFinal(casilla.idDebug) == 3)
+                                {
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -5372,17 +5667,21 @@ new Vector3(41, 0.25f, 97),
 
         private void PonerLlano2(float altura)
         {
-            for (int x = 0; x < casillas.GetLength(0); x++)
+            foreach (Assets.Isla isla in islas)
             {
-                for (int z = 0; z < casillas.GetLength(1); z++)
+                for (int x = (int)isla.coordenadasMinimas.x; x < (int)isla.coordenadasMinimas.x + (int)isla.extensionMaxima.x; x++)
                 {
-                    if (casillas[x, z] == null)
+                    for (int z = (int)isla.coordenadasMinimas.y; z < (int)isla.coordenadasMinimas.y + (int)isla.extensionMaxima.y; z++)
                     {
                         if (x >= limitesMapa && z >= limitesMapa && x <= tamañoEscenarioX - limitesMapa && z <= tamañoEscenarioZ - limitesMapa)
                         {
-                            Assets.Casilla plano = new Assets.Casilla(0, 0, new Vector3(x, altura, z));
-                            PonerCasilla(plano);
-                        }
+                            if (casillas[x, z] == null)
+                            {
+                                Assets.Casilla plano = new Assets.Casilla(isla.casillas[0].id, 0, new Vector3(x, altura, z));
+                                plano.isla = isla;
+                                PonerCasilla(plano);
+                            }
+                        }                     
                     }
                 }
             }
@@ -5390,16 +5689,20 @@ new Vector3(41, 0.25f, 97),
 
         private void ColocarJugador2()
         {
-            Vector3 posicion = casillas[(int)(tamañoEscenarioX / 2), (int)(tamañoEscenarioZ / 2)].posicion;
+            int x = ((int)islas[0].coordenadasMinimas.x + (int)islas[0].extensionMaxima.x) / 2;
+            int z = ((int)islas[0].coordenadasMinimas.y + (int)islas[0].extensionMaxima.y) / 2;
 
-            if (casillasEscala != 0.5f)
+            if (casillas[x, z] != null)
             {
-                posicion.x = (posicion.x + posicion.x * (casillasEscala * 1.5f)) - (tamañoEscenarioX / (casillasEscala + 0.5f));
-                posicion.y = 1.85f + posicion.y + posicion.y * (casillasEscala * 1.5f);
-                posicion.z = (posicion.z + posicion.z * (casillasEscala * 1.5f)) - (tamañoEscenarioZ / (casillasEscala + 0.5f));
-            }
+                Vector3 posicion = casillas[x, z].posicion;
 
-            Jugador.Movimientos.instancia.transform.position = posicion;
+                if (casillasEscala != 0.5f)
+                {
+                    posicion.y = 1.85f + posicion.y + posicion.y * (casillasEscala * 1.5f);
+                }
+
+                Jugador.Movimientos.instancia.transform.position = posicion;
+            }         
         }
     }
 }

@@ -13,167 +13,175 @@ namespace Escenario.Generar
             instancia = this;
         }
 
-        public List<Vector3> GenerarTerreno(Assets.Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
+        public List<Vector3> GenerarCasillas(Assets.Casilla[,] casillas, Assets.Isla[] islas, int limitesMapa)
         {
             List<Vector3> listado = new List<Vector3>();
             Portapapeles.instancia.Limpiar();
             Portapapeles.instancia.Texto("listadoTerrenoInicial = new List<Vector3> {");
-      
-            int montañasGenerar = tamañoEscenarioX / 100 * tamañoEscenarioZ / 100;
-            int intentosGeneracion = montañasGenerar * 2;
 
-            int i = 1;
-            while (i <= intentosGeneracion)
+            foreach (Assets.Isla isla in islas)
             {
-                float alturaCasilla = (int)Random.Range(3, alturaMaxima);
+                int montañasGenerar = (int)isla.extensionMaxima.x / 10 * (int)isla.extensionMaxima.y / 10;
+                int intentosGeneracion = montañasGenerar;
 
-                int posicionX = (int)Random.Range(0 + limitesMapa, tamañoEscenarioX - limitesMapa);
-                int posicionZ = (int)Random.Range(0 + limitesMapa, tamañoEscenarioZ - limitesMapa);
-
-                bool añadir = true;
-
-                foreach (Assets.Casilla casilla in terrenos)
+                int i = 1;
+                while (i <= intentosGeneracion)
                 {
-                    if (casilla != null)
-                    {
-                        if (Enumerable.Range((int)(casilla.posicion.x - alturaCasilla), (int)(casilla.posicion.x + alturaCasilla)).Contains(posicionX))
-                        {
-                            if (Enumerable.Range((int)(casilla.posicion.z - alturaCasilla), (int)(casilla.posicion.z + alturaCasilla)).Contains(posicionZ))
-                            {
-                                añadir = false;
+                    float alturaCasilla = (int)Random.Range(3, isla.alturaMaxima);
 
-                                if (intentosGeneracion >= 0)
+                    int posicionX = (int)Random.Range((int)isla.coordenadasMinimas.x + limitesMapa, (int)isla.coordenadasMinimas.x + (int)isla.extensionMaxima.x - limitesMapa);
+                    int posicionZ = (int)Random.Range((int)isla.coordenadasMinimas.y + limitesMapa, (int)isla.coordenadasMinimas.y + (int)isla.extensionMaxima.y - limitesMapa);
+
+                    bool añadir = true;
+
+                    foreach (Assets.Casilla casilla in casillas)
+                    {
+                        if (casilla != null)
+                        {
+                            if (Enumerable.Range((int)(casilla.posicion.x - alturaCasilla), (int)(casilla.posicion.x + alturaCasilla)).Contains(posicionX))
+                            {
+                                if (Enumerable.Range((int)(casilla.posicion.z - alturaCasilla), (int)(casilla.posicion.z + alturaCasilla)).Contains(posicionZ))
                                 {
-                                    intentosGeneracion -= 1;
-                                    i -= 1;
+                                    añadir = false;
+
+                                    if (intentosGeneracion >= 0)
+                                    {
+                                        intentosGeneracion -= 1;
+                                        i -= 1;
+                                    }
                                 }
                             }
                         }
                     }
-                }
 
-                if (Limites.Comprobar(posicionX, 2, tamañoEscenarioX) == false || Limites.Comprobar(posicionZ, 2, tamañoEscenarioZ) == false)
-                {
-                    añadir = false;
-                }
-
-                if (añadir == true)
-                {
-                    listado.Add(new Vector3(posicionX, alturaCasilla, posicionZ));
-                    Portapapeles.instancia.Vector3(new Vector3(posicionX, alturaCasilla, posicionZ));
-
-                    int desplazamiento = 0;
-                    while (alturaCasilla >= 1)
+                    if (Limites.Comprobar(posicionX, 2, (int)isla.extensionMaxima.x) == false || Limites.Comprobar(posicionZ, 2, (int)isla.extensionMaxima.y) == false)
                     {
-                        int planos = (int)Random.Range(0, 4 + desplazamiento);
-
-                        if (desplazamiento > 0)
-                        {
-                            int j = 0;
-                            while (j <= planos)
-                            {
-                                int x = 0;
-                                int z = 0;
-
-                                int azar = (int)Random.Range(0, 12);
-
-                                if (azar == 1)
-                                {
-                                    x = 1 + (int)(desplazamiento * 2);
-                                    z = 1 + (int)(desplazamiento * 2);
-                                }
-                                else if (azar == 2)
-                                {
-                                    x = 1 + (int)(desplazamiento * 2);
-                                    z = -1 - (int)(desplazamiento * 2);
-                                }
-                                else if (azar == 3)
-                                {
-                                    x = -1 - (int)(desplazamiento * 2);
-                                    z = 1 + (int)(desplazamiento * 2);
-                                }
-                                else if (azar == 4)
-                                {
-                                    x = -1 - (int)(desplazamiento * 2);
-                                    z = -1 - (int)(desplazamiento * 2);
-                                }
-                                else if (azar == 5 || azar == 6)
-                                {
-                                    x = 2 + (int)(desplazamiento * 2);
-                                    z = Random.Range(-desplazamiento, desplazamiento);
-                                }
-                                else if (azar == 7 || azar == 8)
-                                {
-                                    x = -2 - (int)(desplazamiento * 2);
-                                    z = Random.Range(-desplazamiento, desplazamiento);
-                                }
-                                else if (azar == 9 || azar == 10)
-                                {
-                                    x = Random.Range(-desplazamiento, desplazamiento);
-                                    z = 2 + (int)(desplazamiento * 2);
-                                }
-                                else if (azar == 11 || azar == 12)
-                                {
-                                    x = Random.Range(-desplazamiento, desplazamiento);
-                                    z = -2 - (int)(desplazamiento * 2);
-                                }
-
-                                if (azar > 0)
-                                {
-                                    if (alturaCasilla == 1.5f || alturaCasilla == 2f)
-                                    {
-                                        for (int origenX = posicionX + x - 1; origenX < posicionX + x + 2; origenX++)
-                                        {
-                                            for (int origenZ = posicionZ + z - 1; origenZ < posicionZ + z + 2; origenZ++)
-                                            {
-                                                if (Limites.Comprobar(origenX, 2, tamañoEscenarioX) == true && Limites.Comprobar(origenZ, 2, tamañoEscenarioZ) == true)
-                                                {
-                                                    if (terrenos[origenX, origenZ] == null)
-                                                    {
-                                                        listado.Add(new Vector3(origenX, alturaCasilla, origenZ));
-                                                        Portapapeles.instancia.Vector3(new Vector3(origenX, alturaCasilla, origenZ));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else if (alturaCasilla == 1f)
-                                    {
-                                        for (int origenX = posicionX + x - 2; origenX < posicionX + x + 3; origenX++)
-                                        {
-                                            for (int origenZ = posicionZ + z - 2; origenZ < posicionZ + z + 3; origenZ++)
-                                            {
-                                                if (Limites.Comprobar(origenX, 2, tamañoEscenarioX) == true && Limites.Comprobar(origenZ, 2, tamañoEscenarioZ) == true)
-                                                {
-                                                    if (terrenos[origenX, origenZ] == null)
-                                                    {
-                                                        listado.Add(new Vector3(origenX, alturaCasilla, origenZ));
-                                                        Portapapeles.instancia.Vector3(new Vector3(origenX, alturaCasilla, origenZ));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (Limites.Comprobar(posicionX + x, 2, tamañoEscenarioX) == true && Limites.Comprobar(posicionZ + z, 2, tamañoEscenarioZ) == true)
-                                        {
-                                            listado.Add(new Vector3(posicionX + x, alturaCasilla, posicionZ + z));
-                                            Portapapeles.instancia.Vector3(new Vector3(posicionX + x, alturaCasilla, posicionZ + z));
-                                        }
-                                    }
-                                }
-
-                                j += 1;
-                            }
-                        }
-
-                        alturaCasilla -= 0.5f;
-                        desplazamiento += 1;
+                        añadir = false;
                     }
-                }
 
-                i += 1;
+                    if (añadir == true)
+                    {
+                        listado.Add(new Vector3(posicionX, alturaCasilla, posicionZ));
+                        Portapapeles.instancia.Vector3(new Vector3(posicionX, alturaCasilla, posicionZ));
+
+                        int desplazamiento = 0;
+                        while (alturaCasilla >= 1)
+                        {
+                            int planos = (int)Random.Range(0, 4 + desplazamiento);
+
+                            if (desplazamiento > 0)
+                            {
+                                int j = 0;
+                                while (j <= planos)
+                                {
+                                    int x = 0;
+                                    int z = 0;
+
+                                    int azar = (int)Random.Range(0, 12);
+
+                                    if (azar == 1)
+                                    {
+                                        x = 1 + (int)(desplazamiento * 2);
+                                        z = 1 + (int)(desplazamiento * 2);
+                                    }
+                                    else if (azar == 2)
+                                    {
+                                        x = 1 + (int)(desplazamiento * 2);
+                                        z = -1 - (int)(desplazamiento * 2);
+                                    }
+                                    else if (azar == 3)
+                                    {
+                                        x = -1 - (int)(desplazamiento * 2);
+                                        z = 1 + (int)(desplazamiento * 2);
+                                    }
+                                    else if (azar == 4)
+                                    {
+                                        x = -1 - (int)(desplazamiento * 2);
+                                        z = -1 - (int)(desplazamiento * 2);
+                                    }
+                                    else if (azar == 5 || azar == 6)
+                                    {
+                                        x = 2 + (int)(desplazamiento * 2);
+                                        z = Random.Range(-desplazamiento, desplazamiento);
+                                    }
+                                    else if (azar == 7 || azar == 8)
+                                    {
+                                        x = -2 - (int)(desplazamiento * 2);
+                                        z = Random.Range(-desplazamiento, desplazamiento);
+                                    }
+                                    else if (azar == 9 || azar == 10)
+                                    {
+                                        x = Random.Range(-desplazamiento, desplazamiento);
+                                        z = 2 + (int)(desplazamiento * 2);
+                                    }
+                                    else if (azar == 11 || azar == 12)
+                                    {
+                                        x = Random.Range(-desplazamiento, desplazamiento);
+                                        z = -2 - (int)(desplazamiento * 2);
+                                    }
+
+                                    if (azar > 0)
+                                    {
+                                        if (alturaCasilla == 1.5f || alturaCasilla == 2f)
+                                        {
+                                            for (int origenX = posicionX + x - 1; origenX < posicionX + x + 2; origenX++)
+                                            {
+                                                for (int origenZ = posicionZ + z - 1; origenZ < posicionZ + z + 2; origenZ++)
+                                                {
+                                                    if (Limites.Comprobar(origenX, 2, (int)isla.extensionMaxima.x) == true && Limites.Comprobar(origenZ, 2, (int)isla.extensionMaxima.y) == true)
+                                                    {
+                                                        if (casillas[origenX, origenZ] == null)
+                                                        {
+                                                            listado.Add(new Vector3(origenX, alturaCasilla, origenZ));
+                                                            Portapapeles.instancia.Vector3(new Vector3(origenX, alturaCasilla, origenZ));
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else if (alturaCasilla == 1f)
+                                        {
+                                            for (int origenX = posicionX + x - 2; origenX < posicionX + x + 3; origenX++)
+                                            {
+                                                for (int origenZ = posicionZ + z - 2; origenZ < posicionZ + z + 3; origenZ++)
+                                                {
+                                                    if (Limites.Comprobar(origenX, 2, (int)isla.extensionMaxima.x) == true && Limites.Comprobar(origenZ, 2, (int)isla.extensionMaxima.y) == true)
+                                                    {
+                                                        if (casillas[origenX, origenZ] == null)
+                                                        {
+                                                            listado.Add(new Vector3(origenX, alturaCasilla, origenZ));
+                                                            Portapapeles.instancia.Vector3(new Vector3(origenX, alturaCasilla, origenZ));
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (Limites.Comprobar(posicionX + x, 2, (int)isla.extensionMaxima.x) == true && Limites.Comprobar(posicionZ + z, 2, (int)isla.extensionMaxima.y) == true)
+                                            {
+                                                listado.Add(new Vector3(posicionX + x, alturaCasilla, posicionZ + z));
+                                                Portapapeles.instancia.Vector3(new Vector3(posicionX + x, alturaCasilla, posicionZ + z));
+                                            }
+                                        }
+                                    }
+
+                                    j += 1;
+                                }
+                            }
+
+                            alturaCasilla -= 0.5f;
+                            desplazamiento += 1;
+                        }
+                    }
+
+                    if (isla.id == 1)
+                    {
+                        Debug.Log(intentosGeneracion);
+                    }
+
+                    i += 1;
+                }
             }
 
             Portapapeles.instancia.Texto("};");

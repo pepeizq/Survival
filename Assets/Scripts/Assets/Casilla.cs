@@ -16,6 +16,9 @@ namespace Assets
         [HideInInspector]
         public int rotacion;
 
+        [HideInInspector]
+        public Isla isla;
+
         public Casilla(int ID, int Rotacion, Vector3 Posicion)
         {
             id = ID;

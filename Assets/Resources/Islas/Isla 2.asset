@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b56ec0303ae21f4e9cf0ae1390ec42a, type: 3}
+  m_Name: Isla 2
+  m_EditorClassIdentifier: 
+  id: 1
+  casillas:
+  - {fileID: 11400000, guid: 494c31b604285574581c1b13eb3a7f92, type: 2}
+  - {fileID: 11400000, guid: a37273a22accea54dbdcb5521bae3504, type: 2}
+  - {fileID: 11400000, guid: 773ed7a1ac996724a8c0897c439f0674, type: 2}
+  - {fileID: 11400000, guid: b954fa0418b5c104984224d83b0300ce, type: 2}
+  - {fileID: 11400000, guid: 7dd93d952ec84dd4eae74a7a70785283, type: 2}
+  alturaMaxima: 8
+  extensionMaxima: {x: 50, y: 100}
+  coordenadasMinimas: {x: 150, y: 0}
