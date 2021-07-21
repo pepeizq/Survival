@@ -5561,13 +5561,13 @@ new Vector3(41, 0.25f, 97),
             return false;
         }
 
-        private bool ComprobarVacio(Assets.Casilla terreno)
+        private bool ComprobarVacio(Assets.Casilla casilla)
         {
-            if (terreno != null)
+            if (casilla != null)
             {
-                if (ComprobarLimiteX((int)terreno.posicion.x, 3) == true && ComprobarLimiteZ((int)terreno.posicion.z, 3) == true)
+                if (ComprobarLimiteX((int)casilla.posicion.x, 3) == true && ComprobarLimiteZ((int)casilla.posicion.z, 3) == true)
                 {
-                    if (casillas[(int)terreno.posicion.x, (int)terreno.posicion.z] != null)
+                    if (casillas[(int)casilla.posicion.x, (int)casilla.posicion.z] != null)
                     {
                         return false;
                     }
