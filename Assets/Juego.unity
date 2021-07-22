@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40896147, g: 0.458408, b: 0.691413, a: 1}
+  m_IndirectSpecularColor: {r: 0.40882418, g: 0.4581207, b: 0.69104385, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5199,7 +5199,6 @@ GameObject:
   - component: {fileID: 681689834}
   - component: {fileID: 681689836}
   - component: {fileID: 681689835}
-  - component: {fileID: 681689837}
   m_Layer: 0
   m_Name: Escenario
   m_TagString: Untagged
@@ -5245,7 +5244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5197c65d8064c7e4481c3236c0612a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aleatorio: 1
+  aleatorio: 0
   coloresGeneracion: 1
   agua: 0
   ponerLlano: 0
@@ -5307,18 +5306,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18efefe1b96bccc4bb153232e7baf906, type: 2}
   casillasEscala: 2
   limitesMapa: 3
---- !u!114 &681689837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 681689833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c79a25686f0bbbb41a4d9bb8eb582964, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -9256,6 +9243,8 @@ GameObject:
   - component: {fileID: 1256031160}
   - component: {fileID: 1256031159}
   - component: {fileID: 1256031161}
+  - component: {fileID: 1256031163}
+  - component: {fileID: 1256031162}
   m_Layer: 0
   m_Name: Juego
   m_TagString: Untagged
@@ -9304,6 +9293,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c630fb2cbbbe60b46b4942c562c07136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1256031162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256031158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3512dcd42af6474b8168a481b5f0487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1256031163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256031158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c79a25686f0bbbb41a4d9bb8eb582964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1274520689
