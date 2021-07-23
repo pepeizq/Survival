@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40882418, g: 0.4581207, b: 0.69104385, a: 1}
+  m_IndirectSpecularColor: {r: 0.40995622, g: 0.46004498, b: 0.69401246, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5248,7 +5248,8 @@ MonoBehaviour:
   coloresGeneracion: 1
   agua: 0
   ponerLlano: 0
-  portapapeles: 1
+  portapapeles: 0
+  ficheroTexto: 0
   colocarJugador: 1
   casillasDebug:
   - {fileID: 11400000, guid: 9bcfb3b7d5c9f2c48b270874b4d09493, type: 2}

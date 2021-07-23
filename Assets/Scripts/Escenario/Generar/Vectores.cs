@@ -446,6 +446,11 @@ namespace Escenario.Generar
             {
                 Herramientas.Portapapeles.instancia.Limpiar();
             }
+
+            if (Escenario.instancia.ficheroTexto == true)
+            {
+                Herramientas.FicheroTexto.instancia.Limpiar();
+            }
         }
 
         private void CopiarDatos(string dato)
@@ -453,19 +458,31 @@ namespace Escenario.Generar
             if (Escenario.instancia.portapapeles == true)
             {
                 Herramientas.Portapapeles.instancia.Texto(dato);
-            }     
+            }
+
+            if (Escenario.instancia.ficheroTexto == true)
+            {
+                Herramientas.FicheroTexto.instancia.Escribir(dato);
+            }
         }
 
         private void CopiarDatos(Vector3 vector)
         {
-            string y = vector.y.ToString("0.00");
-            y = y.Replace(",00", null);
-            y = y.Replace(",50", ".5f");
-            y = y.Replace(",25", ".25f");
+            string dato = vector.y.ToString("0.00");
+            dato = dato.Replace(",00", null);
+            dato = dato.Replace(",50", ".5f");
+            dato = dato.Replace(",25", ".25f");
+
+            dato = "new Vector3(" + vector.x.ToString() + ", " + dato + ", " + vector.z.ToString() + "),";
 
             if (Escenario.instancia.portapapeles == true)
             {
-                Herramientas.Portapapeles.instancia.Texto(y);
+                Herramientas.Portapapeles.instancia.Texto(dato);
+            }
+
+            if (Escenario.instancia.ficheroTexto == true)
+            {
+                Herramientas.FicheroTexto.instancia.Escribir(dato);
             }
         }
     }
