@@ -12,9 +12,8 @@ namespace Escenario.Generar
         public bool coloresGeneracion;
         public bool agua;
         public bool ponerLlano;
-        public bool portapapeles;
-        public bool ficheroTexto;
         public bool colocarJugador;
+        public bool guardarDatos;
 
         [Header("Casillas")]
         public Assets.Casilla[] casillasDebug;

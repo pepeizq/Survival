@@ -87,5 +87,30 @@ namespace CargarGuardar
         public bool intentaMoverse;
         public VectorTres posicionDestino;
     }
+
+    //------------------------------------------------------------------
+
+    [System.Serializable]
+    public class Isla
+    {
+        public int id;
+        public PartidaEscenarioCasilla[] casillas;
+    }
+
+    [System.Serializable]
+    public struct PartidaEscenarioIsla
+    {
+        public int id;
+        public PartidaEscenarioCasilla[] casillas;
+    }
+
+    [System.Serializable]
+    public struct PartidaEscenarioCasilla
+    {
+        public int id;
+        public int idDebug;
+        public VectorTres coordenadas;
+        public int rotacion;
+    }
 }
 

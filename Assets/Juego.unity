@@ -5248,9 +5248,8 @@ MonoBehaviour:
   coloresGeneracion: 1
   agua: 0
   ponerLlano: 0
-  portapapeles: 0
-  ficheroTexto: 0
   colocarJugador: 1
+  ficheroTexto: 0
   casillasDebug:
   - {fileID: 11400000, guid: 9bcfb3b7d5c9f2c48b270874b4d09493, type: 2}
   - {fileID: 11400000, guid: d6525f97650a053428b449c542bfbeda, type: 2}

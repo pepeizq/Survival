@@ -12,31 +12,31 @@ namespace Herramientas
             instancia = this;
         }
 
-        public void Limpiar()
+        public void Limpiar(string nombreFichero)
         {
-            string ruta = Application.persistentDataPath + "/test.txt";
+            string ruta = Application.persistentDataPath + "/" + nombreFichero + ".txt";
 
             StreamWriter escritor = new StreamWriter(ruta, false);
             escritor.Flush();
             escritor.Close();
         }
 
-        public void Escribir(string texto)
+        public void Escribir(string texto, string nombreFichero)
         {
-            string ruta = Application.persistentDataPath + "/test.txt";
-   
+            string ruta = Application.persistentDataPath + "/" + nombreFichero + ".txt";
+
             StreamWriter escritor = new StreamWriter(ruta, true);
             escritor.WriteLine(texto);
             escritor.Close();
         }
 
-        public void Leer()
+        public void Leer(string nombreFichero)
         {
-            string path = Application.persistentDataPath + "/test.txt";
+            string ruta = Application.persistentDataPath + "/" + nombreFichero + ".txt";
 
-            StreamReader reader = new StreamReader(path);
-            Debug.Log(reader.ReadToEnd());
-            reader.Close();
+            StreamReader lector = new StreamReader(ruta);
+            Debug.Log(lector.ReadToEnd());
+            lector.Close();
         }
     }
 }
