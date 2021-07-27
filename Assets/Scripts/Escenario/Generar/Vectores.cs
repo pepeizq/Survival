@@ -13,13 +13,14 @@ namespace Escenario.Generar
             instancia = this;
         }
 
-        public List<Vector3> GenerarCasillas(Assets.Casilla[,] casillas, Assets.Isla[] islas, int limitesMapa)
-        {
-            List<Vector3> listado = new List<Vector3>();
+        public void GenerarCasillas(Assets.Casilla[,] casillas, Assets.Isla[] islas, int limitesMapa)
+        {        
             LimpiarDatos(islas);
 
             foreach (Assets.Isla isla in islas)
             {
+                List<Vector3> listado = new List<Vector3>();
+
                 int montañasGenerar = (int)isla.extensionMaxima.x / 10 * (int)isla.extensionMaxima.y / 10;
                 int intentosGeneracion = montañasGenerar;
 
@@ -61,8 +62,7 @@ namespace Escenario.Generar
                     if (añadir == true)
                     {
                         listado.Add(new Vector3(posicionX, alturaCasilla, posicionZ));
-                        CopiarDatos(new Vector3(posicionX, alturaCasilla, posicionZ), isla.id);
-
+                        
                         int desplazamiento = 0;
                         while (alturaCasilla >= 1)
                         {
@@ -132,7 +132,6 @@ namespace Escenario.Generar
                                                         if (casillas[origenX, origenZ] == null)
                                                         {
                                                             listado.Add(new Vector3(origenX, alturaCasilla, origenZ));
-                                                            CopiarDatos(new Vector3(origenX, alturaCasilla, origenZ), isla.id);
                                                         }
                                                     }
                                                 }
@@ -149,7 +148,6 @@ namespace Escenario.Generar
                                                         if (casillas[origenX, origenZ] == null)
                                                         {
                                                             listado.Add(new Vector3(origenX, alturaCasilla, origenZ));
-                                                            CopiarDatos(new Vector3(origenX, alturaCasilla, origenZ), isla.id);
                                                         }
                                                     }
                                                 }
@@ -160,7 +158,6 @@ namespace Escenario.Generar
                                             if (Limites.Comprobar(posicionX + x, 2, (int)isla.extensionMaxima.x) == true && Limites.Comprobar(posicionZ + z, 2, (int)isla.extensionMaxima.y) == true)
                                             {
                                                 listado.Add(new Vector3(posicionX + x, alturaCasilla, posicionZ + z));
-                                                CopiarDatos(new Vector3(posicionX + x, alturaCasilla, posicionZ + z), isla.id);
                                             }
                                         }
                                     }
@@ -181,6 +178,8 @@ namespace Escenario.Generar
 
                     i += 1;
                 }
+
+                CopiarDatos(listado, isla.id);
             }
 
             return listado;
@@ -445,7 +444,7 @@ namespace Escenario.Generar
             }
         }
 
-        private void CopiarDatos(Vector3 vector, int id)
+        private void CopiarDatos(List<Vector3> listado, int id)
         {
             string dato = vector.y.ToString("0.00");
             dato = dato.Replace(",00", null);
