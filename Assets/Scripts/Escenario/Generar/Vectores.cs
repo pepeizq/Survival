@@ -14,7 +14,7 @@ namespace Escenario.Generar
         }
 
         public void GenerarCasillas(Assets.Casilla[,] casillas, Assets.Isla[] islas, int limitesMapa)
-        {        
+        {
             LimpiarDatos(islas);
 
             foreach (Assets.Isla isla in islas)
@@ -62,7 +62,7 @@ namespace Escenario.Generar
                     if (añadir == true)
                     {
                         listado.Add(new Vector3(posicionX, alturaCasilla, posicionZ));
-                        
+
                         int desplazamiento = 0;
                         while (alturaCasilla >= 1)
                         {
@@ -181,8 +181,6 @@ namespace Escenario.Generar
 
                 CopiarDatos(listado, isla.id);
             }
-
-            return listado;
         }
 
         public List<Vector3> GenerarAgua(Assets.Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
@@ -435,49 +433,47 @@ namespace Escenario.Generar
 
         private void LimpiarDatos(Assets.Isla[] islas)
         {
-            if (Escenario.instancia.guardarDatos == true)
+            foreach (Assets.Isla isla in islas)
             {
-                foreach (Assets.Isla isla in islas)
-                {
-                    PlayerPrefs.SetString("isla" + isla.id.ToString(), null);
-                }                 
+                PlayerPrefs.SetString("isla" + isla.id.ToString(), null);
             }
         }
 
         private void CopiarDatos(List<Vector3> listado, int id)
         {
-            string dato = vector.y.ToString("0.00");
-            dato = dato.Replace(",00", null);
-            dato = dato.Replace(",50", ".5f");
-            dato = dato.Replace(",25", ".25f");
-
-            dato = "new Vector3(" + vector.x.ToString() + ", " + dato + ", " + vector.z.ToString() + "),";
-
-            //if (Escenario.instancia.portapapeles == true)
-            //{
-            //    Herramientas.Portapapeles.instancia.Texto(dato);
-            //}
-
-            if (Escenario.instancia.guardarDatos == true)
+            CargarGuardar.Isla isla = new CargarGuardar.Isla
             {
-                CargarGuardar.Isla isla = JsonUtility.FromJson<CargarGuardar.Isla>(PlayerPrefs.GetString("isla" + id.ToString()));
+                id = id,
+                casillas = new CargarGuardar.PartidaEscenarioCasilla[listado.Count]
+            };
 
-                if (isla != null)
+            int i = 0;
+            while (i < isla.casillas.Length)
+            {
+                isla.casillas[i] = new CargarGuardar.PartidaEscenarioCasilla
                 {
+                    coordenadas = new CargarGuardar.VectorTres(listado[i])
+                };
 
-                }
-                else
-                {
-                    isla = new CargarGuardar.Isla();
-                    isla.id = id;
+                i += 1;
+            }
 
-                    CargarGuardar.PartidaEscenarioCasilla[] casillas = new CargarGuardar.PartidaEscenarioCasilla[];
-                }
+            string datos = JsonUtility.ToJson(isla);
+            PlayerPrefs.SetString("vectoresIsla" + isla.id.ToString(), datos);
+        }
 
-                string datos = JsonUtility.ToJson(partida);
-                PlayerPrefs.SetString("Guardar", datos);
+        public CargarGuardar.Isla LeerDatos(int id)
+        {
+            CargarGuardar.Isla isla = JsonUtility.FromJson<CargarGuardar.Isla>(PlayerPrefs.GetString("vectoresIsla" + id.ToString()));
+
+            if (isla != null)
+            {
+                return isla;
+            }
+            else
+            {
+                return null;
             }
         }
     }
 }
-

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40995622, g: 0.46004498, b: 0.69401246, a: 1}
+  m_IndirectSpecularColor: {r: 0.41115364, g: 0.46214074, b: 0.6973804, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3367,7 +3367,7 @@ MonoBehaviour:
   canvasJugador: {fileID: 960059084}
   canvasMapa: {fileID: 1349943657}
   zoomCerca: 0.5
-  zoomLejos: 50
+  zoomLejos: 60
   velocidad: 10
 --- !u!1 &496158733
 GameObject:
@@ -5199,6 +5199,7 @@ GameObject:
   - component: {fileID: 681689834}
   - component: {fileID: 681689836}
   - component: {fileID: 681689835}
+  - component: {fileID: 681689837}
   m_Layer: 0
   m_Name: Escenario
   m_TagString: Untagged
@@ -5249,7 +5250,6 @@ MonoBehaviour:
   agua: 0
   ponerLlano: 0
   colocarJugador: 1
-  ficheroTexto: 0
   casillasDebug:
   - {fileID: 11400000, guid: 9bcfb3b7d5c9f2c48b270874b4d09493, type: 2}
   - {fileID: 11400000, guid: d6525f97650a053428b449c542bfbeda, type: 2}
@@ -5306,6 +5306,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18efefe1b96bccc4bb153232e7baf906, type: 2}
   casillasEscala: 2
   limitesMapa: 3
+--- !u!114 &681689837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681689833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57ae76a490bfe1a41adaa7b95dd7ca71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

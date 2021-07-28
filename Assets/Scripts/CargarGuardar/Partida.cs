@@ -107,10 +107,7 @@ namespace CargarGuardar
     [System.Serializable]
     public struct PartidaEscenarioCasilla
     {
-        public int id;
-        public int idDebug;
         public VectorTres coordenadas;
-        public int rotacion;
     }
 }
 
