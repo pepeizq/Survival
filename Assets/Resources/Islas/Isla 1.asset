@@ -21,4 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21872cc9e9cbee745a4f0e278906350a, type: 2}
   alturaMaxima: 5
   extensionMaxima: {x: 50, y: 50}
-  coordenadasMinimas: {x: 10, y: 10}
+  coordenadasMinimas: {x: 20, y: 20}

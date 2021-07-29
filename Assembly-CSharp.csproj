@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Construcciones\Ventana.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Generar\Colores.cs" />
     <Compile Include="Assets\Scripts\CargarGuardar\Gestor.cs" />
     <Compile Include="Assets\Scripts\Jugador\Inventario.cs" />
     <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
@@ -96,7 +97,6 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
-    <Compile Include="Assets\Scripts\Escenario\Generar\Colores.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
