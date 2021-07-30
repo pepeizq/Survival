@@ -173,7 +173,7 @@ namespace Escenario.Generar
 
                     if (isla.id == 1)
                     {
-                        Debug.Log(intentosGeneracion);
+                        Debug.Log(isla.coordenadasMinimas.x);
                     }
 
                     i += 1;
