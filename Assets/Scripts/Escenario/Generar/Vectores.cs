@@ -54,7 +54,7 @@ namespace Escenario.Generar
                         }
                     }
 
-                    if (Limites.Comprobar(posicionX, 2, (int)isla.extensionMaxima.x) == false || Limites.Comprobar(posicionZ, 2, (int)isla.extensionMaxima.y) == false)
+                    if (Limites.Comprobar(posicionX, 2, Escenario.instancia.tamañoEscenarioX) == false || Limites.Comprobar(posicionZ, 2, Escenario.instancia.tamañoEscenarioZ) == false)
                     {
                         añadir = false;
                     }
@@ -169,12 +169,7 @@ namespace Escenario.Generar
                             alturaCasilla -= 0.5f;
                             desplazamiento += 1;
                         }
-                    }
-
-                    if (isla.id == 1)
-                    {
-                        Debug.Log(isla.coordenadasMinimas.x);
-                    }
+                    }                   
 
                     i += 1;
                 }

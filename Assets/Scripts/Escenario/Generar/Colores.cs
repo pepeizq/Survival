@@ -613,6 +613,18 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
+            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 90) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z - 1], y, 180) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 1, z - 2], y, 0) == true)
+            {
+                Escenario.instancia.PonerCasilla(plano);
+            }
+            else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z], y, 180) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 1, z - 2], y, 0) == true)
+            {
+                Escenario.instancia.PonerCasilla(plano);
+            }
+            else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 1, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 1, z - 2], y, 0) == true)
+            {
+                Escenario.instancia.PonerCasilla(plano);
+            }
 
             //---------------------------------------
 
@@ -1209,11 +1221,15 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
-            else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z + 2], y, 0) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x, z + 1]) == false)
+            else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z + 2], y, 0) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x, z + 1]) == false && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 1, z + 2]) == false)
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
             else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z], y, 270) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 2], y, 180) == true)
+            {
+                Escenario.instancia.PonerCasilla(plano);
+            }
+            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z], y, 270) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 2], y, 90) == true)
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
@@ -2749,6 +2765,7 @@ namespace Escenario.Generar
         public void Casilla_X0_Zmas1(int x, float y, int z)
         {
             Assets.Casilla plano = new Assets.Casilla(10, 0, new Vector3(x, y + 0.5f, z + 1));
+            plano.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x - 1, z + 1], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 2], y, 180) == true)
             {
@@ -2950,6 +2967,7 @@ namespace Escenario.Generar
             //---------------------------------------
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(13, 0, new Vector3(x, y, z + 1));
+            esquina3rotacion0.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x - 1, z + 1], y, 90) == true)
             {
@@ -3043,6 +3061,7 @@ namespace Escenario.Generar
             //---------------------------------------
 
             Assets.Casilla esquina3rotacion270 = new Assets.Casilla(13, 270, new Vector3(x, y, z + 1));
+            esquina3rotacion270.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 1], y, 180) == true)
             {
@@ -3144,6 +3163,7 @@ namespace Escenario.Generar
             //---------------------------------------
 
             Assets.Casilla rampa1rotacion270 = new Assets.Casilla(11, 270, new Vector3(x, y, z + 1));
+            rampa1rotacion270.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true)
             {
@@ -3167,6 +3187,7 @@ namespace Escenario.Generar
         public void Casilla_Xmas1_Z0(int x, float y, int z)
         {
             Assets.Casilla plano = new Assets.Casilla(15, 0, new Vector3(x + 1, y + 0.5f, z));
+            plano.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x + 1, z + 1], y, 90) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z], y, 180) == true)
             {
@@ -3604,11 +3625,15 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
+            else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z - 1], y, 270) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 1], y, 90) == true)
+            {
+                Escenario.instancia.PonerCasilla(plano);
+            }
             else if (Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 1, z - 1], y, 0) == true)
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
-            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 1], y, 90) == true)
+            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 1], y, 90) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z]) == false)
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
@@ -3616,7 +3641,7 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
-            else if (Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z - 1], y, 0) == true)
+            else if (Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z - 1], y, 0) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z]) == false)
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
@@ -3688,6 +3713,7 @@ namespace Escenario.Generar
             //---------------------------------------
 
             Assets.Casilla esquina3rotacion0 = new Assets.Casilla(18, 0, new Vector3(x + 1, y, z));
+            esquina3rotacion0.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 1, z - 1], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z - 1], y, 0) == true)
             {
@@ -3793,6 +3819,7 @@ namespace Escenario.Generar
             //---------------------------------------
 
             Assets.Casilla esquina3rotacion90 = new Assets.Casilla(18, 90, new Vector3(x + 1, y, z));
+            esquina3rotacion90.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 1], y, 180) == true)
             {
@@ -3898,6 +3925,7 @@ namespace Escenario.Generar
             //---------------------------------------
 
             Assets.Casilla rampa1rotacion0 = new Assets.Casilla(16, 0, new Vector3(x + 1, y, z));
+            rampa1rotacion0.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true)
             {
@@ -3915,6 +3943,31 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(rampa1rotacion0);
             }
+        }
+
+        //-----------------------------------------------------------------------
+
+        private Assets.Isla ObtenerIsla(Assets.Casilla casillaOrigen)
+        {
+            Assets.Isla isla = null;
+
+            if (casillaOrigen != null)
+            {
+                if (casillaOrigen.isla != null)
+                {
+                    isla = casillaOrigen.isla;
+                }
+            }
+
+            if (isla != null)
+            {
+                if (isla.id == 1)
+                {
+                    Debug.Log("yolo");
+                }
+            }
+
+            return isla;
         }
     }
 }

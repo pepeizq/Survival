@@ -21,8 +21,11 @@ namespace Escenario.Generar
         [HideInInspector]
         public Assets.Casilla[,] casillas = new Assets.Casilla[1, 1];
 
-        private int tamañoEscenarioX = 0;
-        private int tamañoEscenarioZ = 0;
+        [HideInInspector]
+        public int tamañoEscenarioX = 0;
+
+        [HideInInspector]
+        public int tamañoEscenarioZ = 0;
 
         [HideInInspector]
         public float casillasEscala = 1f;
