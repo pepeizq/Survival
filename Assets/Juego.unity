@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40893146, g: 0.45834523, b: 0.6913392, a: 1}
+  m_IndirectSpecularColor: {r: 0.409507, g: 0.4592566, b: 0.69282097, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5245,8 +5245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5197c65d8064c7e4481c3236c0612a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aleatorio: 1
-  coloresGeneracion: 0
+  aleatorio: 0
+  coloresGeneracion: 1
   agua: 0
   ponerLlano: 0
   colocarJugador: 1
@@ -5304,6 +5304,8 @@ MonoBehaviour:
   islas:
   - {fileID: 11400000, guid: 705839facceadcf43aac95df8d5434d4, type: 2}
   - {fileID: 11400000, guid: 18efefe1b96bccc4bb153232e7baf906, type: 2}
+  "tama\xF1oEscenarioX": 0
+  "tama\xF1oEscenarioZ": 0
   casillasEscala: 2
   limitesMapa: 3
 --- !u!114 &681689837

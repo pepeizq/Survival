@@ -51,8 +51,8 @@ namespace Escenario.Generar
                     alturaMaxima = (int)isla.alturaMaxima;
                 }
 
-                tamañoEscenarioX = tamañoEscenarioX + (int)isla.extensionMaxima.x + 50;
-                tamañoEscenarioZ = tamañoEscenarioZ + (int)isla.extensionMaxima.y + 50;
+                tamañoEscenarioX = tamañoEscenarioX + (int)isla.extensionMaxima.x * 3;
+                tamañoEscenarioZ = tamañoEscenarioZ + (int)isla.extensionMaxima.y * 3;
             }
 
             casillas = new Assets.Casilla[tamañoEscenarioX, tamañoEscenarioZ];
@@ -936,15 +936,15 @@ new Vector3(41, 0.25f, 97),
 
             if (coloresGeneracion == false)
             {
+                id = CalcularIDFinal(casilla.id);
+
                 if (casilla.isla != null)
                 {
-                    casillasFinal = casilla.isla.casillas;
-                    id = casilla.id;
+                    casillasFinal = casilla.isla.casillas;                 
                 }
                 else
                 {
                     casillasFinal = casillasDebug;
-                    id = CalcularIDFinal(casilla.id);
                 }
             }
             else
@@ -978,6 +978,7 @@ new Vector3(41, 0.25f, 97),
                     casilla3.id = id;
                     casilla3.idDebug = idDebug;
                     casilla3.prefab = casillasFinal[id].prefab;
+                    casilla3.isla = casilla.isla;
 
                     casillas[x, z] = casilla3;
                 }
