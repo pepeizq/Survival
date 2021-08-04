@@ -977,7 +977,7 @@ new Vector3(41, 0.25f, 97),
                     Assets.Casilla casilla3 = new Assets.Casilla(id, casilla.rotacion, casilla.posicion);
                     casilla3.id = id;
                     casilla3.idDebug = idDebug;
-                    casilla3.prefab = casillasFinal[id].prefab;
+                    casilla3.prefab = casilla2;
                     casilla3.isla = casilla.isla;
 
                     casillas[x, z] = casilla3;
@@ -1285,12 +1285,18 @@ new Vector3(41, 0.25f, 97),
             if (casillas[x, z] != null)
             {
                 Vector3 posicion = casillas[x, z].posicion;
+                float altura = 1.5f;
+                
+                if (casillas[x, z].id != 0)
+                {
+                    altura = 2.5f;
+                }
 
                 if (casillasEscala != 0.5f)
                 {
-                    posicion.y = 1.85f + posicion.y + posicion.y * (casillasEscala * 1.5f);
+                    posicion.y = altura + posicion.y + posicion.y * (casillasEscala * 1.5f);
                 }
-
+           
                 Jugador.Movimientos.instancia.transform.position = posicion;
             }         
         }
