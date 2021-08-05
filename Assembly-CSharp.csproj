@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\Construcciones\Ventana.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Colores.cs" />
     <Compile Include="Assets\Scripts\CargarGuardar\Gestor.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Generar\Llano.cs" />
     <Compile Include="Assets\Scripts\Jugador\Inventario.cs" />
     <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Camara.cs" />

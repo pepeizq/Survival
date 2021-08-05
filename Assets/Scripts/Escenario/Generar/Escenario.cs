@@ -616,7 +616,7 @@ new Vector3(41, 0.25f, 97),
 
             if (ponerLlano == true)
             {
-                PonerLlano2(alturaMaxima2);
+                Llano.instancia.Generar(casillas, islas);
             }
           
             if (colocarJugador == true)
@@ -1252,28 +1252,6 @@ new Vector3(41, 0.25f, 97),
             else
             {
                 return false;
-            }
-        }
-
-        private void PonerLlano2(float altura)
-        {
-            foreach (Assets.Isla isla in islas)
-            {
-                for (int x = (int)isla.coordenadasMinimas.x; x < (int)isla.coordenadasMinimas.x + (int)isla.extensionMaxima.x; x++)
-                {
-                    for (int z = (int)isla.coordenadasMinimas.y; z < (int)isla.coordenadasMinimas.y + (int)isla.extensionMaxima.y; z++)
-                    {
-                        if (x >= limitesMapa && z >= limitesMapa && x <= tamañoEscenarioX - limitesMapa && z <= tamañoEscenarioZ - limitesMapa)
-                        {
-                            if (casillas[x, z] == null)
-                            {
-                                Assets.Casilla plano = new Assets.Casilla(isla.casillas[0].id, 0, new Vector3(x, altura, z));
-                                plano.isla = isla;
-                                PonerCasilla(plano);
-                            }
-                        }                     
-                    }
-                }
             }
         }
 
