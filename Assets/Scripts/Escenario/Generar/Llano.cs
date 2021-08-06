@@ -40,6 +40,39 @@ namespace Escenario.Generar
                                 poner = false;
                             }
 
+                            //-----------------------------------------
+
+                            bool azar = false;
+
+                            if (x == isla.coordenadasMinimas.x - 1 && z >= isla.coordenadasMinimas.y && z <= isla.coordenadasMinimas.y + isla.extensionMaxima.y)
+                            {
+                                azar = true;
+                            }
+                            else if (x == isla.coordenadasMinimas.x + 1 && z >= isla.coordenadasMinimas.y && z <= isla.coordenadasMinimas.y + isla.extensionMaxima.y)
+                            {
+                                azar = true;
+                            }
+                            else if (z == isla.coordenadasMinimas.y - 1 && x >= isla.coordenadasMinimas.x && x <= isla.coordenadasMinimas.x + isla.extensionMaxima.x)
+                            {
+                                azar = true;
+                            }
+                            else if (z == isla.coordenadasMinimas.y + 1 && x >= isla.coordenadasMinimas.x && x <= isla.coordenadasMinimas.x + isla.extensionMaxima.x)
+                            {
+                                azar = true;
+                            }
+
+                            if (azar == true)
+                            {
+                                int numAzar = (int)Random.Range(0, 10);
+
+                                if (numAzar > 3)
+                                {
+                                    poner = true;
+                                }
+                            }
+
+                            //-----------------------------------------
+
                             if (poner == true)
                             {
                                 Assets.Casilla plano = new Assets.Casilla(islas[isla.id].casillas[0].id, 0, new Vector3(x, 0.5f, z));
