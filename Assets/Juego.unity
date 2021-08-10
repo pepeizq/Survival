@@ -5201,6 +5201,7 @@ GameObject:
   - component: {fileID: 681689835}
   - component: {fileID: 681689837}
   - component: {fileID: 681689838}
+  - component: {fileID: 681689839}
   m_Layer: 0
   m_Name: Escenario
   m_TagString: Untagged
@@ -5248,8 +5249,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aleatorio: 0
   coloresGeneracion: 1
-  agua: 0
   ponerLlano: 1
+  agua: 0
   colocarJugador: 1
   casillasDebug:
   - {fileID: 11400000, guid: 9bcfb3b7d5c9f2c48b270874b4d09493, type: 2}
@@ -5305,6 +5306,7 @@ MonoBehaviour:
   islas:
   - {fileID: 11400000, guid: 705839facceadcf43aac95df8d5434d4, type: 2}
   - {fileID: 11400000, guid: 18efefe1b96bccc4bb153232e7baf906, type: 2}
+  mar: {fileID: 0}
   "tama\xF1oEscenarioX": 0
   "tama\xF1oEscenarioZ": 0
   casillasEscala: 2
@@ -5331,6 +5333,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 810053b64e6f4ea4ab649887783d1237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &681689839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681689833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c160ecb2da171549abf48f262451678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993
