@@ -17,7 +17,6 @@ namespace Escenario.Generar
         [Header("Casillas")]
         public Assets.Casilla[] casillasDebug;
         public Assets.Isla[] islas;
-        public Assets.Casilla mar;
 
         [HideInInspector]
         public Assets.Casilla[,] casillas = new Assets.Casilla[1, 1];
@@ -64,25 +63,20 @@ namespace Escenario.Generar
             }
 
             int k = 0;
-            float alturaMaxima2 = alturaMaxima;
+            float altura = alturaMaxima;
             int tope = (int)alturaMaxima * 2;
             while (k < tope)
             {
-                if (alturaMaxima2 == 0.5f)
+                altura -= 0.5f;
+
+                if (altura <= 1f)
                 {
                     break;
                 }
 
-                alturaMaxima2 -= 0.5f;
-
-                if (alturaMaxima2 < 0.5f)
-                {
-                    alturaMaxima2 = 0.5f;
-                }
-
                 try
                 {
-                    GenerarNivel(alturaMaxima2);
+                    GenerarNivel(altura);
                 }
                 catch (Exception fallo)
                 {
@@ -97,12 +91,13 @@ namespace Escenario.Generar
 
             if (ponerLlano == true)
             {
-                Llano.instancia.Generar(casillas, islas);
+                Llano.instancia.Generar(casillas, islas, altura);
             }
 
             if (agua == true)
             {
-                Agua.instancia.Generar(casillas, islas);
+                altura -= 0.5f;
+                Agua.instancia.Generar(casillas, altura);
             }
 
             if (colocarJugador == true)

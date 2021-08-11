@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40893444, g: 0.45834935, b: 0.69134486, a: 1}
+  m_IndirectSpecularColor: {r: 0.41263822, g: 0.46471375, b: 0.7013123, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5247,10 +5247,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5197c65d8064c7e4481c3236c0612a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aleatorio: 0
-  coloresGeneracion: 1
+  aleatorio: 1
+  coloresGeneracion: 0
   ponerLlano: 1
-  agua: 0
+  agua: 1
   colocarJugador: 1
   casillasDebug:
   - {fileID: 11400000, guid: 9bcfb3b7d5c9f2c48b270874b4d09493, type: 2}
@@ -5303,10 +5303,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5af2f17b122fa4c49883561388b7187c, type: 2}
   - {fileID: 11400000, guid: 5868304beda0dce4a9611e19d2490402, type: 2}
   - {fileID: 11400000, guid: 250e29f93553ce141b242354e621d79b, type: 2}
+  - {fileID: 11400000, guid: 955ad538a84f5bd45b8a2d16ce70af84, type: 2}
   islas:
   - {fileID: 11400000, guid: 705839facceadcf43aac95df8d5434d4, type: 2}
   - {fileID: 11400000, guid: 18efefe1b96bccc4bb153232e7baf906, type: 2}
-  mar: {fileID: 0}
   "tama\xF1oEscenarioX": 0
   "tama\xF1oEscenarioZ": 0
   casillasEscala: 2

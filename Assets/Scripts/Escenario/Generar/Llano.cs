@@ -11,7 +11,7 @@ namespace Escenario.Generar
             instancia = this;
         }
 
-        public void Generar(Assets.Casilla[,] casillas, Assets.Isla[] islas)
+        public void Generar(Assets.Casilla[,] casillas, Assets.Isla[] islas, float altura)
         {
             for (int x = 0; x < casillas.GetLength(0); x++)
             {
@@ -75,7 +75,7 @@ namespace Escenario.Generar
 
                             if (poner == true)
                             {
-                                Assets.Casilla plano = new Assets.Casilla(islas[isla.id].casillas[0].id, 0, new Vector3(x, 0.5f, z));
+                                Assets.Casilla plano = new Assets.Casilla(islas[isla.id].casillas[0].id, 0, new Vector3(x, altura, z));
                                 plano.isla = islas[isla.id];
                                 Escenario.instancia.PonerCasilla(plano);
                                 break;

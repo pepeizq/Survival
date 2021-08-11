@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3301459170298303809}
   - component: {fileID: 1909236017510554340}
   - component: {fileID: 4438877164003782190}
+  - component: {fileID: -3559495531302855774}
   m_Layer: 0
   m_Name: Prefab Agua 2
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2781803120301592571}
   m_LocalRotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,3 +86,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-3559495531302855774
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2781803120301592571}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6606501483488557099, guid: 9b1ebd466086e0e46943609cda822246, type: 3}
