@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57eff73a10a166d4d9d7e3350d6e0a9d, type: 3}
-  m_Name: Costa 3
+  m_Name: Agua 6
   m_EditorClassIdentifier: 
-  id: 8
+  id: 6
   idDebug: 0
-  prefab: {fileID: 5128437289273014990, guid: 4da386d7894de3945a8b52af683b4827, type: 3}
+  prefab: {fileID: 8842289349171869183, guid: 8c65da413dbac2b46b65a767c66caa58, type: 3}
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0
   isla: {fileID: 0}

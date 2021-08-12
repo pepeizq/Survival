@@ -417,8 +417,11 @@ namespace Escenario.Generar
 
             if (coloresGeneracion == false)
             {
-                id = CalcularIDFinal(casilla.id);
-
+                if (id != 0 && id != casillasDebug.Length - 1)
+                {
+                    id = CalcularIDFinal(id);
+                }
+                
                 if (casilla.isla != null)
                 {
                     casillasFinal = casilla.isla.casillas;                 
@@ -748,7 +751,7 @@ namespace Escenario.Generar
                 
                 if (casillas[x, z].id != 0)
                 {
-                    altura = 2.5f;
+                    altura = 3f;
                 }
 
                 if (casillasEscala != 0.5f)

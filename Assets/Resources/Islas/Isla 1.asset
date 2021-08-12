@@ -19,6 +19,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 47c5018a789e36a43969c580436d5a96, type: 2}
   - {fileID: 11400000, guid: b0aba70b70891d8458ab570c3d6cc199, type: 2}
   - {fileID: 11400000, guid: 21872cc9e9cbee745a4f0e278906350a, type: 2}
+  - {fileID: 11400000, guid: 98c8e148abcf107428117e2642d75220, type: 2}
+  - {fileID: 11400000, guid: 6d5cccd9fa49a5a4599862d752c6ebb7, type: 2}
+  - {fileID: 11400000, guid: 15a594446bf4eb24ca309073921d557d, type: 2}
+  - {fileID: 11400000, guid: 1be71ee97583dae45a2088a8d8fb5412, type: 2}
   alturaMaxima: 5
   extensionMaxima: {x: 50, y: 50}
   coordenadasMinimas: {x: 20, y: 20}

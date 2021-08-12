@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57eff73a10a166d4d9d7e3350d6e0a9d, type: 3}
-  m_Name: Agua
+  m_Name: Agua 3
   m_EditorClassIdentifier: 
-  id: 50
-  idDebug: 50
-  prefab: {fileID: 5615252619071334015, guid: d2a0726484775724b878503048e4e0bc, type: 3}
+  id: 7
+  idDebug: 0
+  prefab: {fileID: 8001277314821823702, guid: f147c15483756764a93da2e67c77831a, type: 3}
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0
   isla: {fileID: 0}
