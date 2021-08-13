@@ -417,11 +417,16 @@ namespace Escenario.Generar
 
             if (coloresGeneracion == false)
             {
-                if (id != 0 && id != casillasDebug.Length - 1)
+                if (idDebug != 99)
+                {
+                    idDebug = id;
+                }
+                
+                if (id != casillasDebug.Length - 1 && idDebug != 99)
                 {
                     id = CalcularIDFinal(id);
                 }
-                
+
                 if (casilla.isla != null)
                 {
                     casillasFinal = casilla.isla.casillas;                 
@@ -435,7 +440,7 @@ namespace Escenario.Generar
             {
                 casillasFinal = casillasDebug;
                 id = casilla.id;
-                idDebug = casilla.id;
+                idDebug = id;
             }
 
             int x = (int)casilla.posicion.x;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41030777, g: 0.46064413, b: 0.69501984, a: 1}
+  m_IndirectSpecularColor: {r: 0.40817875, g: 0.45708704, b: 0.68925035, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5421,7 +5421,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 9.1835e-41, y: 7.438685e-39, z: 9.78048e-39, w: 1.37787e-40}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: -7.4578056}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
