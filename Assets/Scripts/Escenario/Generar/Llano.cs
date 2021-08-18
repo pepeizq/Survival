@@ -31,11 +31,11 @@ namespace Escenario.Generar
                             {
                                 poner = false;
                             }
-                            else if (x > isla.coordenadasMinimas.x + isla.extensionMaxima.x)
+                            else if (x > isla.coordenadasMinimas.x + isla.extensionMaxima.x + 1)
                             {
                                 poner = false;
                             }
-                            else if (z > isla.coordenadasMinimas.y + isla.extensionMaxima.y)
+                            else if (z > isla.coordenadasMinimas.y + isla.extensionMaxima.y + 1)
                             {
                                 poner = false;
                             }
@@ -48,7 +48,7 @@ namespace Escenario.Generar
                             {
                                 azar = true;
                             }
-                            else if (x == isla.coordenadasMinimas.x + 1 && z >= isla.coordenadasMinimas.y && z <= isla.coordenadasMinimas.y + isla.extensionMaxima.y)
+                            else if (x == isla.coordenadasMinimas.x + isla.extensionMaxima.x + 2 && z >= isla.coordenadasMinimas.y && z <= isla.coordenadasMinimas.y + isla.extensionMaxima.y)
                             {
                                 azar = true;
                             }
@@ -56,7 +56,7 @@ namespace Escenario.Generar
                             {
                                 azar = true;
                             }
-                            else if (z == isla.coordenadasMinimas.y + 1 && x >= isla.coordenadasMinimas.x && x <= isla.coordenadasMinimas.x + isla.extensionMaxima.x)
+                            else if (z == isla.coordenadasMinimas.y + isla.extensionMaxima.y + 2 && x >= isla.coordenadasMinimas.x && x <= isla.coordenadasMinimas.x + isla.extensionMaxima.x)
                             {
                                 azar = true;
                             }
@@ -65,7 +65,7 @@ namespace Escenario.Generar
                             {
                                 int numAzar = (int)Random.Range(0, 10);
 
-                                if (numAzar > 3)
+                                if (numAzar > 4)
                                 {
                                     poner = true;
                                 }

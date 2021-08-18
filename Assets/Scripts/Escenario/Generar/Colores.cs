@@ -3337,6 +3337,10 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(plano);
             }
+            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 90) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z + 1], y, 90) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z - 1], y, 270) == true)
+            {
+                Escenario.instancia.PonerCasilla(plano);
+            }
             else if (Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 1, z - 1], y, 270) == true && Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x + 1, z + 1], y, 90) == true)
             {
                 Escenario.instancia.PonerCasilla(plano);
