@@ -233,9 +233,22 @@ namespace Escenario.Generar
             }
             else
             {
-                casillasFinal = casillasDebug;
-                id = casilla.id;
-                idDebug = id;
+                if (idDebug == 99)
+                {
+                    if (casilla.isla != null)
+                    {
+                        casillasFinal = casilla.isla.casillas;
+                    }
+                    else
+                    {
+                        casillasFinal = casillasDebug;
+                    }
+                }
+                else
+                {
+                    casillasFinal = casillasDebug;
+                    idDebug = id;
+                }         
             }
 
             int x = (int)casilla.posicion.x;
@@ -269,7 +282,7 @@ namespace Escenario.Generar
             }
         }
 
-        private int CalcularIDFinal(int id)
+        public int CalcularIDFinal(int id)
         {
             if (id >= 5 && id <= 9)
             {

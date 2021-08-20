@@ -32,6 +32,11 @@ namespace Escenario.Generar
                     {
                         int ocupado = 0;
 
+                        if (ocupado == 0)
+                        {
+                            ocupado += VerificarEsquinasEspeciales(x, z, altura, casillas);
+                        }
+
                         //-------------------------------------
 
                         if (ocupado == 0)
@@ -141,13 +146,38 @@ namespace Escenario.Generar
 
         //-------------------------------------
 
+        private int VerificarEsquinasEspeciales(int x, int z, float altura, Assets.Casilla[,] casillas)
+        {
+            //if (Limites.Comprobar(x + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioX) == true &&  Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
+            //{
+            //    if (casillas[x + 1, z] != null && ComprobarCosta(casillas[x + 1, z]) == 2 && casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z - 1]) == 2)
+            //    {
+            //        if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z].id) < 5 && casillas[x + 1, z].idDebug != 99)
+            //        {
+            //            Assets.Isla isla = casillas[x + 1, z].isla;
+
+            //            Assets.Casilla esquina = new Assets.Casilla(7, 270, new Vector3(x, altura, z));
+            //            esquina.isla = isla;
+            //            esquina.idDebug = 99;
+            //            Escenario.instancia.PonerCasilla(esquina);
+
+            //            return 1;
+            //        }
+            //    }
+            //}
+
+            return 0;
+        }
+
+        //-------------------------------------
+
         private int VerificarEsquina3Rotacion90(int x, int z, float altura, Assets.Casilla[,] casillas)
         {
             if (Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
             {
                 if (casillas[x - 1, z + 1] != null && ComprobarCosta(casillas[x - 1, z]) == 2 && ComprobarCosta(casillas[x, z + 1]) == 2)
                 {
-                    if (casillas[x - 1, z + 1].id < 5 && casillas[x - 1, z + 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z + 1].id) < 5 && casillas[x - 1, z + 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x - 1, z + 1].isla;
 
@@ -170,7 +200,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x + 1, z - 1] != null && ComprobarCosta(casillas[x + 1, z]) == 2 && ComprobarCosta(casillas[x, z - 1]) == 2)
                 {
-                    if (casillas[x + 1, z - 1].id < 5 && casillas[x + 1, z - 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z - 1].id) < 5 && casillas[x + 1, z - 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x + 1, z - 1].isla;
 
@@ -193,7 +223,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z]) == 2 && ComprobarCosta(casillas[x, z - 1]) == 2)
                 {
-                    if (casillas[x - 1, z - 1].id < 5 && casillas[x - 1, z - 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z - 1].id) < 5 && casillas[x - 1, z - 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x - 1, z - 1].isla;
 
@@ -216,7 +246,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x + 1, z + 1] != null && ComprobarCosta(casillas[x + 1, z]) == 2 && ComprobarCosta(casillas[x, z + 1]) == 2)
                 {
-                    if (casillas[x + 1, z + 1].id < 5 && casillas[x + 1, z + 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z + 1].id) < 5 && casillas[x + 1, z + 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x + 1, z + 1].isla;
 
@@ -241,7 +271,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x - 1, z + 1] != null && ComprobarCosta(casillas[x - 1, z]) == 1 && ComprobarCosta(casillas[x, z + 1]) == 1)
                 {
-                    if (casillas[x - 1, z + 1].id < 5 && casillas[x - 1, z + 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z + 1].id) < 5 && casillas[x - 1, z + 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x - 1, z + 1].isla;
 
@@ -264,7 +294,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x + 1, z - 1] != null && ComprobarCosta(casillas[x + 1, z]) == 1 && ComprobarCosta(casillas[x, z - 1]) == 1)
                 {
-                    if (casillas[x + 1, z - 1].id < 5 && casillas[x + 1, z - 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z - 1].id) < 5 && casillas[x + 1, z - 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x + 1, z - 1].isla;
 
@@ -287,7 +317,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z]) == 1 && ComprobarCosta(casillas[x, z - 1]) == 1)
                 {
-                    if (casillas[x - 1, z - 1].id < 5 && casillas[x - 1, z - 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z - 1].id) < 5 && casillas[x - 1, z - 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x - 1, z - 1].isla;
 
@@ -310,7 +340,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x + 1, z + 1] != null && ComprobarCosta(casillas[x + 1, z]) == 1 && ComprobarCosta(casillas[x, z + 1]) == 1)
                 {
-                    if (casillas[x + 1, z + 1].id < 5 && casillas[x + 1, z + 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z + 1].id) < 5 && casillas[x + 1, z + 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x + 1, z + 1].isla;
 
@@ -335,7 +365,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x + 1, z] != null)
                 {
-                    if (casillas[x + 1, z].id < 5 && casillas[x + 1, z].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z].id) < 5 && casillas[x + 1, z].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x + 1, z].isla;
 
@@ -358,7 +388,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x - 1, z] != null)
                 {                   
-                    if (casillas[x - 1, z].id < 5 && casillas[x - 1, z].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z].id) < 5 && casillas[x - 1, z].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x - 1, z].isla;
                      
@@ -381,7 +411,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x, z + 1] != null)
                 {
-                    if (casillas[x, z + 1].id < 5 && casillas[x, z + 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x, z + 1].id) < 5 && casillas[x, z + 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x, z + 1].isla;
 
@@ -404,7 +434,7 @@ namespace Escenario.Generar
             {
                 if (casillas[x, z - 1] != null)
                 {
-                    if (casillas[x, z - 1].id < 5 && casillas[x, z - 1].idDebug != 99)
+                    if (Escenario.instancia.CalcularIDFinal(casillas[x, z - 1].id) < 5 && casillas[x, z - 1].idDebug != 99)
                     {
                         Assets.Isla isla = casillas[x, z - 1].isla;
 
