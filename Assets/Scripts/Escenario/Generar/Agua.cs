@@ -19,7 +19,7 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] == null)
                     {
-                        VerificarEsquinasEspeciales(x, z, altura, casillas);
+                        VerificarHuecos(x, z, altura, casillas);
                     }
                 }
             }
@@ -30,7 +30,7 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] == null)
                     {
-                        VerificarHuecos(x, z, altura, casillas);
+                        VerificarEsquinasEspeciales(x, z, altura, casillas);
                     }
                 }
             }
@@ -148,6 +148,18 @@ namespace Escenario.Generar
                     Escenario.instancia.PonerCasilla(plano);
                 }
             }
+
+            if (Limites.Comprobar(x + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioZ) == true && Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
+            {
+                if (ComprobarCosta(casillas[x + 1, z]) == 2 && ComprobarCosta(casillas[x, z + 1]) == 2 && ComprobarCosta(casillas[x - 1, z - 1]) == 2)
+                {
+                    Assets.Isla isla = casillas[x + 1, z].isla;
+
+                    Assets.Casilla plano = new Assets.Casilla(0, 0, new Vector3(x, altura + 0.5f, z));
+                    plano.isla = isla;
+                    Escenario.instancia.PonerCasilla(plano);
+                }
+            }
         }
 
         //-------------------------------------
@@ -156,7 +168,7 @@ namespace Escenario.Generar
         {
             if (Limites.Comprobar(x + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true && Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
             {
-                if (casillas[x + 1, z + 1] != null && ComprobarCosta(casillas[x + 1, z + 1]) == 2 && casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z - 1]) == 2 && casillas[x, z - 1] == null && casillas[x - 1, z] == null)
+                if (casillas[x + 1, z + 1] != null && ComprobarCosta(casillas[x + 1, z + 1]) == 2 && casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z - 1]) == 2 && casillas[x, z + 1] == null && casillas[x + 1, z] == null && casillas[x, z - 1] == null && casillas[x - 1, z] == null)
                 {
                     if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z + 1].id) < 5 && casillas[x + 1, z + 1].idDebug != 99)
                     {
@@ -172,13 +184,31 @@ namespace Escenario.Generar
                 }
             }
 
-            //if (Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
+            //if (Limites.Comprobar(x + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
             //{
-            //    if (casillas[x, z + 1] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z - 1]) == 2)
+            //    if (casillas[x + 1, z] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x, z - 1] != null && ComprobarCosta(casillas[x, z - 1]) == 2 && casillas[x, z + 1] == null)
             //    {
-            //        if (Escenario.instancia.CalcularIDFinal(casillas[x, z + 1].id) < 5 && casillas[x, z + 1].idDebug != 99)
+            //        if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z].id) < 5 && casillas[x + 1, z].idDebug != 99)
             //        {
-            //            Assets.Isla isla = casillas[x, z + 1].isla;
+            //            Assets.Isla isla = casillas[x + 1, z].isla;
+
+            //            Assets.Casilla esquina = new Assets.Casilla(7, 270, new Vector3(x, altura, z));
+            //            esquina.isla = isla;
+            //            esquina.idDebug = 99;
+            //            Escenario.instancia.PonerCasilla(esquina);
+
+            //            return 1;
+            //        }
+            //    }
+            //}
+
+            //if (Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
+            //{
+            //    if (casillas[x - 1, z] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x, z + 1] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x + 1, z] == null)
+            //    {
+            //        if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z].id) < 5 && casillas[x - 1, z].idDebug != 99)
+            //        {
+            //            Assets.Isla isla = casillas[x - 1, z].isla;
 
             //            Assets.Casilla esquina = new Assets.Casilla(7, 90, new Vector3(x, altura, z));
             //            esquina.isla = isla;

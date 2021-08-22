@@ -19,71 +19,82 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] == null)
                     {
-                        foreach (Assets.Isla isla in islas)
+                        bool poner = false;
+                        Assets.Isla isla = null;
+
+                        if (poner == false)
                         {
-                            bool poner = true;
-
-                            if (x < isla.coordenadasMinimas.x)
-                            {
-                                poner = false;
-                            }
-                            else if (z < isla.coordenadasMinimas.y)
-                            {
-                                poner = false;
-                            }
-                            else if (x > isla.coordenadasMinimas.x + isla.extensionMaxima.x + 1)
-                            {
-                                poner = false;
-                            }
-                            else if (z > isla.coordenadasMinimas.y + isla.extensionMaxima.y + 1)
-                            {
-                                poner = false;
-                            }
-
-                            //-----------------------------------------
-
-                            bool azar = false;
-
-                            if (x == isla.coordenadasMinimas.x - 1 && z >= isla.coordenadasMinimas.y && z <= isla.coordenadasMinimas.y + isla.extensionMaxima.y)
-                            {
-                                azar = true;
-                            }
-                            else if (x == isla.coordenadasMinimas.x + isla.extensionMaxima.x + 2 && z >= isla.coordenadasMinimas.y && z <= isla.coordenadasMinimas.y + isla.extensionMaxima.y)
-                            {
-                                azar = true;
-                            }
-                            else if (z == isla.coordenadasMinimas.y - 1 && x >= isla.coordenadasMinimas.x && x <= isla.coordenadasMinimas.x + isla.extensionMaxima.x)
-                            {
-                                azar = true;
-                            }
-                            else if (z == isla.coordenadasMinimas.y + isla.extensionMaxima.y + 2 && x >= isla.coordenadasMinimas.x && x <= isla.coordenadasMinimas.x + isla.extensionMaxima.x)
-                            {
-                                azar = true;
-                            }
-
-                            if (azar == true)
-                            {
-                                int numAzar = (int)Random.Range(0, 10);
-
-                                if (numAzar > 4)
-                                {
-                                    poner = true;
-                                }
-                            }
-
-                            //-----------------------------------------
+                            poner = VerificarPoner(casillas, x - 3, z - 3);
 
                             if (poner == true)
                             {
-                                Assets.Casilla plano = new Assets.Casilla(islas[isla.id].casillas[0].id, 0, new Vector3(x, altura, z));
-                                plano.isla = islas[isla.id];
-                                Escenario.instancia.PonerCasilla(plano);
-                                break;
+
                             }
                         }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x - 3, z);
+                        }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x, z - 3);
+                        }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x + 3, z - 3);
+                        }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x - 3, z + 3);
+                        }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x, z + 3);
+                        }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x + 3, z);
+                        }
+
+                        if (poner == false)
+                        {
+                            poner = VerificarPoner(casillas, x + 3, z + 3);
+                        }
+              
+
+                        if (poner == true)
+                        {
+                            Assets.Casilla plano = new Assets.Casilla(islas[isla2.id].casillas[0].id, 0, new Vector3(x, altura, z));
+                            plano.isla = islas[isla2.id];
+                            Escenario.instancia.PonerCasilla(plano);
+                            break;
+                        }
+
                     }
                 }
             }
+        }
+
+        private bool VerificarPoner(Assets.Casilla[,] casillas, int x, int z)
+        {
+            if (Limites.Comprobar(x, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z, 2, Escenario.instancia.tamañoEscenarioZ) == true)
+            {
+                if (casillas[x, z] != null)
+                {
+                    if (casillas[x, z].posicion.y > 1f)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
