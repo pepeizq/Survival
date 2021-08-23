@@ -280,6 +280,8 @@ namespace Escenario.Generar
                     casilla3.idDebug = idDebug;
                     casilla3.prefab = casilla2;
                     casilla3.isla = casilla.isla;
+                    casilla3.recursoPosible = casilla.recursoPosible;
+                    casilla3.recursoPosicion = casilla.recursoPosicion;
 
                     casillas[x, z] = casilla3;
                 }
