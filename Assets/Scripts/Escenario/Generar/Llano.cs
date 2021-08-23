@@ -11,8 +11,11 @@ namespace Escenario.Generar
             instancia = this;
         }
 
-        public void Generar(Assets.Casilla[,] casillas, Assets.Isla[] islas, float altura)
+        public void Generar(Assets.Casilla[,] casillas, float altura)
         {
+            Assets.Isla isla = null;
+            int rango = 3;
+
             for (int x = 0; x < casillas.GetLength(0); x++)
             {
                 for (int z = 0; z < casillas.GetLength(1); z++)
@@ -20,62 +23,93 @@ namespace Escenario.Generar
                     if (casillas[x, z] == null)
                     {
                         bool poner = false;
-                        Assets.Isla isla = null;
-
+                       
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x - 3, z - 3);
+                            poner = VerificarPoner(casillas, x - rango, z - rango);
 
                             if (poner == true)
                             {
-
+                                isla = casillas[x - rango, z - rango].isla;
                             }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x - 3, z);
+                            poner = VerificarPoner(casillas, x - rango, z);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x - rango, z].isla;
+                            }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x, z - 3);
+                            poner = VerificarPoner(casillas, x, z - rango);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x, z - rango].isla;
+                            }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x + 3, z - 3);
+                            poner = VerificarPoner(casillas, x + rango, z - rango);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x + rango, z - rango].isla;
+                            }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x - 3, z + 3);
+                            poner = VerificarPoner(casillas, x - rango, z + rango);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x - rango, z + rango].isla;
+                            }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x, z + 3);
+                            poner = VerificarPoner(casillas, x, z + rango);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x, z + rango].isla;
+                            }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x + 3, z);
+                            poner = VerificarPoner(casillas, x + rango, z);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x + rango, z].isla;
+                            }
                         }
 
                         if (poner == false)
                         {
-                            poner = VerificarPoner(casillas, x + 3, z + 3);
+                            poner = VerificarPoner(casillas, x + rango, z + rango);
+
+                            if (poner == true)
+                            {
+                                isla = casillas[x + rango, z + rango].isla;
+                            }
                         }
               
-
                         if (poner == true)
                         {
-                            Assets.Casilla plano = new Assets.Casilla(islas[isla2.id].casillas[0].id, 0, new Vector3(x, altura, z));
-                            plano.isla = islas[isla2.id];
+                            Assets.Casilla plano = new Assets.Casilla(isla.casillas[0].id, 0, new Vector3(x, altura, z));
+                            plano.isla = isla;
                             Escenario.instancia.PonerCasilla(plano);
-                            break;
                         }
-
                     }
                 }
             }

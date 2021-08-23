@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6560661058957444786}
   - component: {fileID: 3663876774024146749}
   m_Layer: 0
-  m_Name: Prefab_GolpearPiedra
+  m_Name: Prefab Golpear Piedra
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

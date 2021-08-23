@@ -10,6 +10,10 @@ namespace Assets
 
         public GameObject prefab;
 
+        [Header("Recurso")]
+        public bool recursoPosible;
+        public Vector3 recursoPosicion;
+
         [HideInInspector]
         public Vector3 posicion;
 

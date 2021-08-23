@@ -12,5 +12,7 @@ namespace Assets
         public float alturaMaxima = 10;
         public Vector2 extensionMaxima = new Vector2(100, 100);
         public Vector2 coordenadasMinimas = new Vector2(0, 0);
+
+        public GameObject[] recursos;
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1553754236199462975}
   - component: {fileID: 8746848954439242267}
   m_Layer: 10
-  m_Name: Prefab_Recurso_Arbol
+  m_Name: Prefab Recurso Arbol 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

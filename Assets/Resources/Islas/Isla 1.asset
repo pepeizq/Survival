@@ -26,3 +26,6 @@ MonoBehaviour:
   alturaMaxima: 5
   extensionMaxima: {x: 50, y: 50}
   coordenadasMinimas: {x: 20, y: 20}
+  recursos:
+  - {fileID: 1553754236199462946, guid: 2159d26b6c88afa4187cbe56baf792d6, type: 3}
+  - {fileID: 2370089651625053459, guid: 68a1cde68430f1b4eabdf451c12237c3, type: 3}

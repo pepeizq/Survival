@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Escenario.Generar
@@ -10,9 +8,10 @@ namespace Escenario.Generar
         [Header("Opciones")]
         public bool aleatorio;
         public bool coloresGeneracion;
-        public bool ponerLlano;
+        public bool llano;
         public bool agua;
         public bool colocarJugador;
+        public bool recursos;
 
         [Header("Casillas")]
         public Assets.Casilla[] casillasDebug;
@@ -89,9 +88,9 @@ namespace Escenario.Generar
 
             //----------------------------------------------------------
 
-            if (ponerLlano == true)
+            if (llano == true)
             {
-                Llano.instancia.Generar(casillas, islas, altura);
+                Llano.instancia.Generar(casillas, altura);
             }
 
             if (agua == true)
@@ -103,6 +102,11 @@ namespace Escenario.Generar
             if (colocarJugador == true)
             {
                 ColocarJugador2();
+            }
+
+            if (recursos == true)
+            {
+                Recursos.instancia.Generar(casillas);
             }
         }
 

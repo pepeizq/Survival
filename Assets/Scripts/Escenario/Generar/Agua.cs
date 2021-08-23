@@ -30,17 +30,6 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] == null)
                     {
-                        VerificarEsquinasEspeciales(x, z, altura, casillas);
-                    }
-                }
-            }
-
-            for (int x = 0; x < casillas.GetLength(0); x++)
-            {
-                for (int z = 0; z < casillas.GetLength(1); z++)
-                {
-                    if (casillas[x, z] == null)
-                    {
                         int ocupado = 0;
 
                         //-------------------------------------
@@ -160,67 +149,6 @@ namespace Escenario.Generar
                     Escenario.instancia.PonerCasilla(plano);
                 }
             }
-        }
-
-        //-------------------------------------
-
-        private int VerificarEsquinasEspeciales(int x, int z, float altura, Assets.Casilla[,] casillas)
-        {
-            if (Limites.Comprobar(x + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true && Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
-            {
-                if (casillas[x + 1, z + 1] != null && ComprobarCosta(casillas[x + 1, z + 1]) == 2 && casillas[x - 1, z - 1] != null && ComprobarCosta(casillas[x - 1, z - 1]) == 2 && casillas[x, z + 1] == null && casillas[x + 1, z] == null && casillas[x, z - 1] == null && casillas[x - 1, z] == null)
-                {
-                    if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z + 1].id) < 5 && casillas[x + 1, z + 1].idDebug != 99)
-                    {
-                        Assets.Isla isla = casillas[x + 1, z + 1].isla;
-
-                        Assets.Casilla esquina = new Assets.Casilla(8, 270, new Vector3(x, altura, z));
-                        esquina.isla = isla;
-                        esquina.idDebug = 99;
-                        Escenario.instancia.PonerCasilla(esquina);
-
-                        return 1;
-                    }
-                }
-            }
-
-            //if (Limites.Comprobar(x + 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z - 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
-            //{
-            //    if (casillas[x + 1, z] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x, z - 1] != null && ComprobarCosta(casillas[x, z - 1]) == 2 && casillas[x, z + 1] == null)
-            //    {
-            //        if (Escenario.instancia.CalcularIDFinal(casillas[x + 1, z].id) < 5 && casillas[x + 1, z].idDebug != 99)
-            //        {
-            //            Assets.Isla isla = casillas[x + 1, z].isla;
-
-            //            Assets.Casilla esquina = new Assets.Casilla(7, 270, new Vector3(x, altura, z));
-            //            esquina.isla = isla;
-            //            esquina.idDebug = 99;
-            //            Escenario.instancia.PonerCasilla(esquina);
-
-            //            return 1;
-            //        }
-            //    }
-            //}
-
-            //if (Limites.Comprobar(x - 1, 2, Escenario.instancia.tamañoEscenarioX) == true && Limites.Comprobar(z + 1, 2, Escenario.instancia.tamañoEscenarioZ) == true)
-            //{
-            //    if (casillas[x - 1, z] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x, z + 1] != null && ComprobarCosta(casillas[x, z + 1]) == 2 && casillas[x + 1, z] == null)
-            //    {
-            //        if (Escenario.instancia.CalcularIDFinal(casillas[x - 1, z].id) < 5 && casillas[x - 1, z].idDebug != 99)
-            //        {
-            //            Assets.Isla isla = casillas[x - 1, z].isla;
-
-            //            Assets.Casilla esquina = new Assets.Casilla(7, 90, new Vector3(x, altura, z));
-            //            esquina.isla = isla;
-            //            esquina.idDebug = 99;
-            //            Escenario.instancia.PonerCasilla(esquina);
-
-            //            return 1;
-            //        }
-            //    }
-            //}
-
-            return 0;
         }
 
         //-------------------------------------
