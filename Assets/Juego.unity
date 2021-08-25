@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41046456, g: 0.46097475, b: 0.6955244, a: 1}
+  m_IndirectSpecularColor: {r: 0.4109088, g: 0.46161085, b: 0.69644827, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5202,6 +5202,7 @@ GameObject:
   - component: {fileID: 681689837}
   - component: {fileID: 681689838}
   - component: {fileID: 681689839}
+  - component: {fileID: 681689841}
   - component: {fileID: 681689840}
   m_Layer: 0
   m_Name: Escenario
@@ -5248,8 +5249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5197c65d8064c7e4481c3236c0612a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aleatorio: 0
-  coloresGeneracion: 1
+  aleatorio: 1
+  coloresGeneracion: 0
   llano: 1
   agua: 1
   colocarJugador: 1
@@ -5359,6 +5360,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c9baad55aa5a44f968130167f0e12e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &681689841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681689833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47297b37f23c66447af8c428856a8a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &705507993

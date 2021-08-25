@@ -101,7 +101,7 @@ namespace Escenario.Generar
 
             if (colocarJugador == true)
             {
-                ColocarJugador2();
+                ColocarJugador.instancia.Generar(casillas, islas[0]);
             }
 
             if (recursos == true)
@@ -280,8 +280,8 @@ namespace Escenario.Generar
                     casilla3.idDebug = idDebug;
                     casilla3.prefab = casilla2;
                     casilla3.isla = casilla.isla;
-                    casilla3.recursoPosible = casilla.recursoPosible;
-                    casilla3.recursoPosicion = casilla.recursoPosicion;
+                    casilla3.recursoPosible = casillasFinal[id].recursoPosible;
+                    casilla3.recursoPosicion = casillasFinal[id].recursoPosicion;
 
                     casillas[x, z] = casilla3;
                 }
@@ -492,30 +492,6 @@ namespace Escenario.Generar
             {
                 return false;
             }
-        }
-
-        private void ColocarJugador2()
-        {
-            int x = ((int)islas[0].coordenadasMinimas.x + (int)islas[0].extensionMaxima.x) / 2;
-            int z = ((int)islas[0].coordenadasMinimas.y + (int)islas[0].extensionMaxima.y) / 2;
-
-            if (casillas[x, z] != null)
-            {
-                Vector3 posicion = casillas[x, z].posicion;
-                float altura = 1.5f;
-                
-                if (casillas[x, z].id != 0)
-                {
-                    altura = 3f;
-                }
-
-                if (casillasEscala != 0.5f)
-                {
-                    posicion.y = altura + posicion.y + posicion.y * (casillasEscala * 1.5f);
-                }
-           
-                Jugador.Movimientos.instancia.transform.position = posicion;
-            }         
         }
     }
 }

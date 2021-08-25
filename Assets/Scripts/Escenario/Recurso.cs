@@ -7,6 +7,7 @@ namespace Escenario
         public Assets.Objeto objetoADar;
         public int cantidadPorGolpe = 1;
         public int cantidad;
+        public Vector3 posicionCasilla;
         public GameObject particulaGolpe;
 
         public void Recolectar(Vector3 puntoGolpeo, Vector3 puntoNormal)

@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Herremientas\Portapapeles.cs" />
     <Compile Include="Assets\Scripts\Crafting\MesaCrafteo.cs" />
     <Compile Include="Assets\Scripts\Jugador\Mapa.cs" />
+    <Compile Include="Assets\Scripts\Escenario\Generar\ColocarJugador.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Fogata.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Escenario.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
