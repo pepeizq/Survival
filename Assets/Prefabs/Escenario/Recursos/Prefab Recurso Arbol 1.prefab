@@ -62,7 +62,7 @@ MonoBehaviour:
   objetoADar: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
   cantidadPorGolpe: 1
   cantidad: 5
-  posicionCasilla: {x: 0, y: -0.5, z: 0}
+  posicionCasilla: {x: 0, y: 0, z: 0}
   particulaGolpe: {fileID: 8822901381453245926, guid: edbe9a490c9ca08499d29767efefeaa9, type: 3}
 --- !u!208 &8746848954439242267
 NavMeshObstacle:
@@ -109,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01de1ddb282d60e4495f62cc90b727d8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.51
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 01de1ddb282d60e4495f62cc90b727d8, type: 3}
       propertyPath: m_LocalPosition.z
