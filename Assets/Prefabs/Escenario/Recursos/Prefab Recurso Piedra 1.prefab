@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3763777475230755871}
-  - component: {fileID: 6165132677483017019}
   - component: {fileID: 2424084578745507174}
+  - component: {fileID: 6165132677483017019}
   - component: {fileID: 42675559532080224}
   m_Layer: 10
   m_Name: Prefab Recurso Piedra 1
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6165132677483017019
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2370089651625053459}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.8667979
-  m_Height: 2.2241192
-  m_Direction: 1
-  m_Center: {x: -0.08803177, y: 0.74979925, z: 0}
 --- !u!114 &2424084578745507174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,8 +49,24 @@ MonoBehaviour:
   objetoADar: {fileID: 11400000, guid: 2092334c4a46cbf4582c00212219b383, type: 2}
   cantidadPorGolpe: 1
   cantidad: 5
-  posicionCasilla: {x: 0, y: 0, z: 0}
   particulaGolpe: {fileID: 4173311699488838890, guid: 1f987560e038b0d4d8447d7e1a113254, type: 3}
+  alturaMinima: 3
+  alturaMaxima: 10
+  porcentaje: 20
+--- !u!136 &6165132677483017019
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2370089651625053459}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.8667979
+  m_Height: 2.2241192
+  m_Direction: 1
+  m_Center: {x: -0.08803177, y: 0.74979925, z: 0}
 --- !u!208 &42675559532080224
 NavMeshObstacle:
   m_ObjectHideFlags: 0
