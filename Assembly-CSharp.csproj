@@ -87,8 +87,8 @@
     <Compile Include="Assets\Scripts\Escenario\Recurso.cs" />
     <Compile Include="Assets\Scripts\Escenario\DiaNoche.cs" />
     <Compile Include="Assets\Scripts\Assets\Objeto.cs" />
-    <Compile Include="Assets\Scripts\Herremientas\FicheroTexto.cs" />
-    <Compile Include="Assets\Scripts\Herremientas\Portapapeles.cs" />
+    <Compile Include="Assets\Scripts\Herramientas\FicheroTexto.cs" />
+    <Compile Include="Assets\Scripts\Herramientas\Portapapeles.cs" />
     <Compile Include="Assets\Scripts\Crafting\MesaCrafteo.cs" />
     <Compile Include="Assets\Scripts\Jugador\Mapa.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\ColocarJugador.cs" />

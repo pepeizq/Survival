@@ -13,9 +13,9 @@ namespace Escenario.Generar
         public bool colocarJugador;
         public bool recursos;
 
-        [Header("Casillas")]
         public Assets.Casilla[] casillasDebug;
         public Assets.Isla[] islas;
+        public Assets.Objeto[] herramientasJugador;
 
         [HideInInspector]
         public Assets.Casilla[,] casillas = new Assets.Casilla[1, 1];
@@ -101,7 +101,7 @@ namespace Escenario.Generar
 
             if (colocarJugador == true)
             {
-                ColocarJugador.instancia.Generar(casillas, islas[0]);
+                ColocarJugador.instancia.Generar(casillas, islas[0], herramientasJugador);
             }
 
             if (recursos == true)
