@@ -13,6 +13,7 @@ namespace Escenario.Generar
         public bool colocarJugador;
         public bool recursos;
 
+        [Header("Recursos")]
         public Assets.Casilla[] casillasDebug;
         public Assets.Isla[] islas;
         public Assets.Objeto[] herramientasJugador;

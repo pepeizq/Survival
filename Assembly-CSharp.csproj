@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\CargarGuardar\Fichero.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Limites.cs" />
     <Compile Include="Assets\Scripts\Jugador\Interaccion.cs" />
+    <Compile Include="Assets\Scripts\Canvas\Canvas.cs" />
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Recursos.cs" />
     <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Assets\Scripts\Escenario\Generar\Escenario.cs" />
     <Compile Include="Assets\Scripts\Jugador\Movimientos.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Cama.cs" />
+    <Compile Include="Assets\Scripts\Canvas\Juego.cs" />
     <Compile Include="Assets\Scripts\Assets\Isla.cs" />
     <Compile Include="Assets\Scripts\CargarGuardar\Partida.cs" />
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
