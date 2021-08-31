@@ -20,6 +20,12 @@ namespace Escenario.Generar
             {
                 Vector3 posicion = casillas[x, z].prefab.gameObject.transform.position;
                 casillas[x, z].recursoPosible = false;
+
+                if (casillas[x, z].id != 0)
+                {
+                    posicion.y = posicion.y + 1f;
+                }
+
                 Jugador.Movimientos.instancia.transform.position = posicion;
             }
 

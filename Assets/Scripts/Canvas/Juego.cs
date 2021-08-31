@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -32,9 +33,14 @@ namespace Canvas
         {
             if (Canvas.instancia.desarrollador == true)
             {
-                desarrolladorDatos.text = "test";
-            }
-                
+                if (Jugador.Movimientos.instancia.transform != null)
+                {
+                    desarrolladorDatos.text = string.Format("x:{0} z:{1} altura: {2}",
+                                                Math.Round(Jugador.Movimientos.instancia.transform.position.x, 0).ToString(),
+                                                Math.Round(Jugador.Movimientos.instancia.transform.position.z, 0).ToString(),
+                                                Math.Round(Jugador.Movimientos.instancia.transform.position.y, 1).ToString());
+                }
+            }              
         }
     }
 }

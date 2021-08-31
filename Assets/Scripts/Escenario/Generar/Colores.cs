@@ -677,6 +677,10 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(esquina3rotacion180);
             }
+            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 90) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z - 2], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z], y, 0) == true)
+            {
+                Escenario.instancia.PonerCasilla(esquina3rotacion180);
+            }
             else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 90) == true && Escenario.instancia.ComprobarCasilla1(Escenario.instancia.casillas[x + 2, z - 1], y, 180) == true)
             {
                 Escenario.instancia.PonerCasilla(esquina3rotacion180);
@@ -1500,6 +1504,10 @@ namespace Escenario.Generar
             esquina3rotacion90.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
             if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z + 2], y, 180) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z]) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x, z + 1]) == false && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 1, z + 2]) == false)
+            {
+                Escenario.instancia.PonerCasilla(esquina3rotacion90);
+            }
+            else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z + 1], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z + 2], y, 0) == true)
             {
                 Escenario.instancia.PonerCasilla(esquina3rotacion90);
             }
