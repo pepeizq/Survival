@@ -80,7 +80,7 @@ namespace Construccion
             else
             {
                 Jugador.Movimientos.instancia.EnseñarCursor(false);
-                Jugador.KitConstruccion.instancia.ventana.SetActive(false);
+                Canvas.Canvas.instancia.construcciones.SetActive(false);
             }
         }
     }

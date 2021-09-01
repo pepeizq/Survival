@@ -5,7 +5,6 @@ namespace Jugador
 {
     public class KitConstruccion : Objeto.Camara
     {
-        public GameObject ventana;
         private Assets.Construccion actualReceta;
         private Construccion.VistaPrevia vistaPrevia;
 
@@ -28,11 +27,6 @@ namespace Jugador
         {
             instancia = this;
             camara = Camera.main;
-        }
-
-        public void Start()
-        {
-            ventana = FindObjectOfType<Construccion.Ventana>(true).gameObject;
         }
 
         public override void AtacarInput()
@@ -71,14 +65,14 @@ namespace Jugador
                 Destroy(vistaPrevia.gameObject);
             }
 
-            ventana.SetActive(true);
+            Canvas.Canvas.instancia.construcciones.SetActive(true);
             Movimientos.instancia.EnseñarCursor(true); 
         }
 
         public void EstablecerNuevaRecetaConstruccion(Assets.Construccion receta)
         {
             actualReceta = receta;
-            ventana.SetActive(false);
+            Canvas.Canvas.instancia.construcciones.SetActive(false);
             Movimientos.instancia.EnseñarCursor(false);
 
             vistaPrevia = Instantiate(receta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();

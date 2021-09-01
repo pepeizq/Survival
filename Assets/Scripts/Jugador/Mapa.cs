@@ -8,8 +8,6 @@ namespace Jugador
         public GameObject camaraJugador;
         public GameObject camaraMapa;
         private Camera camara;
-        public GameObject canvasJugador;
-        public GameObject canvasMapa;
 
         public float zoomCerca = 0.5f;
         public float zoomLejos = 25f;
@@ -34,7 +32,7 @@ namespace Jugador
 
         public void Start()
         {
-            canvasMapa.SetActive(false);
+            Canvas.Canvas.instancia.mapa.SetActive(false);
             camara = camaraMapa.GetComponentInChildren<Camera>();
         }
 
@@ -68,12 +66,12 @@ namespace Jugador
 
         public void AbrirCerrar()
         {
-            if (canvasMapa.activeInHierarchy == true)
+            if (Canvas.Canvas.instancia.mapa.activeInHierarchy == true)
             {                
                 camaraJugador.SetActive(true);
                 camaraMapa.SetActive(false);
-                canvasJugador.SetActive(true);
-                canvasMapa.SetActive(false);
+                Canvas.Canvas.instancia.juego.SetActive(true);
+                Canvas.Canvas.instancia.mapa.SetActive(false);
 
                 Jugador.Movimientos.instancia.Bloquear(false);
                 bloqueo = true;
@@ -85,8 +83,8 @@ namespace Jugador
             {              
                 camaraJugador.SetActive(false);
                 camaraMapa.SetActive(true);
-                canvasJugador.SetActive(false);
-                canvasMapa.SetActive(true);
+                Canvas.Canvas.instancia.juego.SetActive(false);
+                Canvas.Canvas.instancia.mapa.SetActive(true);
 
                 Jugador.Movimientos.instancia.Bloquear(true);
                 bloqueo = false;

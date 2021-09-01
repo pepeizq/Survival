@@ -75,7 +75,30 @@ namespace Crafting
         {
             if (puedeCraftear == true)
             {
-                Ventana.instancia.Craftear(receta);
+                //Canvas.Canvas.instancia.crafting.Craftear(receta);
+
+                int i = 0;
+                while (i < receta.costes.Length)
+                {
+                    int j = 0;
+                    while (j < receta.costes[i].cantidad)
+                    {
+                        Jugador.Inventario.instancia.QuitarObjeto(receta.costes[i].objeto);
+                        j += 1;
+                    }
+
+                    i += 1;
+                }
+
+                Jugador.Inventario.instancia.AñadirObjeto(receta.objetoACraftear);
+
+                int k = 0;
+                while (k < Canvas.Crafting.instancia.recetas.Length)
+                {
+                    Canvas.Crafting.instancia.recetas[k].ComprobarPuedeCraftear();
+
+                    k += 1;
+                }
             }
         }
     }

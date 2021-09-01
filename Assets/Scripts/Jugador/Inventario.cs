@@ -11,7 +11,6 @@ namespace Jugador
         public Interfaz.Inventario.Hueco[] huecosInterfaz;
         public Jugador.Objetos.Inventario.Hueco[] huecos;
 
-        public GameObject canvasInventario;
         public Transform posicionSoltarObjeto;
 
         [Header("Objeto Seleccionado")]
@@ -48,7 +47,7 @@ namespace Jugador
 
         public void Start()
         {
-            canvasInventario.SetActive(false);
+            Canvas.Canvas.instancia.inventario.SetActive(false);
             huecos = new Jugador.Objetos.Inventario.Hueco[huecosInterfaz.Length];
 
             int i = 0;
@@ -74,15 +73,15 @@ namespace Jugador
 
         public void AbrirCerrar()
         {
-            if (canvasInventario.activeInHierarchy == true)
+            if (Canvas.Canvas.instancia.inventario.activeInHierarchy == true)
             {
-                canvasInventario.SetActive(false);
+                Canvas.Canvas.instancia.inventario.SetActive(false);
                 cerrarInventario.Invoke();
                 movimientosJugador.EnseñarCursor(false);
             }
             else
             {
-                canvasInventario.SetActive(true);
+                Canvas.Canvas.instancia.inventario.SetActive(true);
                 abrirInventario.Invoke();
                 LimpiarObjetoSeleccionado();
                 movimientosJugador.EnseñarCursor(true);
@@ -91,7 +90,7 @@ namespace Jugador
 
         public bool EstaAbierto()
         {
-            return canvasInventario.activeInHierarchy;
+            return Canvas.Canvas.instancia.inventario.activeInHierarchy;
         }
 
         public void AñadirObjeto(Assets.Objeto objeto)

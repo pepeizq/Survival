@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4085609, g: 0.4575513, b: 0.69008714, a: 1}
+  m_IndirectSpecularColor: {r: 0.4094094, g: 0.45903695, b: 0.6924592, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 42349019}
   - component: {fileID: 42349018}
   m_Layer: 0
-  m_Name: Receta (1)
+  m_Name: RecetaHacha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1956,7 +1956,6 @@ GameObject:
   - component: {fileID: 268763109}
   - component: {fileID: 268763108}
   - component: {fileID: 268763107}
-  - component: {fileID: 268763110}
   m_Layer: 0
   m_Name: Crafting
   m_TagString: Untagged
@@ -2045,21 +2044,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &268763110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 268763105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c777d4f3201b7e542a8d231b29353a80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recetas:
-  - {fileID: 1274520694}
-  - {fileID: 42349019}
 --- !u!1 &303135415
 GameObject:
   m_ObjectHideFlags: 0
@@ -3143,7 +3127,6 @@ MonoBehaviour:
   - {fileID: 1141401430}
   - {fileID: 2030842172}
   - {fileID: 1778136542}
-  canvasInventario: {fileID: 1495829797}
   posicionSoltarObjeto: {fileID: 2021383480}
   nombre: {fileID: 1045993152}
   descripcion: {fileID: 792951942}
@@ -3187,8 +3170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camaraJugador: {fileID: 2026254895}
   camaraMapa: {fileID: 1096922745}
-  canvasJugador: {fileID: 960059084}
-  canvasMapa: {fileID: 1349943657}
   zoomCerca: 0.5
   zoomLejos: 60
   velocidad: 10
@@ -6581,6 +6562,8 @@ GameObject:
   - component: {fileID: 878031848}
   - component: {fileID: 878031850}
   - component: {fileID: 878031849}
+  - component: {fileID: 878031852}
+  - component: {fileID: 878031851}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -6634,7 +6617,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   juego: {fileID: 960059084}
+  inventario: {fileID: 1495829797}
+  crafting: {fileID: 268763105}
+  construcciones: {fileID: 1660277303}
+  mapa: {fileID: 1349943657}
   desarrollador: 1
+--- !u!114 &878031851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878031847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad2a45ce8db3274bbbadd9c8bdfc200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &878031852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878031847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c777d4f3201b7e542a8d231b29353a80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recetas:
+  - {fileID: 1274520694}
+  - {fileID: 42349019}
 --- !u!1001 &881155752
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7701,8 +7715,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 250, y: -50}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: 240, y: -50}
+  m_SizeDelta: {x: 480, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1012015766
 MonoBehaviour:
@@ -7754,7 +7768,7 @@ MonoBehaviour:
   m_fontSize: 30
   m_fontSizeBase: 30
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -9220,7 +9234,7 @@ GameObject:
   - component: {fileID: 1274520694}
   - component: {fileID: 1274520693}
   m_Layer: 0
-  m_Name: Receta
+  m_Name: RecetaEspada
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12308,9 +12322,8 @@ GameObject:
   - component: {fileID: 1660277307}
   - component: {fileID: 1660277306}
   - component: {fileID: 1660277305}
-  - component: {fileID: 1660277308}
   m_Layer: 0
-  m_Name: Construccion
+  m_Name: Construcciones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12397,18 +12410,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &1660277308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660277303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad2a45ce8db3274bbbadd9c8bdfc200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1662511484
 GameObject:
   m_ObjectHideFlags: 0

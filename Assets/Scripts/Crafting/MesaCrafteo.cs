@@ -2,12 +2,10 @@
 {
     public class MesaCrafteo : Construccion.Propiedades, IInteractuable
     {
-        private Ventana ventanaCrafteo;
         private Jugador.Movimientos jugador;
 
         public void Start()
         {
-            ventanaCrafteo = FindObjectOfType<Ventana>(true);
             jugador = FindObjectOfType<Jugador.Movimientos>();
         }
 
@@ -18,7 +16,7 @@
 
         public void Interactuar()
         {
-            ventanaCrafteo.gameObject.SetActive(true);
+            Canvas.Canvas.instancia.crafting.gameObject.SetActive(true);
             jugador.EnseñarCursor(true);
         }
     }

@@ -56,7 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Construcciones\Ventana.cs" />
+    <Compile Include="Assets\Scripts\Canvas\Construcciones.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Colores.cs" />
     <Compile Include="Assets\Scripts\CargarGuardar\Gestor.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Llano.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Assets\Scripts\Canvas\Canvas.cs" />
     <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Recursos.cs" />
-    <Compile Include="Assets\Scripts\Crafting\Ventana.cs" />
+    <Compile Include="Assets\Scripts\Canvas\Crafting.cs" />
     <Compile Include="Assets\Scripts\Assets\Receta.cs" />
     <Compile Include="Assets\Scripts\Menu\Principal.cs" />
     <Compile Include="Assets\Scripts\Construcciones\VistaPrevia.cs" />
