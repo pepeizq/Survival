@@ -29,7 +29,7 @@ namespace Crafting
             int i = 0;
             while (i < receta.costes.Length)
             {
-                if (Jugador.Inventario.instancia.TieneObjetos(receta.costes[i].objeto, receta.costes[i].cantidad) == false)
+                if (Jugador.Inventario.Inventario.instancia.TieneObjetos(receta.costes[i].objeto, receta.costes[i].cantidad) == false)
                 {
                     puedeCraftear = false;
                     break;
@@ -83,14 +83,14 @@ namespace Crafting
                     int j = 0;
                     while (j < receta.costes[i].cantidad)
                     {
-                        Jugador.Inventario.instancia.QuitarObjeto(receta.costes[i].objeto);
+                        Jugador.Inventario.Inventario.instancia.QuitarObjeto(receta.costes[i].objeto);
                         j += 1;
                     }
 
                     i += 1;
                 }
 
-                Jugador.Inventario.instancia.AñadirObjeto(receta.objetoACraftear);
+                Jugador.Inventario.Inventario.instancia.AñadirObjeto(receta.objetoACraftear);
 
                 int k = 0;
                 while (k < Canvas.Crafting.instancia.recetas.Length)

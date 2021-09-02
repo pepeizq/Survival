@@ -14,7 +14,6 @@ namespace Jugador
         private GameObject actualInteraccionGameObject;
         private IInteractuable actualInteraccion;
 
-        public TextMeshProUGUI mensajeTexto;
         private Camera camara;
 
         public void Start()
@@ -44,7 +43,7 @@ namespace Jugador
                 {
                     actualInteraccionGameObject = null;
                     actualInteraccion = null;
-                    mensajeTexto.gameObject.SetActive(false);
+                    Canvas.Juego.instancia.mensajeInteraccion.gameObject.SetActive(false);
                 }
             }
         }
@@ -53,8 +52,8 @@ namespace Jugador
         {
             if (actualInteraccion != null)
             {
-                mensajeTexto.gameObject.SetActive(true);
-                mensajeTexto.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeMostrar());
+                Canvas.Juego.instancia.mensajeInteraccion.gameObject.SetActive(true);
+                Canvas.Juego.instancia.mensajeInteraccion.text = string.Format("<b>[E]</b> {0}", actualInteraccion.MensajeMostrar());
             }
         }
 
@@ -65,7 +64,7 @@ namespace Jugador
                 actualInteraccion.Interactuar();
                 actualInteraccionGameObject = null;
                 actualInteraccion = null;
-                mensajeTexto.gameObject.SetActive(false);
+                Canvas.Juego.instancia.mensajeInteraccion.gameObject.SetActive(false);
             }
         }
     }

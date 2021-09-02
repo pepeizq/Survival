@@ -36,16 +36,18 @@ namespace Escenario.Generar
                     int i = 0;
                     while (i < herramientas.Length)
                     {
-                        float altura = casillas[x, z].prefab.gameObject.transform.position.y;
-                        Vector3 posicionColocar = new Vector3(x, altura + 1f, z);
+                        //float altura = casillas[x, z].prefab.gameObject.transform.position.y;
+                        //Vector3 posicionColocar = new Vector3(x, altura + 1f, z);
 
-                        if (casillas[x, z].id != 0)
-                        {
-                            posicionColocar.y = posicionColocar.y + 1f;
-                        }
+                        //if (casillas[x, z].id != 0)
+                        //{
+                        //    posicionColocar.y = posicionColocar.y + 1f;
+                        //}
 
-                        Instantiate(herramientas[i].prefab, posicionColocar, Quaternion.identity);
-                        casillas[x, z].recursoPosible = false;
+                        //Instantiate(herramientas[i].prefab, posicionColocar, Quaternion.identity);
+                        //casillas[x, z].recursoPosible = false;
+
+                        Jugador.Inventario.Inventario.instancia.AñadirObjeto(herramientas[i]);
 
                         i += 1;
                     }

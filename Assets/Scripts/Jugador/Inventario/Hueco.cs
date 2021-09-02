@@ -2,14 +2,14 @@
 using UnityEngine.UI;
 using TMPro;
 
-namespace Interfaz.Inventario
+namespace Jugador.Inventario
 {
     public class Hueco : MonoBehaviour
     {
         public Button boton;
         public Image icono;
         public TextMeshProUGUI cantidad;
-        private Jugador.Objetos.Inventario.Hueco actualHueco;
+        private Objetos.Hueco actualHueco;
         private Outline outline;
         public int posicion;
         public bool equipado;
@@ -29,7 +29,7 @@ namespace Interfaz.Inventario
 
         }
 
-        public void Añadir(Jugador.Objetos.Inventario.Hueco hueco)
+        public void Añadir(Objetos.Hueco hueco)
         {
             actualHueco = hueco;
 
@@ -53,7 +53,7 @@ namespace Interfaz.Inventario
 
         public void ClickearBoton()
         {
-            Jugador.Inventario.instancia.SeleccionarObjeto(posicion);
+            Inventario.instancia.SeleccionarObjeto(posicion);
         }
     }
 }

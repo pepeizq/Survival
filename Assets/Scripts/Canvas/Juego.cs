@@ -1,12 +1,18 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Canvas
 {
     public class Juego : MonoBehaviour
     {
-        [Header("Modulo Desarrollador")]
+        public Image imagenDañoAviso;
+
+        [Header("Interaccion")]
+        public TextMeshProUGUI mensajeInteraccion;
+
+        [Header("Desarrollador")]
         public GameObject desarrolladorCaja;
         public TextMeshProUGUI desarrolladorDatos;
 
@@ -31,16 +37,19 @@ namespace Canvas
 
         public void Update()
         {
-            if (Canvas.instancia.desarrollador == true)
+            if (Canvas.instancia != null)
             {
-                if (Jugador.Movimientos.instancia != null)
+                if (Canvas.instancia.desarrollador == true)
                 {
-                    desarrolladorDatos.text = string.Format("x:{0} z:{1} altura: {2}",
-                                                Math.Round(Jugador.Movimientos.instancia.transform.position.x, 0).ToString(),
-                                                Math.Round(Jugador.Movimientos.instancia.transform.position.z, 0).ToString(),
-                                                Math.Round(Jugador.Movimientos.instancia.transform.position.y, 1).ToString());
+                    if (Jugador.Movimientos.instancia != null)
+                    {
+                        desarrolladorDatos.text = string.Format("x:{0} z:{1} altura: {2}",
+                                                    Math.Round(Jugador.Movimientos.instancia.transform.position.x, 0).ToString(),
+                                                    Math.Round(Jugador.Movimientos.instancia.transform.position.z, 0).ToString(),
+                                                    Math.Round(Jugador.Movimientos.instancia.transform.position.y, 1).ToString());
+                    }
                 }
-            }              
+            }                        
         }
     }
 }

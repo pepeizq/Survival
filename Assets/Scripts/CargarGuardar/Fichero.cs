@@ -52,22 +52,22 @@ namespace CargarGuardar
 
             //------------------------------------------------
 
-            partida.inventario = new PartidaInventarioHueco[Jugador.Inventario.instancia.huecos.Length];
+            partida.inventario = new PartidaInventarioHueco[Jugador.Inventario.Inventario.instancia.huecos.Length];
         
             int i = 0;
-            while (i < Jugador.Inventario.instancia.huecos.Length)
+            while (i < Jugador.Inventario.Inventario.instancia.huecos.Length)
             {
                 partida.inventario[i] = new PartidaInventarioHueco();
 
-                if (Jugador.Inventario.instancia.huecos[i] != null)
+                if (Jugador.Inventario.Inventario.instancia.huecos[i] != null)
                 {
                     partida.inventario[i].ocupado = true;
 
-                    if (Jugador.Inventario.instancia.huecos[i].objeto != null)
+                    if (Jugador.Inventario.Inventario.instancia.huecos[i].objeto != null)
                     {
-                        partida.inventario[i].objetoId = Jugador.Inventario.instancia.huecos[i].objeto.id;
-                        partida.inventario[i].cantidad = Jugador.Inventario.instancia.huecos[i].cantidad;
-                        partida.inventario[i].equipado = Jugador.Inventario.instancia.huecosInterfaz[i].equipado;
+                        partida.inventario[i].objetoId = Jugador.Inventario.Inventario.instancia.huecos[i].objeto.id;
+                        partida.inventario[i].cantidad = Jugador.Inventario.Inventario.instancia.huecos[i].cantidad;
+                        partida.inventario[i].equipado = Canvas.Inventario.instancia.huecos[i].equipado;
                     }                  
                 }
                 else
@@ -194,8 +194,8 @@ namespace CargarGuardar
                 }
                 else
                 {
-                    Jugador.Inventario.instancia.huecos[i].objeto = Gestor.instancia.ObtenerObjeto(partida.inventario[i].objetoId);
-                    Jugador.Inventario.instancia.huecos[i].cantidad = partida.inventario[i].cantidad;
+                    Jugador.Inventario.Inventario.instancia.huecos[i].objeto = Gestor.instancia.ObtenerObjeto(partida.inventario[i].objetoId);
+                    Jugador.Inventario.Inventario.instancia.huecos[i].cantidad = partida.inventario[i].cantidad;
 
                     if (partida.inventario[i].equipado == true)
                     {
@@ -208,8 +208,8 @@ namespace CargarGuardar
 
             if (objetoEquipado != 99999)
             {
-                Jugador.Inventario.instancia.SeleccionarObjeto(objetoEquipado);
-                Jugador.Inventario.instancia.EquiparBoton();
+                Jugador.Inventario.Inventario.instancia.SeleccionarObjeto(objetoEquipado);
+                Jugador.Inventario.Inventario.instancia.EquiparBoton();
             }
 
             //------------------------------------------------

@@ -20,17 +20,17 @@ namespace Canvas
 
         public void OnEnable()
         {
-            if (Jugador.Inventario.instancia != null)
+            if (Jugador.Inventario.Inventario.instancia != null)
             {
-                Jugador.Inventario.instancia.abrirInventario.AddListener(AlAbrirInventario);
+                Jugador.Inventario.Inventario.instancia.abrirInventario.AddListener(AlAbrirInventario);
             }              
         }
 
         public void OnDisable()
         {
-            if (Jugador.Inventario.instancia != null)
+            if (Jugador.Inventario.Inventario.instancia != null)
             {
-                Jugador.Inventario.instancia.abrirInventario.RemoveListener(AlAbrirInventario);
+                Jugador.Inventario.Inventario.instancia.abrirInventario.RemoveListener(AlAbrirInventario);
             }               
         }
 

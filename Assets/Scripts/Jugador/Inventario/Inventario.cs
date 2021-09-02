@@ -1,31 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using TMPro;
 
-namespace Jugador
+namespace Jugador.Inventario
 {
     public class Inventario : MonoBehaviour
     {
-        public Interfaz.Inventario.Hueco[] huecosInterfaz;
-        public Jugador.Objetos.Inventario.Hueco[] huecos;
+        public Objetos.Hueco[] huecos;
 
         public Transform posicionSoltarObjeto;
 
-        [Header("Objeto Seleccionado")]
-        private Jugador.Objetos.Inventario.Hueco objetoSeleccionado;
+        private Objetos.Hueco objetoSeleccionado;
         private int objetoSeleccionadoPosicion;
-
-        public TextMeshProUGUI nombre;
-        public TextMeshProUGUI descripcion;
-        public TextMeshProUGUI atributoNombre;
-        public TextMeshProUGUI atributoValor;
-
-        public GameObject botonUsar;
-        public GameObject botonEquipar;
-        public GameObject botonDesequipar;
-        public GameObject botonSoltar;
 
         private int objetoEquipadoPosicion;
 
@@ -48,14 +34,14 @@ namespace Jugador
         public void Start()
         {
             Canvas.Canvas.instancia.inventario.SetActive(false);
-            huecos = new Jugador.Objetos.Inventario.Hueco[huecosInterfaz.Length];
+            huecos = new Objetos.Hueco[Canvas.Inventario.instancia.huecos.Length];
 
             int i = 0;
             while (i < huecos.Length)
             {
-                huecos[i] = new Jugador.Objetos.Inventario.Hueco();
-                huecosInterfaz[i].posicion = i;
-                huecosInterfaz[i].Quitar();
+                huecos[i] = new Objetos.Hueco();
+                Canvas.Inventario.instancia.huecos[i].posicion = i;
+                Canvas.Inventario.instancia.huecos[i].Quitar();
 
                 i += 1;
             }
@@ -97,7 +83,7 @@ namespace Jugador
         {
             if (objeto.puedeCantidad == true)
             {
-                Jugador.Objetos.Inventario.Hueco huecoRellenar = ObtenerCantidad(objeto);
+                Objetos.Hueco huecoRellenar = ObtenerCantidad(objeto);
 
                 if (huecoRellenar != null)
                 {
@@ -109,7 +95,7 @@ namespace Jugador
 
             //------------------------
 
-            Jugador.Objetos.Inventario.Hueco huecoLibre = ObtenerHuecoVacio();
+            Objetos.Hueco huecoLibre = ObtenerHuecoVacio();
 
             if (huecoLibre != null)
             {
@@ -136,18 +122,18 @@ namespace Jugador
             {
                 if (huecos[i].objeto != null)
                 {
-                    huecosInterfaz[i].Añadir(huecos[i]);
+                    Canvas.Inventario.instancia.huecos[i].Añadir(huecos[i]);
                 }
                 else
                 {
-                    huecosInterfaz[i].Quitar();
+                    Canvas.Inventario.instancia.huecos[i].Quitar();
                 }
 
                 i += 1;
             }
         }
 
-        public Jugador.Objetos.Inventario.Hueco ObtenerCantidad(Assets.Objeto objeto)
+        public Objetos.Hueco ObtenerCantidad(Assets.Objeto objeto)
         {
             int i = 0;
             while (i < huecos.Length)
@@ -163,7 +149,7 @@ namespace Jugador
             return null;
         }
 
-        public Jugador.Objetos.Inventario.Hueco ObtenerHuecoVacio()
+        public Objetos.Hueco ObtenerHuecoVacio()
         {
             int i = 0;
             while (i < huecos.Length)
@@ -190,18 +176,18 @@ namespace Jugador
                 objetoSeleccionado = huecos[posicion];
                 objetoSeleccionadoPosicion = posicion;
 
-                nombre.text = objetoSeleccionado.objeto.nombre;
-                descripcion.text = objetoSeleccionado.objeto.descripcion;
-                atributoNombre.text = string.Empty;
-                atributoValor.text = string.Empty;
+                Canvas.Inventario.instancia.nombre.text = objetoSeleccionado.objeto.nombre;
+                Canvas.Inventario.instancia.descripcion.text = objetoSeleccionado.objeto.descripcion;
+                Canvas.Inventario.instancia.atributoNombre.text = string.Empty;
+                Canvas.Inventario.instancia.atributoValor.text = string.Empty;
 
                 if (objetoSeleccionado.objeto.consumibles.Length > 0)
                 {
                     int i = 0;
                     while (i < objetoSeleccionado.objeto.consumibles.Length)
                     {
-                        atributoNombre.text = atributoNombre.text + objetoSeleccionado.objeto.consumibles[i].tipo.ToString() + "\n";
-                        atributoValor.text = atributoValor.text + objetoSeleccionado.objeto.consumibles[i].valor.ToString() + "\n";
+                        Canvas.Inventario.instancia.atributoNombre.text = Canvas.Inventario.instancia.atributoNombre.text + objetoSeleccionado.objeto.consumibles[i].tipo.ToString() + "\n";
+                        Canvas.Inventario.instancia.atributoValor.text = Canvas.Inventario.instancia.atributoValor.text + objetoSeleccionado.objeto.consumibles[i].valor.ToString() + "\n";
 
                         i += 1;
                     }
@@ -209,26 +195,26 @@ namespace Jugador
 
                 if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Consumible)
                 {
-                    botonUsar.SetActive(true);
-                    botonEquipar.SetActive(false);
-                    botonDesequipar.SetActive(false);
+                    Canvas.Inventario.instancia.botonUsar.SetActive(true);
+                    Canvas.Inventario.instancia.botonEquipar.SetActive(false);
+                    Canvas.Inventario.instancia.botonDesequipar.SetActive(false);
                 }
 
-                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Equipable && huecosInterfaz[posicion].equipado == false)
+                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Equipable && Canvas.Inventario.instancia.huecos[posicion].equipado == false)
                 {
-                    botonUsar.SetActive(false);
-                    botonEquipar.SetActive(true);
-                    botonDesequipar.SetActive(false);
+                    Canvas.Inventario.instancia.botonUsar.SetActive(false);
+                    Canvas.Inventario.instancia.botonEquipar.SetActive(true);
+                    Canvas.Inventario.instancia.botonDesequipar.SetActive(false);
                 }
 
-                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Equipable && huecosInterfaz[posicion].equipado == true)
+                if (objetoSeleccionado.objeto.tipo == Assets.Tipos.Objeto.Equipable && Canvas.Inventario.instancia.huecos[posicion].equipado == true)
                 {
-                    botonUsar.SetActive(false);
-                    botonEquipar.SetActive(false);
-                    botonDesequipar.SetActive(true);
+                    Canvas.Inventario.instancia.botonUsar.SetActive(false);
+                    Canvas.Inventario.instancia.botonEquipar.SetActive(false);
+                    Canvas.Inventario.instancia.botonDesequipar.SetActive(true);
                 }
 
-                botonSoltar.SetActive(true);
+                Canvas.Inventario.instancia.botonSoltar.SetActive(true);
             }
 
         }
@@ -237,15 +223,15 @@ namespace Jugador
         {
             objetoSeleccionado = null;
 
-            nombre.text = string.Empty;
-            descripcion.text = string.Empty;
-            atributoNombre.text = string.Empty;
-            atributoValor.text = string.Empty;
+            Canvas.Inventario.instancia.nombre.text = string.Empty;
+            Canvas.Inventario.instancia.descripcion.text = string.Empty;
+            Canvas.Inventario.instancia.atributoNombre.text = string.Empty;
+            Canvas.Inventario.instancia.atributoValor.text = string.Empty;
 
-            botonUsar.SetActive(false);
-            botonEquipar.SetActive(false);
-            botonDesequipar.SetActive(false);
-            botonSoltar.SetActive(false);
+            Canvas.Inventario.instancia.botonUsar.SetActive(false);
+            Canvas.Inventario.instancia.botonEquipar.SetActive(false);
+            Canvas.Inventario.instancia.botonDesequipar.SetActive(false);
+            Canvas.Inventario.instancia.botonSoltar.SetActive(false);
         }
 
         public void UsarBoton()
@@ -287,19 +273,19 @@ namespace Jugador
 
         public void EquiparBoton()
         {
-            if (huecosInterfaz[objetoEquipadoPosicion].equipado == true)
+            if (Canvas.Inventario.instancia.huecos[objetoEquipadoPosicion].equipado == true)
             {
                 Desequipar(objetoEquipadoPosicion);
             }
 
-            huecosInterfaz[objetoSeleccionadoPosicion].equipado = true;
+            Canvas.Inventario.instancia.huecos[objetoSeleccionadoPosicion].equipado = true;
             objetoEquipadoPosicion = objetoSeleccionadoPosicion;
-            Jugador.Equipar.instancia.EquiparNuevo(objetoSeleccionado.objeto);
+            Equipar.instancia.EquiparNuevo(objetoSeleccionado.objeto);
             ActualizarInterfaz();
 
             SeleccionarObjeto(objetoSeleccionadoPosicion);
 
-            if (huecosInterfaz[objetoEquipadoPosicion].equipado == true)
+            if (Canvas.Inventario.instancia.huecos[objetoEquipadoPosicion].equipado == true)
             {
                 AbrirCerrar();
             }
@@ -307,8 +293,8 @@ namespace Jugador
 
         public void Desequipar(int posicion)
         {
-            huecosInterfaz[posicion].equipado = false;
-            Jugador.Equipar.instancia.Desequipar();
+            Canvas.Inventario.instancia.huecos[posicion].equipado = false;
+            Equipar.instancia.Desequipar();
             ActualizarInterfaz();
 
             if (objetoSeleccionadoPosicion == posicion)
@@ -334,7 +320,7 @@ namespace Jugador
 
             if (objetoSeleccionado.cantidad == 0)
             {
-                if (huecosInterfaz[objetoSeleccionadoPosicion].equipado == true)
+                if (Canvas.Inventario.instancia.huecos[objetoSeleccionadoPosicion].equipado == true)
                 {
                     Desequipar(objetoSeleccionadoPosicion);
                 }
@@ -357,7 +343,7 @@ namespace Jugador
 
                     if (huecos[i].cantidad == 0)
                     {
-                        if (huecosInterfaz[i].equipado == true)
+                        if (Canvas.Inventario.instancia.huecos[i].equipado == true)
                         {
                             Desequipar(i);
                         }
@@ -398,14 +384,3 @@ namespace Jugador
         }
     }
 }
-
-
-namespace Jugador.Objetos.Inventario
-{
-    public class Hueco
-    {
-        public Assets.Objeto objeto;
-        public int cantidad;
-    }
-}
-

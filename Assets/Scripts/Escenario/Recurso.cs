@@ -26,7 +26,7 @@ namespace Escenario
 
                 cantidad -= 1;
 
-                Jugador.Inventario.instancia.AñadirObjeto(objetoADar);
+                Jugador.Inventario.Inventario.instancia.AñadirObjeto(objetoADar);
                 i += 1;
             }
 

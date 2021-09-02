@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 7093014649840325821}
   - component: {fileID: 742386676070154922}
   m_Layer: 0
-  m_Name: Prefab_Inventario_Hueco
+  m_Name: Prefab Inventario Hueco
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

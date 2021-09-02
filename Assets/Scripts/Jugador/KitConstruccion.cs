@@ -21,6 +21,7 @@ namespace Jugador
         public float rotacionVelocidad = 180;
 
         private Camera camara;
+
         public static KitConstruccion instancia;
 
         public void Awake()
@@ -44,7 +45,7 @@ namespace Jugador
                 int j = 0;
                 while (j < actualReceta.costes[i].cantidad)
                 {
-                    Jugador.Inventario.instancia.QuitarObjeto(actualReceta.costes[i].objeto);
+                    Inventario.Inventario.instancia.QuitarObjeto(actualReceta.costes[i].objeto);
                     j += 1;
                 }
 

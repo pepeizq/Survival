@@ -29,7 +29,7 @@ namespace Construccion
             int i = 0;
             while (i < receta.costes.Length)
             {
-                if (Jugador.Inventario.instancia.TieneObjetos(receta.costes[i].objeto, receta.costes[i].cantidad) == false)
+                if (Jugador.Inventario.Inventario.instancia.TieneObjetos(receta.costes[i].objeto, receta.costes[i].cantidad) == false)
                 {
                     puedeConstruir = false;
                     break;

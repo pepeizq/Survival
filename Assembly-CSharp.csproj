@@ -60,9 +60,9 @@
     <Compile Include="Assets\Scripts\Escenario\Generar\Colores.cs" />
     <Compile Include="Assets\Scripts\CargarGuardar\Gestor.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Llano.cs" />
-    <Compile Include="Assets\Scripts\Jugador\Inventario.cs" />
+    <Compile Include="Assets\Scripts\Jugador\Inventario\Inventario.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Agua.cs" />
-    <Compile Include="Assets\Scripts\Interfaz\Hueco.cs" />
+    <Compile Include="Assets\Scripts\Jugador\Inventario\Hueco.cs" />
     <Compile Include="Assets\Scripts\Objetos\Camara\Camara.cs" />
     <Compile Include="Assets\Scripts\Assets\Construccion.cs" />
     <Compile Include="Assets\Scripts\Assets\Casilla.cs" />
@@ -74,7 +74,7 @@
     <Compile Include="Assets\Scripts\Escenario\Generar\Limites.cs" />
     <Compile Include="Assets\Scripts\Jugador\Interaccion.cs" />
     <Compile Include="Assets\Scripts\Canvas\Canvas.cs" />
-    <Compile Include="Assets\Scripts\Interfaz\DañoAviso.cs" />
+    <Compile Include="Assets\Scripts\Jugador\DañoAviso.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Recursos.cs" />
     <Compile Include="Assets\Scripts\Canvas\Crafting.cs" />
     <Compile Include="Assets\Scripts\Assets\Receta.cs" />
@@ -103,6 +103,8 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
+    <Compile Include="Assets\Scripts\Canvas\Inventario.cs" />
+    <Compile Include="Assets\Scripts\Jugador\Inventario\Objetos.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

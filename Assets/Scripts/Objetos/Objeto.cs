@@ -13,7 +13,7 @@ namespace Objeto
 
         public void Interactuar()
         {
-            Jugador.Inventario.instancia.AñadirObjeto(objeto);
+            Jugador.Inventario.Inventario.instancia.AñadirObjeto(objeto);
 
             Destroy(gameObject);
         }

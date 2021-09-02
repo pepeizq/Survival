@@ -7,6 +7,7 @@ namespace Jugador
     {
         public GameObject camaraJugador;
         public GameObject camaraMapa;
+        public GameObject cuerpoJugador;
         private Camera camara;
 
         public float zoomCerca = 0.5f;
@@ -70,10 +71,11 @@ namespace Jugador
             {                
                 camaraJugador.SetActive(true);
                 camaraMapa.SetActive(false);
+                cuerpoJugador.SetActive(false);
                 Canvas.Canvas.instancia.juego.SetActive(true);
                 Canvas.Canvas.instancia.mapa.SetActive(false);
 
-                Jugador.Movimientos.instancia.Bloquear(false);
+                Movimientos.instancia.Bloquear(false);
                 bloqueo = true;
 
                 transform.position = temporalJugadorPosicion;
@@ -83,10 +85,12 @@ namespace Jugador
             {              
                 camaraJugador.SetActive(false);
                 camaraMapa.SetActive(true);
+                cuerpoJugador.SetActive(true);
+                
                 Canvas.Canvas.instancia.juego.SetActive(false);
                 Canvas.Canvas.instancia.mapa.SetActive(true);
 
-                Jugador.Movimientos.instancia.Bloquear(true);
+                Movimientos.instancia.Bloquear(true);
                 bloqueo = false;
 
                 temporalJugadorPosicion = transform.position;
@@ -94,7 +98,8 @@ namespace Jugador
                 transform.position = new Vector3(0, 0, 0);
                 transform.eulerAngles = new Vector3(0, 0, 0);
 
-                camara.transform.position = new Vector3(temporalJugadorPosicion.x, 60, temporalJugadorPosicion.z);
+                cuerpoJugador.gameObject.transform.position = new Vector3(temporalJugadorPosicion.x, temporalJugadorPosicion.y + 1f, temporalJugadorPosicion.z);
+                camara.transform.position = new Vector3(temporalJugadorPosicion.x - 30f, 60, temporalJugadorPosicion.z - 30f);
                 camara.transform.eulerAngles = new Vector3(45, 45, 0);
             }
         }
