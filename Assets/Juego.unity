@@ -2789,7 +2789,7 @@ MonoBehaviour:
   saltoFuerza: 100
   terrenoLayer:
     serializedVersion: 2
-    m_Bits: 3895
+    m_Bits: 2147483647
   movimientoVelocidad: 5
   camaraContenedor: {fileID: 2026254896}
   minXMirar: -80
