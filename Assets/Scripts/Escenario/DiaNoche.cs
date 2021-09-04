@@ -11,6 +11,8 @@ namespace Escenario
         public float diaTotalSegundos;
         public float inicioTiempo = 0.45f;
         public Vector3 mediodia;
+        [HideInInspector]
+        public int dias;
 
         private float tiempoIncremento;
 
@@ -48,6 +50,7 @@ namespace Escenario
 
             atmosfera = tiempo;
             exposicion = 1.5f;
+            dias = 1;
         }
 
         public void Update()
@@ -58,6 +61,7 @@ namespace Escenario
             if (tiempo >= 1f)
             {
                 tiempo = 0f;
+                dias += 1;
             }
 
             //rotacion

@@ -14,6 +14,23 @@ namespace Escenario
         public float alturaMaxima;
         public int porcentaje;
 
+        private bool destruido;
+        private int dias;
+
+        public void Start()
+        {
+            destruido = false;
+
+            if (DiaNoche.instancia != null)
+            {
+                dias = DiaNoche.instancia.dias;
+            }
+            else
+            {
+                dias = 1;
+            }
+        }
+
         public void Recolectar(Vector3 puntoGolpeo, Vector3 puntoNormal)
         {
             int i = 0;
@@ -35,7 +52,21 @@ namespace Escenario
             if (cantidad <= 0)
             {
                 Destroy(gameObject);
+                destruido = true;
             }
+        }
+
+        public void Update()
+        {
+            if (destruido == true)
+            {
+                if (dias != DiaNoche.instancia.dias)
+                {
+
+                }
+            }
+
+            dias = DiaNoche.instancia.dias;
         }
     }
 }
