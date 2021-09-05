@@ -20,7 +20,7 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] != null)
                     {
-                        if (casillas[x, z].recursoPosible == true)
+                        if (casillas[x, z].recursoPosible == true && casillas[x, z].contruido == false)
                         {
                             if (casillas[x, z].isla.recursos != null)
                             {
@@ -49,6 +49,10 @@ namespace Escenario.Generar
                                         GameObject recursoFinal = Instantiate(recursosIsla[azarRecurso]);
                                         recursoFinal.transform.SetParent(casillas[x, z].prefab.transform);
                                         recursoFinal.transform.localPosition = casillas[x, z].recursoPosicion;
+
+                                        Recurso recursoFinal2 = recursoFinal.GetComponent<Recurso>();
+                                        recursoFinal2.casillaX = x;
+                                        recursoFinal2.casillaZ = z;
 
                                         int azarRotacion = Random.Range(0, 365);
                                         recursoFinal.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);

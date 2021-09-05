@@ -284,6 +284,7 @@ namespace Escenario.Generar
                     casilla3.isla = casilla.isla;
                     casilla3.recursoPosible = casillasFinal[id].recursoPosible;
                     casilla3.recursoPosicion = casillasFinal[id].recursoPosicion;
+                    casilla3.contruido = false;
 
                     casillas[x, z] = casilla3;
                 }

@@ -23,6 +23,9 @@ namespace Assets
         [HideInInspector]
         public Isla isla;
 
+        [HideInInspector]
+        public bool contruido;
+
         public Casilla(int ID, int Rotacion, Vector3 Posicion)
         {
             id = ID;

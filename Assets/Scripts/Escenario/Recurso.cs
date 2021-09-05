@@ -17,6 +17,13 @@ namespace Escenario
         private bool destruido;
         private int dias;
 
+        [HideInInspector]
+        private GameObject recursoTemporal;
+        [HideInInspector]
+        public int casillaX;
+        [HideInInspector]
+        public int casillaZ;
+
         public void Start()
         {
             destruido = false;
@@ -29,6 +36,8 @@ namespace Escenario
             {
                 dias = 1;
             }
+
+            recursoTemporal = gameObject;
         }
 
         public void Recolectar(Vector3 puntoGolpeo, Vector3 puntoNormal)
@@ -57,16 +66,23 @@ namespace Escenario
         }
 
         public void Update()
-        {
-            if (destruido == true)
+        {          
+            if (dias != DiaNoche.instancia.dias)
             {
-                if (dias != DiaNoche.instancia.dias)
+                if (destruido == true)
                 {
-
+                    if (Generar.Escenario.instancia.casillas[casillaX, casillaZ] != null)
+                    {
+                        if (Generar.Escenario.instancia.casillas[casillaX, casillaZ].contruido == false)
+                        {
+                            Instantiate(recursoTemporal);
+                            destruido = false;
+                        }
+                    }
                 }
-            }
 
-            dias = DiaNoche.instancia.dias;
+                dias = DiaNoche.instancia.dias;
+            }
         }
     }
 }
