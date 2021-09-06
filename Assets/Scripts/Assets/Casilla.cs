@@ -11,6 +11,12 @@ namespace Assets
         public GameObject prefab;
 
         [Header("Recurso")]
+        [HideInInspector]
+        public GameObject recurso;
+        [HideInInspector]
+        public int recursoID;
+        [HideInInspector]
+        public bool recursoPuesto;
         public bool recursoPosible;
         public Vector3 recursoPosicion;
 
@@ -24,7 +30,7 @@ namespace Assets
         public Isla isla;
 
         [HideInInspector]
-        public bool contruido;
+        public bool construido;
 
         public Casilla(int ID, int Rotacion, Vector3 Posicion)
         {

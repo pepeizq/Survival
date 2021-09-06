@@ -49,6 +49,11 @@ namespace Escenario.Generar
 
                         Jugador.Inventario.Inventario.instancia.AñadirObjeto(herramientas[i]);
 
+                        if (i == 0)
+                        {
+                            Jugador.Equipar.instancia.EquiparObjeto(herramientas[i]);
+                        }
+
                         i += 1;
                     }
                 }

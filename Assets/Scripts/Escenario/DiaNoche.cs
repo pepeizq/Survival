@@ -62,6 +62,8 @@ namespace Escenario
             {
                 tiempo = 0f;
                 dias += 1;
+
+                Generar.Recursos.instancia.Comprobar();
             }
 
             //rotacion

@@ -20,7 +20,7 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] != null)
                     {
-                        if (casillas[x, z].recursoPosible == true && casillas[x, z].contruido == false)
+                        if (casillas[x, z].recursoPosible == true && casillas[x, z].construido == false)
                         {
                             if (casillas[x, z].isla.recursos != null)
                             {
@@ -50,15 +50,45 @@ namespace Escenario.Generar
                                         recursoFinal.transform.SetParent(casillas[x, z].prefab.transform);
                                         recursoFinal.transform.localPosition = casillas[x, z].recursoPosicion;
 
-                                        Recurso recursoFinal2 = recursoFinal.GetComponent<Recurso>();
-                                        recursoFinal2.casillaX = x;
-                                        recursoFinal2.casillaZ = z;
-
                                         int azarRotacion = Random.Range(0, 365);
                                         recursoFinal.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
+
+                                        casillas[x, z].recurso = recursoFinal;
+                                        casillas[x, z].recursoID = azarRecurso;
+                                        casillas[x, z].recursoPuesto = true;
                                     }                                   
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+
+        public void Comprobar()
+        {
+            for (int x = 0; x < Escenario.instancia.casillas.GetLength(0); x++)
+            {
+                for (int z = 0; z < Escenario.instancia.casillas.GetLength(1); z++)
+                {
+                    if (Escenario.instancia.casillas[x, z] != null)
+                    {
+                        if (Escenario.instancia.casillas[x, z].recursoPuesto == true && Escenario.instancia.casillas[x, z].construido == false)
+                        {
+                            if (Escenario.instancia.casillas[x, z].recurso == null)
+                            {
+                                int azarPoner = Random.Range(0, 100);
+
+                                if (azarPoner >= 50)
+                                {
+                                    GameObject recursoFinal = Instantiate(Escenario.instancia.casillas[x, z].isla.recursos[Escenario.instancia.casillas[x, z].recursoID]);
+                                    recursoFinal.transform.SetParent(Escenario.instancia.casillas[x, z].prefab.transform);
+                                    recursoFinal.transform.localPosition = Escenario.instancia.casillas[x, z].recursoPosicion;
+
+                                    int azarRotacion = Random.Range(0, 365);
+                                    recursoFinal.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
+                                }                               
+                            }                          
                         }
                     }
                 }

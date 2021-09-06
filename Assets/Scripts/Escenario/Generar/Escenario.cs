@@ -282,9 +282,10 @@ namespace Escenario.Generar
                     casilla3.prefab = casilla2;
                     casilla3.prefab.gameObject.layer = LayerMask.NameToLayer("Terreno");
                     casilla3.isla = casilla.isla;
+                    casilla3.recursoPuesto = false;
                     casilla3.recursoPosible = casillasFinal[id].recursoPosible;
                     casilla3.recursoPosicion = casillasFinal[id].recursoPosicion;
-                    casilla3.contruido = false;
+                    casilla3.construido = false;
 
                     casillas[x, z] = casilla3;
                 }

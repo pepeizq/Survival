@@ -35,13 +35,13 @@ namespace Jugador
             }
         }
 
-        public void EquiparNuevo(Assets.Objeto objeto)
+        public void EquiparObjeto(Assets.Objeto objeto)
         {
-            Desequipar();
+            DesequiparObjeto();
             actualObjetoEquipado = Instantiate(objeto.objetoEquipado, objetoEquipado).GetComponent<Objeto.Camara>();
         }
 
-        public void Desequipar()
+        public void DesequiparObjeto()
         {
             if (actualObjetoEquipado != null)
             {

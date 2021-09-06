@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41623276, g: 0.4713335, b: 0.71129936, a: 1}
+  m_IndirectSpecularColor: {r: 0.42045453, g: 0.4926136, b: 0.73891693, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3793,9 +3793,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiempo: 0
-  diaTotalSegundos: 3000
+  diaTotalSegundos: 30
   inicioTiempo: 0.35
   mediodia: {x: 90, y: 0, z: 0}
+  dias: 0
   solLuz: {fileID: 705507994}
   solColor:
     serializedVersion: 2

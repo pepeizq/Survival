@@ -280,7 +280,7 @@ namespace Jugador.Inventario
 
             Canvas.Inventario.instancia.huecos[objetoSeleccionadoPosicion].equipado = true;
             objetoEquipadoPosicion = objetoSeleccionadoPosicion;
-            Equipar.instancia.EquiparNuevo(objetoSeleccionado.objeto);
+            Equipar.instancia.EquiparObjeto(objetoSeleccionado.objeto);
             ActualizarInterfaz();
 
             SeleccionarObjeto(objetoSeleccionadoPosicion);
@@ -294,7 +294,7 @@ namespace Jugador.Inventario
         public void Desequipar(int posicion)
         {
             Canvas.Inventario.instancia.huecos[posicion].equipado = false;
-            Equipar.instancia.Desequipar();
+            Equipar.instancia.DesequiparObjeto();
             ActualizarInterfaz();
 
             if (objetoSeleccionadoPosicion == posicion)
