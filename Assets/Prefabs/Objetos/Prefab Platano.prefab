@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2913659391186338906}
   - component: {fileID: 7923002606135807567}
   m_Layer: 9
-  m_Name: Prefab_Platano
+  m_Name: Prefab Platano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

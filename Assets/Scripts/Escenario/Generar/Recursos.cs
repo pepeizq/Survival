@@ -56,6 +56,11 @@ namespace Escenario.Generar
                                         casillas[x, z].recurso = recursoFinal;
                                         casillas[x, z].recursoID = azarRecurso;
                                         casillas[x, z].recursoPuesto = true;
+
+                                        if (recursoTemp.subrecursos != null)
+                                        {
+
+                                        }
                                     }                                   
                                 }
                             }

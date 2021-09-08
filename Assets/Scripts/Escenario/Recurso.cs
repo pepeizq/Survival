@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Escenario
 {
@@ -8,6 +9,8 @@ namespace Escenario
         public int cantidadPorGolpe = 1;
         public int cantidad;
         public GameObject particulaGolpe;
+
+        public List<GameObject> subrecursos;
 
         [Header("Generacion")]
         public float alturaMinima;
