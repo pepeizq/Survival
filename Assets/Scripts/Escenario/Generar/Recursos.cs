@@ -59,7 +59,7 @@ namespace Escenario.Generar
 
                                         if (recursoTemp.subrecursos != null)
                                         {
-
+                                            MostrarSubrecursos(recursoTemp);
                                         }
                                     }                                   
                                 }
@@ -92,9 +92,42 @@ namespace Escenario.Generar
 
                                     int azarRotacion = Random.Range(0, 365);
                                     recursoFinal.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
+
+                                    Recurso recursoTemp = recursoFinal.GetComponent<Recurso>();
+
+                                    if (recursoTemp.subrecursos != null)
+                                    {
+                                        MostrarSubrecursos(recursoTemp);
+                                    }
                                 }                               
                             }                          
                         }
+                    }
+                }
+            }
+        }
+
+        private void MostrarSubrecursos(Recurso recurso)
+        {
+            foreach (GameObject subrecurso in recurso.subrecursos)
+            {
+                if (subrecurso != null)
+                {
+                    int azar = Random.Range(0, 100);
+
+                    if (azar < 26)
+                    {
+                        Rigidbody cuerpo = subrecurso.GetComponent<Rigidbody>();
+                        cuerpo.isKinematic = true;
+
+                        subrecurso.SetActive(true);
+
+                        int azarRotacion = Random.Range(0, 365);
+                        subrecurso.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
+                    }
+                    else
+                    {
+                        subrecurso.SetActive(false);
                     }
                 }
             }
