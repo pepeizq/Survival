@@ -5,6 +5,8 @@ namespace CargarGuardar
     public class Gestor : MonoBehaviour
     {
         [HideInInspector]
+        public Assets.Casilla[] casillas;
+        [HideInInspector]
         public Assets.Objeto[] objetos;
         [HideInInspector]
         public Escenario.Recurso[] recursos;
@@ -19,6 +21,7 @@ namespace CargarGuardar
         {
             instancia = this;
 
+            casillas = Resources.LoadAll<Assets.Casilla>("Casillas");
             objetos = Resources.LoadAll<Assets.Objeto>("Objetos");
             construcciones = Resources.LoadAll<Assets.Construccion>("Construcciones");
             enemigos = Resources.LoadAll<Assets.Enemigo>("Enemigos");

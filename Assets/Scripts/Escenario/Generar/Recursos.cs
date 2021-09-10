@@ -115,15 +115,12 @@ namespace Escenario.Generar
                 {
                     int azar = Random.Range(0, 100);
 
-                    if (azar < 26)
+                    if (azar < recurso.subrecursoGeneracion)
                     {
                         Rigidbody cuerpo = subrecurso.GetComponent<Rigidbody>();
                         cuerpo.isKinematic = true;
 
                         subrecurso.SetActive(true);
-
-                        int azarRotacion = Random.Range(0, 365);
-                        subrecurso.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
                     }
                     else
                     {

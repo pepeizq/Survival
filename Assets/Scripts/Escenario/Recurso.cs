@@ -10,12 +10,16 @@ namespace Escenario
         public int cantidad;
         public GameObject particulaGolpe;
 
-        public List<GameObject> subrecursos;
-
         [Header("Generacion")]
         public float alturaMinima;
         public float alturaMaxima;
+        [Range(0, 100)]
         public int porcentaje;
+
+        [Header("Subrecursos")]
+        public List<GameObject> subrecursos;
+        [Range(0, 100)]
+        public int subrecursoGeneracion;
 
         public void Start()
         {
@@ -42,6 +46,16 @@ namespace Escenario
 
             if (cantidad <= 0)
             {
+                if (subrecursos != null)
+                {
+                    foreach (GameObject subrecurso in subrecursos)
+                    {
+                        Rigidbody cuerpo = subrecurso.GetComponent<Rigidbody>();
+                        cuerpo.isKinematic = false;
+                        Instantiate(subrecurso, subrecurso.transform.position, Quaternion.Euler(Vector3.one * Random.value * 360.0f));
+                    }
+                }
+
                 Destroy(gameObject);
             }
         }

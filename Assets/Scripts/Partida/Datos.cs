@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace CargarGuardar
+namespace Partida
 {
     [System.Serializable]
-    public class Partida 
+    public class Datos 
     {
         public VectorTres jugadorPosicion;
         public VectorTres jugadorRotacion;
@@ -16,6 +16,7 @@ namespace CargarGuardar
 
         public float tiempoDia;
 
+        public PartidaIsla[] islas;
         public PartidaInventarioHueco[] inventario;
         public PartidaObjetoSuelto[] objetosSueltos;
         public PartidaConstruccion[] construcciones;
@@ -41,6 +42,12 @@ namespace CargarGuardar
         {
             return new Vector3(x, y, z);
         }
+    }
+
+    [System.Serializable]
+    public struct PartidaIsla
+    {
+        public int id;
     }
 
     [System.Serializable]

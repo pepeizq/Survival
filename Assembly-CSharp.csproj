@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Canvas\Construcciones.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Colores.cs" />
-    <Compile Include="Assets\Scripts\CargarGuardar\Gestor.cs" />
+    <Compile Include="Assets\Scripts\Partida\Gestor.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Llano.cs" />
     <Compile Include="Assets\Scripts\Jugador\Inventario\Inventario.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Agua.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Assets\Scripts\Construcciones\Cama.cs" />
     <Compile Include="Assets\Scripts\Canvas\Juego.cs" />
     <Compile Include="Assets\Scripts\Assets\Isla.cs" />
-    <Compile Include="Assets\Scripts\CargarGuardar\Partida.cs" />
+    <Compile Include="Assets\Scripts\Partida\Datos.cs" />
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
