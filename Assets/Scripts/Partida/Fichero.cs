@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace CargarGuardar
+namespace Partida
 {
     public class Fichero : MonoBehaviour
     {
@@ -36,7 +36,7 @@ namespace CargarGuardar
 
         public void Guardar()
         {
-            Partida partida = new Partida
+            Datos partida = new Datos
             {
                 jugadorPosicion = new VectorTres(Jugador.Movimientos.instancia.transform.position),
                 jugadorRotacion = new VectorTres(Jugador.Movimientos.instancia.transform.eulerAngles),
@@ -118,6 +118,19 @@ namespace CargarGuardar
 
             //------------------------------------------------
 
+            partida.casillas = new PartidaCasilla[Gestor.instancia.casillas.Length];
+
+            i = 0;
+            while (i < Gestor.instancia.casillas.Length)
+            {
+                partida.casillas[i] = new PartidaCasilla();
+                partida.casillas[i].idCasilla  
+
+                i += 1;
+            }
+
+            //------------------------------------------------
+
             partida.recursos = new PartidaRecurso[Gestor.instancia.recursos.Length];
 
             i = 0;
@@ -168,7 +181,7 @@ namespace CargarGuardar
 
         public void Cargar()
         {
-            Partida partida = JsonUtility.FromJson<Partida>(PlayerPrefs.GetString("Guardar"));
+            Datos partida = JsonUtility.FromJson<Datos>(PlayerPrefs.GetString("Guardar"));
 
             Jugador.Movimientos.instancia.transform.position = partida.jugadorPosicion.ObtenerVector3();
             Jugador.Movimientos.instancia.transform.eulerAngles = partida.jugadorRotacion.ObtenerVector3();

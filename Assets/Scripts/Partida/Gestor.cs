@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CargarGuardar
+namespace Partida
 {
     public class Gestor : MonoBehaviour
     {
@@ -30,6 +30,19 @@ namespace CargarGuardar
         public void Start()
         {
             recursos = FindObjectsOfType<Escenario.Recurso>();
+        }
+
+        public Assets.Casilla ObtenerCasilla(int id)
+        {
+            foreach (Assets.Casilla casilla in casillas)
+            {
+                if (casilla.idColocacion == id)
+                {
+                    return casilla;
+                }
+            }
+
+            return null;
         }
 
         public Assets.Objeto ObtenerObjeto(string id)

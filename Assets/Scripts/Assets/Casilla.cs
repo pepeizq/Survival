@@ -7,6 +7,8 @@ namespace Assets
     {
         public int id;
         public int idDebug;
+        [HideInInspector]
+        public int idColocacion;
 
         public GameObject prefab;
 

@@ -33,6 +33,8 @@ namespace Escenario.Generar
         [HideInInspector]
         public int limitesMapa = 3;
 
+        private int idColocacion = 0;
+
         public static Escenario instancia;
 
         public void Awake()
@@ -122,9 +124,9 @@ namespace Escenario.Generar
         {
             foreach (Assets.Isla isla in islas)
             {
-                CargarGuardar.Isla isla2 = Vectores.instancia.LeerDatos(isla.id);
+                Partida.PartidaIsla isla2 = Vectores.instancia.LeerDatos(isla.id);
 
-                foreach (CargarGuardar.PartidaEscenarioCasilla casilla in isla2.casillas)
+                foreach (Partida.PartidaCasilla casilla in isla2.casillas)
                 {
                     Vector3 casilla2 = casilla.coordenadas.ObtenerVector3();
 
@@ -279,13 +281,14 @@ namespace Escenario.Generar
                     Assets.Casilla casilla3 = new Assets.Casilla(id, casilla.rotacion, casilla.posicion);
                     casilla3.id = id;
                     casilla3.idDebug = idDebug;
+                    casilla3.idColocacion = idColocacion += 1;
                     casilla3.prefab = casilla2;
                     casilla3.prefab.gameObject.layer = LayerMask.NameToLayer("Terreno");
                     casilla3.isla = casilla.isla;
                     casilla3.recursoPuesto = false;
                     casilla3.recursoPosible = casillasFinal[id].recursoPosible;
                     casilla3.recursoPosicion = casillasFinal[id].recursoPosicion;
-                    casilla3.construido = false;
+                    casilla3.construido = false;      
 
                     casillas[x, z] = casilla3;
                 }

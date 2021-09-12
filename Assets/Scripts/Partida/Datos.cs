@@ -16,7 +16,7 @@ namespace Partida
 
         public float tiempoDia;
 
-        public PartidaIsla[] islas;
+        public PartidaCasilla[] casillas;
         public PartidaInventarioHueco[] inventario;
         public PartidaObjetoSuelto[] objetosSueltos;
         public PartidaConstruccion[] construcciones;
@@ -48,6 +48,7 @@ namespace Partida
     public struct PartidaIsla
     {
         public int id;
+        public PartidaCasilla[] casillas;
     }
 
     [System.Serializable]
@@ -95,25 +96,11 @@ namespace Partida
         public VectorTres posicionDestino;
     }
 
-    //------------------------------------------------------------------
-
     [System.Serializable]
-    public class Isla
+    public struct PartidaCasilla
     {
-        public int id;
-        public PartidaEscenarioCasilla[] casillas;
-    }
-
-    [System.Serializable]
-    public struct PartidaEscenarioIsla
-    {
-        public int id;
-        public PartidaEscenarioCasilla[] casillas;
-    }
-
-    [System.Serializable]
-    public struct PartidaEscenarioCasilla
-    {
+        public int idCasilla;
+        public int idIsla;
         public VectorTres coordenadas;
     }
 }
