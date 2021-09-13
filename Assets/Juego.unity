@@ -9253,8 +9253,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1256031160}
-  - component: {fileID: 1256031159}
-  - component: {fileID: 1256031161}
   - component: {fileID: 1256031163}
   - component: {fileID: 1256031162}
   m_Layer: 0
@@ -9264,22 +9262,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1256031159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256031158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0b43bf23f2b0c243b8721534b48c089, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objetos: []
-  recursos: []
-  construcciones: []
-  enemigos: []
 --- !u!4 &1256031160
 Transform:
   m_ObjectHideFlags: 0
@@ -9298,18 +9280,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1256031161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256031158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c630fb2cbbbe60b46b4942c562c07136, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1256031162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15709,6 +15679,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2115491972}
+  - component: {fileID: 2115491974}
+  - component: {fileID: 2115491973}
   m_Layer: 0
   m_Name: Partida
   m_TagString: Untagged
@@ -15730,6 +15702,38 @@ Transform:
   m_Father: {fileID: 1256031160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2115491973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115491971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c630fb2cbbbe60b46b4942c562c07136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2115491974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115491971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b43bf23f2b0c243b8721534b48c089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nuevaPartida: 1
+  teclaCargar: 110
+  teclaGuardar: 109
+  casillas: []
+  objetos: []
+  recursos: []
+  construcciones: []
+  enemigos: []
 --- !u!1 &2115725485
 GameObject:
   m_ObjectHideFlags: 0

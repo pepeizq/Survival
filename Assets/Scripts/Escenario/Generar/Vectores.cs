@@ -178,254 +178,6 @@ namespace Escenario.Generar
             }
         }
 
-        public List<Vector3> GenerarAgua(Assets.Casilla[,] terrenos, int tamañoEscenarioX, int tamañoEscenarioZ, float alturaMaxima, int limitesMapa)
-        {
-            //List<Vector3> listado = null;
-            //CopiarDatos("listadoAguaInicial = new List<Vector3> {");
-
-            //List<int> curvas = new List<int>();
-            //int cantidadCurvas = tamañoEscenarioZ / 33;
-
-            //int h = 1;
-            //while (h <= cantidadCurvas)
-            //{
-            //    curvas.Add((int)Random.Range(tamañoEscenarioZ / cantidadCurvas * (h - 1), tamañoEscenarioZ / cantidadCurvas * h));
-            //    h += 1;
-            //}
-
-            //int intentosInicio = tamañoEscenarioX / 100 * tamañoEscenarioZ / 100;
-            //int intentosMaximo = intentosInicio * 10;
-
-            //int i = 0;
-            //int j = 0;
-            //while (i < intentosInicio)
-            //{
-            //    if (j > intentosMaximo)
-            //    {
-            //        break;
-            //    }
-
-            //    int posicionX = (int)Random.Range(0 + limitesMapa + alturaMaxima, tamañoEscenarioX - limitesMapa - alturaMaxima);
-
-            //    bool añadir = true;
-
-            //    if (Limites.Comprobar(posicionX, 4, tamañoEscenarioX) == false)
-            //    {
-            //        añadir = false;
-            //    }
-
-            //    for (int inicioX = posicionX - limitesMapa; inicioX <= posicionX + limitesMapa; inicioX++)
-            //    {
-            //        for (int inicioZ = 0; inicioZ <= (int)alturaMaxima; inicioZ++)
-            //        {
-            //            if (terrenos[inicioX, inicioZ] != null)
-            //            {
-            //                añadir = false;
-            //            }
-            //        }
-            //    }
-
-            //    if (añadir == false)
-            //    {
-            //        if (intentosInicio >= 0)
-            //        {
-            //            posicionX = (int)Random.Range(0 + limitesMapa + alturaMaxima, tamañoEscenarioX - limitesMapa - alturaMaxima);
-            //            i -= 1;
-            //            j += 1;
-            //        }
-            //    }
-
-            //    if (añadir == true)
-            //    {
-            //        listado = new List<Vector3>();
-
-            //        listado.Add(new Vector3(posicionX, 0.25f, limitesMapa));
-            //        CopiarDatos(new Vector3(posicionX, 0.25f, limitesMapa));
-
-            //        listado.Add(new Vector3(posicionX - 1, 0.25f, limitesMapa));
-            //        CopiarDatos(new Vector3(posicionX - 1, 0.25f, limitesMapa));
-
-            //        listado.Add(new Vector3(posicionX + 1, 0.25f, limitesMapa));
-            //        CopiarDatos(new Vector3(posicionX + 1, 0.25f, limitesMapa));
-
-            //        int contadorMoverXIzquierda = 0;
-            //        int contadorMoverXDerecha = 0;
-
-            //        for (int origenZ = limitesMapa; origenZ <= tamañoEscenarioZ - limitesMapa; origenZ++)
-            //        {
-            //            if (listado.Count == 0)
-            //            {
-            //                break;
-            //            }
-
-            //            if (Limites.Comprobar(posicionX, 2, tamañoEscenarioX) == true && Limites.Comprobar(origenZ, 2, tamañoEscenarioZ) == true)
-            //            {
-            //                int casillaX1 = posicionX;
-            //                int casillaX2 = posicionX;
-            //                int casillaX3 = posicionX;
-
-            //                if (Limites.Comprobar(casillaX2 - 1, 2, tamañoEscenarioX) == true)
-            //                {
-            //                    casillaX2 -= 1;
-            //                }
-
-            //                if (Limites.Comprobar(casillaX3 + 1, 2, tamañoEscenarioX) == true)
-            //                {
-            //                    casillaX3 += 1;
-            //                }
-
-            //                int casillaZ1 = origenZ;
-            //                int casillaZ2 = origenZ;
-            //                int casillaZ3 = origenZ;
-
-            //                if (Limites.Comprobar(casillaZ1 + (int)alturaMaxima, (int)alturaMaxima, tamañoEscenarioZ) == true)
-            //                {
-            //                    bool moverXDerecha = false;
-
-            //                    for (int margenRio = casillaX1 - limitesMapa; margenRio <= casillaX3 + limitesMapa; margenRio++)
-            //                    {
-            //                        if (listado.Count == 0)
-            //                        {
-            //                            break;
-            //                        }
-
-            //                        if (Limites.Comprobar(margenRio, limitesMapa, tamañoEscenarioX) == true && Limites.Comprobar(casillaZ1 + ((int)alturaMaxima * 2), limitesMapa, tamañoEscenarioZ) == true)
-            //                        {
-            //                            if (terrenos[margenRio, casillaZ1 + ((int)alturaMaxima * 2)] != null)
-            //                            {
-            //                                if (contadorMoverXIzquierda == 0)
-            //                                {
-            //                                    for (int margenRio2 = casillaZ1 - limitesMapa; margenRio2 <= casillaZ3 + limitesMapa; margenRio2++)
-            //                                    {
-            //                                        if (Limites.Comprobar(casillaX1 - ((int)alturaMaxima * 2), limitesMapa, tamañoEscenarioX) == true && Limites.Comprobar(margenRio2, limitesMapa, tamañoEscenarioZ) == true)
-            //                                        {
-            //                                            if (terrenos[casillaX1 - ((int)alturaMaxima * 2), margenRio2] != null)
-            //                                            {
-            //                                                i -= 1;
-            //                                                j += 1;
-            //                                                listado.Clear();
-            //                                                contadorMoverXDerecha = 0;
-            //                                                contadorMoverXIzquierda = 0;
-            //                                                break;
-            //                                            }
-            //                                        }
-
-            //                                        if (Limites.Comprobar(casillaX1 + ((int)alturaMaxima * 2), limitesMapa * 2, tamañoEscenarioX) == true && Limites.Comprobar(margenRio2, limitesMapa * 2, tamañoEscenarioZ) == true)
-            //                                        {
-            //                                            if (terrenos[casillaX1 + ((int)alturaMaxima * 2), margenRio2] != null)
-            //                                            {
-            //                                                contadorMoverXIzquierda += 1;
-            //                                            }
-            //                                        }
-            //                                    }
-
-            //                                    moverXDerecha = true;
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-
-            //                    if (contadorMoverXIzquierda == 0 && moverXDerecha == false)
-            //                    {
-            //                        foreach (int curva in curvas)
-            //                        {
-            //                            if (casillaZ1 == curva)
-            //                            {
-            //                                bool moverDerecha = true;
-
-            //                                if (Limites.Comprobar(casillaX1 + ((int)alturaMaxima * 2), limitesMapa * 2, tamañoEscenarioX) == true)
-            //                                {
-            //                                    if (terrenos[casillaX1 + ((int)alturaMaxima * 2), casillaZ1] != null)
-            //                                    {
-            //                                        moverDerecha = false;
-            //                                    }
-            //                                }
-
-            //                                if (moverDerecha == true)
-            //                                {
-            //                                    contadorMoverXDerecha += 1;
-            //                                    moverXDerecha = true;
-            //                                }
-            //                            }
-            //                        }
-            //                    }
-
-            //                    if (contadorMoverXDerecha > limitesMapa)
-            //                    {
-            //                        contadorMoverXDerecha = 0;
-            //                        moverXDerecha = false;
-            //                    }
-
-            //                    bool moverZ = false;
-
-            //                    if (contadorMoverXIzquierda > 0 && contadorMoverXIzquierda <= alturaMaxima)
-            //                    {
-            //                        contadorMoverXIzquierda += 1;
-            //                        posicionX -= 1;
-            //                        moverZ = true;
-            //                    }
-            //                    else
-            //                    {
-            //                        contadorMoverXIzquierda = 0;
-
-            //                        if (moverXDerecha == true)
-            //                        {
-            //                            posicionX += 1;
-            //                            moverZ = true;
-            //                        }
-            //                    }
-
-            //                    if (moverZ == true)
-            //                    {
-            //                        origenZ -= 1;
-
-            //                        if (Limites.Comprobar(casillaZ2 - 1, 3, tamañoEscenarioZ) == true)
-            //                        {
-            //                            casillaZ2 -= 1;
-            //                        }
-
-            //                        if (Limites.Comprobar(casillaZ3 + 1, 3, tamañoEscenarioZ) == true)
-            //                        {
-            //                            casillaZ3 += 1;
-            //                        }
-            //                    }
-            //                }
-
-            //                if (terrenos[casillaX1, casillaZ1] == null)
-            //                {
-            //                    listado.Add(new Vector3(casillaX1, 0.25f, casillaZ1));
-            //                    CopiarDatos(new Vector3(casillaX1, 0.25f, casillaZ1));
-            //                }
-
-            //                if (terrenos[casillaX2, casillaZ2] == null)
-            //                {
-            //                    listado.Add(new Vector3(casillaX2, 0.25f, casillaZ2));
-            //                    CopiarDatos(new Vector3(casillaX2, 0.25f, casillaZ2));
-            //                }
-
-            //                if (terrenos[casillaX3, casillaZ3] == null)
-            //                {
-            //                    listado.Add(new Vector3(casillaX3, 0.25f, casillaZ3));
-            //                    CopiarDatos(new Vector3(casillaX3, 0.25f, casillaZ3));
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    i += 1;
-            //}
-
-            //if (listado != null)
-            //{
-            //    if (listado.Count > 0)
-            //    {
-            //        return listado;
-            //    }
-            //}
-
-            return null;
-        }
-
         private void LimpiarDatos(Assets.Isla[] islas)
         {
             foreach (Assets.Isla isla in islas)
@@ -436,18 +188,18 @@ namespace Escenario.Generar
 
         private void CopiarDatos(List<Vector3> listado, int id)
         {
-            CargarGuardar.Isla isla = new CargarGuardar.Isla
+            Partida.PartidaIsla isla = new Partida.PartidaIsla
             {
                 id = id,
-                casillas = new CargarGuardar.PartidaEscenarioCasilla[listado.Count]
+                casillas = new Partida.PartidaCasilla[listado.Count]
             };
 
             int i = 0;
             while (i < isla.casillas.Length)
             {
-                isla.casillas[i] = new CargarGuardar.PartidaEscenarioCasilla
+                isla.casillas[i] = new Partida.PartidaCasilla
                 {
-                    coordenadas = new CargarGuardar.VectorTres(listado[i])
+                    coordenadas = new Partida.VectorTres(listado[i])
                 };
 
                 i += 1;
@@ -457,18 +209,10 @@ namespace Escenario.Generar
             PlayerPrefs.SetString("vectoresIsla" + isla.id.ToString(), datos);
         }
 
-        public CargarGuardar.Isla LeerDatos(int id)
+        public Partida.PartidaIsla LeerDatos(int id)
         {
-            CargarGuardar.Isla isla = JsonUtility.FromJson<CargarGuardar.Isla>(PlayerPrefs.GetString("vectoresIsla" + id.ToString()));
-
-            if (isla != null)
-            {
-                return isla;
-            }
-            else
-            {
-                return null;
-            }
+            Partida.PartidaIsla isla = JsonUtility.FromJson<Partida.PartidaIsla>(PlayerPrefs.GetString("vectoresIsla" + id.ToString()));
+            return isla;
         }
     }
 }

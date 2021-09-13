@@ -13,7 +13,6 @@ namespace Escenario.Generar
         public bool colocarJugador;
         public bool recursos;
 
-        [Header("Recursos")]
         public Assets.Casilla[] casillasDebug;
         public Assets.Isla[] islas;
         public Assets.Objeto[] herramientasJugador;
@@ -44,73 +43,76 @@ namespace Escenario.Generar
 
         public void Start()
         {
-            int alturaMaxima = 1;
-
-            foreach (Assets.Isla isla in islas)
+            if (Partida.Gestor.instancia.nuevaPartida == true)
             {
-                if (isla.alturaMaxima > alturaMaxima)
+                int alturaMaxima = 1;
+
+                foreach (Assets.Isla isla in islas)
                 {
-                    alturaMaxima = (int)isla.alturaMaxima;
+                    if (isla.alturaMaxima > alturaMaxima)
+                    {
+                        alturaMaxima = (int)isla.alturaMaxima;
+                    }
+
+                    tamañoEscenarioX = tamañoEscenarioX + (int)isla.extensionMaxima.x * 3;
+                    tamañoEscenarioZ = tamañoEscenarioZ + (int)isla.extensionMaxima.y * 3;
                 }
 
-                tamañoEscenarioX = tamañoEscenarioX + (int)isla.extensionMaxima.x * 3;
-                tamañoEscenarioZ = tamañoEscenarioZ + (int)isla.extensionMaxima.y * 3;
-            }
+                casillas = new Assets.Casilla[tamañoEscenarioX, tamañoEscenarioZ];
 
-            casillas = new Assets.Casilla[tamañoEscenarioX, tamañoEscenarioZ];
-
-            if (aleatorio == true)
-            {
-                Vectores.instancia.GenerarCasillas(casillas, islas, limitesMapa);
-            }
-
-            int k = 0;
-            float altura = alturaMaxima;
-            int tope = (int)alturaMaxima * 2;
-            while (k < tope)
-            {
-                altura -= 0.5f;
-
-                if (altura <= 1f)
+                if (aleatorio == true)
                 {
-                    break;
+                    Vectores.instancia.GenerarCasillas(casillas, islas, limitesMapa);
                 }
 
-                try
+                int k = 0;
+                float altura = alturaMaxima;
+                int tope = (int)alturaMaxima * 2;
+                while (k < tope)
                 {
-                    GenerarNivel(altura);
+                    altura -= 0.5f;
+
+                    if (altura <= 1f)
+                    {
+                        break;
+                    }
+
+                    try
+                    {
+                        GenerarNivel(altura);
+                    }
+                    catch (Exception fallo)
+                    {
+                        Debug.Log(fallo);
+                        k -= 1;
+                    }
+
+                    k += 1;
                 }
-                catch (Exception fallo)
+
+                //----------------------------------------------------------
+
+                if (llano == true)
                 {
-                    Debug.Log(fallo);
-                    k -= 1;
+                    Llano.instancia.Generar(casillas, altura);
                 }
 
-                k += 1;
-            }
+                if (agua == true)
+                {
+                    altura -= 0.5f;
+                    Agua.instancia.Generar(casillas, altura);
+                }
 
-            //----------------------------------------------------------
+                if (colocarJugador == true)
+                {
+                    ColocarJugador.instancia.Generar(casillas, islas[0], herramientasJugador);
+                }
 
-            if (llano == true)
-            {
-                Llano.instancia.Generar(casillas, altura);
-            }
-
-            if (agua == true)
-            {
-                altura -= 0.5f;
-                Agua.instancia.Generar(casillas, altura);
-            }
-
-            if (colocarJugador == true)
-            {
-                ColocarJugador.instancia.Generar(casillas, islas[0], herramientasJugador);
-            }
-
-            if (recursos == true)
-            {
-                Recursos.instancia.Generar(casillas);
-            }
+                if (recursos == true)
+                {
+                    Recursos.instancia.Generar(casillas);
+                }
+            }           
         }
 
         public void Update()

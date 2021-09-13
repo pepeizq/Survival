@@ -124,7 +124,9 @@ namespace Partida
             while (i < Gestor.instancia.casillas.Length)
             {
                 partida.casillas[i] = new PartidaCasilla();
-                partida.casillas[i].idCasilla  
+                partida.casillas[i].idCasilla = Gestor.instancia.casillas[i].id;
+                partida.casillas[i].idIsla = Gestor.instancia.casillas[i].isla.id;
+                partida.casillas[i].coordenadas = new VectorTres(Gestor.instancia.casillas[i].posicion);
 
                 i += 1;
             }

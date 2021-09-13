@@ -4,6 +4,10 @@ namespace Partida
 {
     public class Gestor : MonoBehaviour
     {
+        public bool nuevaPartida;
+        public KeyCode teclaCargar;
+        public KeyCode teclaGuardar;
+
         [HideInInspector]
         public Assets.Casilla[] casillas;
         [HideInInspector]
