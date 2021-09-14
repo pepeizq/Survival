@@ -5,11 +5,11 @@ namespace Partida
     public class Gestor : MonoBehaviour
     {
         public bool nuevaPartida;
-        public KeyCode teclaCargar;
-        public KeyCode teclaGuardar;
 
         [HideInInspector]
         public Assets.Casilla[] casillas;
+        [HideInInspector]
+        public Assets.Isla[] islas;
         [HideInInspector]
         public Assets.Objeto[] objetos;
         [HideInInspector]
@@ -26,6 +26,7 @@ namespace Partida
             instancia = this;
 
             casillas = Resources.LoadAll<Assets.Casilla>("Casillas");
+            islas = Resources.LoadAll<Assets.Isla>("Islas");
             objetos = Resources.LoadAll<Assets.Objeto>("Objetos");
             construcciones = Resources.LoadAll<Assets.Construccion>("Construcciones");
             enemigos = Resources.LoadAll<Assets.Enemigo>("Enemigos");

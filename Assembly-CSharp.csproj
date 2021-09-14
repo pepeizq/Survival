@@ -72,7 +72,6 @@
     <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Vectores.cs" />
     <Compile Include="Assets\Scripts\Objetos\Objeto.cs" />
-    <Compile Include="Assets\Scripts\Partida\Fichero.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Limites.cs" />
     <Compile Include="Assets\Scripts\Jugador\Interaccion.cs" />
     <Compile Include="Assets\Scripts\Canvas\Canvas.cs" />
@@ -105,6 +104,8 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
+    <Compile Include="Assets\Scripts\Partida\Guardar.cs" />
+    <Compile Include="Assets\Scripts\Partida\Cargar.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

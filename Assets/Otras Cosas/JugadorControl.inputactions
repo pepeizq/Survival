@@ -100,6 +100,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Guardar",
+                    "type": "Button",
+                    "id": "9ee08a83-05ad-4134-896c-c70334f3c5a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -320,6 +328,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mapa Arrastre",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41c86bfe-1fd9-4766-a7ab-c1e839db6e01",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Guardar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -102,6 +102,7 @@ namespace Partida
         public int idCasilla;
         public int idIsla;
         public VectorTres coordenadas;
+        public int rotacion;
     }
 }
 

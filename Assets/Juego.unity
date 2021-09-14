@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41970426, g: 0.4776792, b: 0.7206125, a: 1}
+  m_IndirectSpecularColor: {r: 0.40932852, g: 0.45886314, b: 0.69215655, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3019,6 +3019,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 140c6865-efbe-4e5a-92d0-da00fbcbaaf0
     m_ActionName: Principal/Mapa Arrastre[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2115491975}
+        m_TargetAssemblyTypeName: Partida.Guardar, Assembly-CSharp
+        m_MethodName: RecopilarDatos
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9ee08a83-05ad-4134-896c-c70334f3c5a7
+    m_ActionName: Principal/Guardar
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Principal
@@ -15680,6 +15696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2115491972}
   - component: {fileID: 2115491974}
+  - component: {fileID: 2115491975}
   - component: {fileID: 2115491973}
   m_Layer: 0
   m_Name: Partida
@@ -15711,7 +15728,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2115491971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c630fb2cbbbe60b46b4942c562c07136, type: 3}
+  m_Script: {fileID: 11500000, guid: a9228e587a699774296aed14545dac15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2115491974
@@ -15726,14 +15743,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b43bf23f2b0c243b8721534b48c089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nuevaPartida: 1
-  teclaCargar: 110
-  teclaGuardar: 109
+  nuevaPartida: 0
   casillas: []
+  islas: []
   objetos: []
   recursos: []
   construcciones: []
   enemigos: []
+--- !u!114 &2115491975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115491971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3801d57e2bc3be942bb77cd23fae892b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2115725485
 GameObject:
   m_ObjectHideFlags: 0
