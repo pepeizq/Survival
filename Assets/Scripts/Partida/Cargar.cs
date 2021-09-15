@@ -29,58 +29,8 @@ namespace Partida
             //------------------------------------------------
 
             Casillas(partida);
-
-            //------------------------------------------------
-
-            int objetoEquipado = 99999;
-
-            int i = 0;
-            while (i < partida.inventario.Length)
-            {
-                if (partida.inventario[i].ocupado == false)
-                {
-                    continue;
-                }
-                else
-                {
-                    Jugador.Inventario.Inventario.instancia.huecos[i].objeto = Gestor.instancia.ObtenerObjeto(partida.inventario[i].objetoId);
-                    Jugador.Inventario.Inventario.instancia.huecos[i].cantidad = partida.inventario[i].cantidad;
-
-                    if (partida.inventario[i].equipado == true)
-                    {
-                        objetoEquipado = i;
-                    }
-                }
-
-                i += 1;
-            }
-
-            if (objetoEquipado != 99999)
-            {
-                Jugador.Inventario.Inventario.instancia.SeleccionarObjeto(objetoEquipado);
-                Jugador.Inventario.Inventario.instancia.EquiparBoton();
-            }
-
-            //------------------------------------------------
-
-            Objeto.Objeto[] objetos = FindObjectsOfType<Objeto.Objeto>();
-
-            i = 0;
-            while (i < objetos.Length)
-            {
-                Destroy(objetos[i].gameObject);
-
-                i += 1;
-            }
-
-            i = 0;
-            while (i < partida.objetosSueltos.Length)
-            {
-                GameObject prefab = Gestor.instancia.ObtenerObjeto(partida.objetosSueltos[i].id).prefab;
-                Instantiate(prefab, partida.objetosSueltos[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.objetosSueltos[i].rotacion.ObtenerVector3()));
-
-                i += 1;
-            }
+            Inventario(partida);
+            Objetos(partida);
           
             //------------------------------------------------
 
@@ -124,41 +74,43 @@ namespace Partida
 
             //------------------------------------------------
 
-            Enemigos.Enemigo[] enemigos = FindObjectsOfType<Enemigos.Enemigo>();
+            //Enemigos.Enemigo[] enemigos = FindObjectsOfType<Enemigos.Enemigo>();
 
-            i = 0;
-            while (i < enemigos.Length)
-            {
-                Destroy(enemigos[i].gameObject);
+            //i = 0;
+            //while (i < enemigos.Length)
+            //{
+            //    Destroy(enemigos[i].gameObject);
 
-                i += 1;
-            }
+            //    i += 1;
+            //}
 
-            i = 0;
-            while (i < partida.enemigos.Length)
-            {
-                GameObject prefab = Gestor.instancia.ObtenerEnemigo(partida.enemigos[i].prefabId).prefab;
-                GameObject enemigoObjeto = Instantiate(prefab, partida.enemigos[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.enemigos[i].rotacion.ObtenerVector3()));
-                Enemigos.Enemigo enemigo = enemigoObjeto.GetComponent<Enemigos.Enemigo>();
+            //i = 0;
+            //while (i < partida.enemigos.Length)
+            //{
+            //    GameObject prefab = Gestor.instancia.ObtenerEnemigo(partida.enemigos[i].prefabId).prefab;
+            //    GameObject enemigoObjeto = Instantiate(prefab, partida.enemigos[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.enemigos[i].rotacion.ObtenerVector3()));
+            //    Enemigos.Enemigo enemigo = enemigoObjeto.GetComponent<Enemigos.Enemigo>();
 
-                enemigo.iaEstado = (Enemigos.IAEstado)partida.enemigos[i].iaEstado;
-                enemigo.agente.isStopped = !partida.enemigos[i].intentaMoverse;
+            //    enemigo.iaEstado = (Enemigos.IAEstado)partida.enemigos[i].iaEstado;
+            //    enemigo.agente.isStopped = !partida.enemigos[i].intentaMoverse;
 
-                if (enemigo.agente.isStopped == false)
-                {
-                    enemigo.agente.SetDestination(partida.enemigos[i].posicionDestino.ObtenerVector3());
-                }
+            //    if (enemigo.agente.isStopped == false)
+            //    {
+            //        enemigo.agente.SetDestination(partida.enemigos[i].posicionDestino.ObtenerVector3());
+            //    }
 
-                i += 1;
-            }
+            //    i += 1;
+            //}
         }
 
         private void Casillas(Datos partida)
         {
+            Escenario.Generar.Escenario.instancia.casillas = new Assets.Casilla[partida.escenario.tamañoEscenarioX, partida.escenario.tamañoEscenarioZ];
+
             int i = 0;
             while (i < partida.casillas.Length)
             {
-                GameObject prefab = new GameObject();
+                GameObject prefab = null;
                 int idCasilla = 0;
                 Assets.Isla isla = null;
 
@@ -166,15 +118,15 @@ namespace Partida
                 {
                     foreach (Assets.Isla isla2 in Gestor.instancia.islas)
                     {
-                        if (partida.casillas[i].idIsla == isla.id)
+                        if (partida.casillas[i].idIsla == isla2.id)
                         {
-                            foreach (Assets.Casilla casilla in isla.casillas)
-                            {
+                            foreach (Assets.Casilla casilla in isla2.casillas)
+                            {                              
                                 if (partida.casillas[i].idCasilla == casilla.id)
                                 {
                                     prefab = casilla.prefab;
                                     idCasilla = casilla.id;
-                                    isla = casilla.isla;
+                                    isla = isla2;
                                 }
                             }
                         }
@@ -187,25 +139,102 @@ namespace Partida
                     idCasilla = agua.id;
                 }
                 
-                GameObject casilla2 = Instantiate(prefab, partida.casillas[i].coordenadas.ObtenerVector3(), Quaternion.identity);
-                casilla2.gameObject.transform.Rotate(Vector3.up, partida.casillas[i].rotacion, Space.World);
+                if (prefab != null)
+                {                 
+                    Vector3 posicionFinal = partida.casillas[i].coordenadas.ObtenerVector3();
+                    int x = (int)posicionFinal.x;
+                    int z = (int)posicionFinal.z;
 
-                Assets.Casilla casilla3 = new Assets.Casilla(idCasilla, partida.casillas[i].rotacion, partida.casillas[i].coordenadas.ObtenerVector3());
-                casilla3.id = idCasilla;
-                casilla3.prefab = casilla2;
-                casilla3.prefab.gameObject.layer = LayerMask.NameToLayer("Terreno");
+                    if (partida.escenario.casillasEscala != 0.5f)
+                    {
+                        posicionFinal.x = (posicionFinal.x + posicionFinal.x * (partida.escenario.casillasEscala * 1.5f)) - (partida.escenario.tamañoEscenarioX / (partida.escenario.casillasEscala + 0.5f));
+                        posicionFinal.y = posicionFinal.y + posicionFinal.y * (partida.escenario.casillasEscala * 1.5f);
+                        posicionFinal.z = (posicionFinal.z + posicionFinal.z * (partida.escenario.casillasEscala * 1.5f)) - (partida.escenario.tamañoEscenarioZ / (partida.escenario.casillasEscala + 0.5f));
+                    }
 
-                if (isla != null)
-                {
-                    casilla3.isla = isla;
+                    GameObject casilla2 = Instantiate(prefab, posicionFinal, Quaternion.identity);
+                    casilla2.gameObject.transform.Rotate(Vector3.up, partida.casillas[i].rotacion, Space.World);
+                    casilla2.gameObject.transform.localScale = new Vector3(partida.escenario.casillasEscala, partida.escenario.casillasEscala, partida.escenario.casillasEscala);
+
+                    Assets.Casilla casilla3 = new Assets.Casilla(idCasilla, partida.casillas[i].rotacion, partida.casillas[i].coordenadas.ObtenerVector3());
+                    casilla3.id = idCasilla;
+                    casilla3.prefab = casilla2;
+                    casilla3.prefab.gameObject.layer = LayerMask.NameToLayer("Terreno");
+
+                    Escenario.Generar.Escenario.instancia.casillas[x, z] = casilla3;
+
+                    if (isla != null)
+                    {
+                        casilla3.isla = isla;
+
+                        casilla3.recursoPuesto = partida.casillas[i].recursoPuesto;
+                       
+                        if (partida.casillas[i].recursoPuesto == true)
+                        {
+                            GameObject recursoFinal = Instantiate(isla.recursos[partida.casillas[i].recurso.id]);
+                            recursoFinal.transform.SetParent(Escenario.Generar.Escenario.instancia.casillas[x, z].prefab.transform);
+                            recursoFinal.transform.localPosition = partida.casillas[i].recurso.posicion.ObtenerVector3();
+                            recursoFinal.gameObject.transform.Rotate(partida.casillas[i].recurso.rotacion.ObtenerVector3(), Space.World);
+
+                            Escenario.Recurso recursoTemp = recursoFinal.GetComponent<Escenario.Recurso>();
+                            recursoTemp.cantidad = partida.casillas[i].recurso.cantidad;
+                        }
+                    }
                 }
-             
-                //casilla3.recursoPuesto = false;
-                //casilla3.recursoPosible = casillasFinal[id].recursoPosible;
-                //casilla3.recursoPosicion = casillasFinal[id].recursoPosicion;
-                //casilla3.construido = false;
 
-                //casillas[x, z] = casilla3;
+                i += 1;
+            }
+        }
+
+        private void Inventario(Datos partida)
+        {
+            int objetoEquipado = 99999;
+
+            int i = 0;
+            while (i < partida.inventario.Length)
+            {
+                if (partida.inventario[i].ocupado == false)
+                {
+                    continue;
+                }
+                else
+                {
+                    Jugador.Inventario.Inventario.instancia.huecos[i].objeto = Gestor.instancia.ObtenerObjeto(partida.inventario[i].objetoId);
+                    Jugador.Inventario.Inventario.instancia.huecos[i].cantidad = partida.inventario[i].cantidad;
+
+                    if (partida.inventario[i].equipado == true)
+                    {
+                        objetoEquipado = i;
+                    }
+                }
+
+                i += 1;
+            }
+
+            if (objetoEquipado != 99999)
+            {
+                Jugador.Inventario.Inventario.instancia.SeleccionarObjeto(objetoEquipado);
+                Jugador.Inventario.Inventario.instancia.EquiparBoton();
+            }
+        }
+
+        private void Objetos(Datos partida)
+        {
+            Objeto.Objeto[] objetos = FindObjectsOfType<Objeto.Objeto>();
+
+            int i = 0;
+            while (i < objetos.Length)
+            {
+                Destroy(objetos[i].gameObject);
+
+                i += 1;
+            }
+
+            i = 0;
+            while (i < partida.objetosSueltos.Length)
+            {
+                GameObject prefab = Gestor.instancia.ObtenerObjeto(partida.objetosSueltos[i].id).prefab;
+                Instantiate(prefab, partida.objetosSueltos[i].posicion.ObtenerVector3(), Quaternion.Euler(partida.objetosSueltos[i].rotacion.ObtenerVector3()));
 
                 i += 1;
             }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Jugador\Inventario\Objetos.cs" />
     <Compile Include="Assets\Scripts\Assets\Casilla.cs" />
     <Compile Include="Assets\Scripts\Canvas\Inventario.cs" />
+    <Compile Include="Assets\Scripts\Partida\Cargar.cs" />
     <Compile Include="Assets\Scripts\Assets\Enemigo.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Receta.cs" />
     <Compile Include="Assets\Scripts\Escenario\Generar\Vectores.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Assets\Scripts\Jugador\Necesidades.cs" />
     <Compile Include="Assets\Scripts\Escenario\Cactus.cs" />
     <Compile Include="Assets\Scripts\Escenario\Recurso.cs" />
+    <Compile Include="Assets\Scripts\Partida\Guardar.cs" />
     <Compile Include="Assets\Scripts\Escenario\DiaNoche.cs" />
     <Compile Include="Assets\Scripts\Assets\Objeto.cs" />
     <Compile Include="Assets\Scripts\Herramientas\FicheroTexto.cs" />
@@ -104,8 +106,6 @@
     <Compile Include="Assets\Scripts\Jugador\Equipar.cs" />
     <Compile Include="Assets\Scripts\Crafting\Receta.cs" />
     <Compile Include="Assets\Scripts\Construcciones\Propiedades.cs" />
-    <Compile Include="Assets\Scripts\Partida\Guardar.cs" />
-    <Compile Include="Assets\Scripts\Partida\Cargar.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

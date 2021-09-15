@@ -12,8 +12,8 @@ namespace Partida
         public Assets.Isla[] islas;
         [HideInInspector]
         public Assets.Objeto[] objetos;
-        [HideInInspector]
-        public Escenario.Recurso[] recursos;
+        //[HideInInspector]
+        //public Escenario.Recurso[] recursos;
         [HideInInspector]
         public Assets.Construccion[] construcciones;
         [HideInInspector]
@@ -34,20 +34,12 @@ namespace Partida
 
         public void Start()
         {
-            recursos = FindObjectsOfType<Escenario.Recurso>();
-        }
+            //recursos = FindObjectsOfType<Escenario.Recurso>();
 
-        public Assets.Casilla ObtenerCasilla(int id)
-        {
-            foreach (Assets.Casilla casilla in casillas)
+            if (nuevaPartida == false)
             {
-                if (casilla.idColocacion == id)
-                {
-                    return casilla;
-                }
+                Cargar.instancia.CargarDatos();
             }
-
-            return null;
         }
 
         public Assets.Objeto ObtenerObjeto(string id)

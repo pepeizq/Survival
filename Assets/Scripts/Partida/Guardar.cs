@@ -43,6 +43,7 @@ namespace Partida
 
             //------------------------------------------------
 
+            partida = Escenario2(partida);
             partida = Casillas(partida);
             partida = Inventario(partida);
             partida = Objetos(partida);
@@ -118,29 +119,54 @@ namespace Partida
             Debug.Log("Partida Guardada");
         }
 
+        private Datos Escenario2(Datos partida)
+        {
+            partida.escenario.casillasEscala = Escenario.Generar.Escenario.instancia.casillasEscala;
+            partida.escenario.tamañoEscenarioX = Escenario.Generar.Escenario.instancia.tamañoEscenarioX;
+            partida.escenario.tamañoEscenarioZ = Escenario.Generar.Escenario.instancia.tamañoEscenarioZ;
+
+            return partida;
+        }
+
         private Datos Casillas(Datos partida)
         {
-            partida.casillas = new PartidaCasilla[Gestor.instancia.casillas.Length];
+            partida.casillas = new PartidaCasilla[Escenario.Generar.Escenario.instancia.casillas.Length];
 
             int i = 0;
-            while (i < Gestor.instancia.casillas.Length)
+            foreach (Assets.Casilla casilla in Escenario.Generar.Escenario.instancia.casillas)
             {
-                partida.casillas[i] = new PartidaCasilla();
-                partida.casillas[i].idCasilla = Gestor.instancia.casillas[i].id;
-
-                if (Gestor.instancia.casillas[i].isla != null)
+                if (casilla != null)
                 {
-                    partida.casillas[i].idIsla = Gestor.instancia.casillas[i].isla.id;
-                }
-                else
-                {
-                    partida.casillas[i].idIsla = 9999;
-                }
+                    partida.casillas[i] = new PartidaCasilla();
+                    partida.casillas[i].idCasilla = casilla.id;
                 
-                partida.casillas[i].coordenadas = new VectorTres(Gestor.instancia.casillas[i].posicion);
-                partida.casillas[i].rotacion = Gestor.instancia.casillas[i].rotacion;
+                    if (casilla.isla != null)
+                    {
+                        partida.casillas[i].idIsla = casilla.isla.id;
+                    }
+                    else
+                    {
+                        partida.casillas[i].idIsla = 9999;
+                    }
 
-                i += 1;
+                    partida.casillas[i].coordenadas = new VectorTres(casilla.posicion);
+                    partida.casillas[i].rotacion = casilla.rotacion;
+
+                    partida.casillas[i].recursoPuesto = casilla.recursoPuesto;
+
+                    if (casilla.recursoPuesto == true)
+                    {
+                        partida.casillas[i].recurso.id = casilla.recursoID;
+                        partida.casillas[i].recurso.posicion = new VectorTres(casilla.recursoPosicion);
+                        partida.casillas[i].recurso.rotacion = new VectorTres(casilla.recurso.transform.localEulerAngles);
+
+                        GameObject recurso = casilla.recurso;
+                        Escenario.Recurso recurso2 = recurso.GetComponent<Escenario.Recurso>();
+                        partida.casillas[i].recurso.cantidad = recurso2.cantidad;
+                    }
+
+                    i += 1;
+                }               
             }
 
             return partida;

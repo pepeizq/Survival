@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.40932852, g: 0.45886314, b: 0.69215655, a: 1}
+  m_IndirectSpecularColor: {r: 0.41543117, g: 0.4705451, b: 0.7097882, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4924,7 +4924,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1256031160}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &681689835
 MonoBehaviour:
@@ -5152,7 +5152,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 9e-44, z: 0, w: -0.000000005164626}
+  m_BoundingSphereOverride: {x: 6e-44, y: 4e-45, z: -1.7471993e+21, w: 8.5911517e+15}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -9289,8 +9289,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2115491972}
   - {fileID: 681689834}
+  - {fileID: 2115491972}
   - {fileID: 560174988}
   - {fileID: 878031848}
   m_Father: {fileID: 0}
@@ -15717,7 +15717,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1256031160}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2115491973
 MonoBehaviour:
@@ -15747,7 +15747,6 @@ MonoBehaviour:
   casillas: []
   islas: []
   objetos: []
-  recursos: []
   construcciones: []
   enemigos: []
 --- !u!114 &2115491975

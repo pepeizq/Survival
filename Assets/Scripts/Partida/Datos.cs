@@ -16,11 +16,11 @@ namespace Partida
 
         public float tiempoDia;
 
+        public PartidaEscenario escenario;
         public PartidaCasilla[] casillas;
         public PartidaInventarioHueco[] inventario;
         public PartidaObjetoSuelto[] objetosSueltos;
         public PartidaConstruccion[] construcciones;
-        public PartidaRecurso[] recursos;
         public PartidaEnemigo[] enemigos;
     }
 
@@ -66,6 +66,7 @@ namespace Partida
         public string id;
         public VectorTres posicion;
         public VectorTres rotacion;
+        public bool fijo;
     }
 
     [System.Serializable]
@@ -75,14 +76,6 @@ namespace Partida
         public VectorTres posicion;
         public VectorTres rotacion;
         public string propiedades;
-    }
-
-    [System.Serializable]
-    public struct PartidaRecurso
-    {
-        public int index;
-        public bool destruido;
-        public int capacidad;
     }
 
     [System.Serializable]
@@ -103,6 +96,27 @@ namespace Partida
         public int idIsla;
         public VectorTres coordenadas;
         public int rotacion;
+        public int x;
+        public int z;
+        public bool recursoPuesto;
+        public PartidaRecurso recurso;
+    }
+
+    [System.Serializable]
+    public struct PartidaRecurso
+    {
+        public int id;
+        public int cantidad;
+        public VectorTres posicion;
+        public VectorTres rotacion;
+    }
+
+    [System.Serializable]
+    public struct PartidaEscenario
+    {
+        public float casillasEscala;
+        public int tamañoEscenarioX;
+        public int tamañoEscenarioZ;
     }
 }
 
