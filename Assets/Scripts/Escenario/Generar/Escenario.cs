@@ -17,22 +17,12 @@ namespace Escenario.Generar
         public Assets.Isla[] islas;
         public Assets.Objeto[] herramientasJugador;
 
-        [HideInInspector]
-        public Assets.Casilla[,] casillas = new Assets.Casilla[1, 1];
+        [HideInInspector] public Assets.Casilla[,] casillas = new Assets.Casilla[1, 1];
+        [HideInInspector] public int tamañoEscenarioX = 0;
+        [HideInInspector] public int tamañoEscenarioZ = 0;
 
-        [HideInInspector]
-        public int tamañoEscenarioX = 0;
-
-        [HideInInspector]
-        public int tamañoEscenarioZ = 0;
-
-        [HideInInspector]
-        public float casillasEscala = 1f;
-
-        [HideInInspector]
-        public int limitesMapa = 3;
-
-        private int idColocacion = 0;
+        [HideInInspector] public float casillasEscala = 1f;
+        [HideInInspector] public int limitesMapa = 3;
 
         public static Escenario instancia;
 
@@ -283,7 +273,6 @@ namespace Escenario.Generar
                     Assets.Casilla casilla3 = new Assets.Casilla(id, casilla.rotacion, casilla.posicion);
                     casilla3.id = id;
                     casilla3.idDebug = idDebug;
-                    casilla3.idColocacion = idColocacion += 1;
                     casilla3.prefab = casilla2;
                     casilla3.prefab.gameObject.layer = LayerMask.NameToLayer("Terreno");
                     casilla3.isla = casilla.isla;

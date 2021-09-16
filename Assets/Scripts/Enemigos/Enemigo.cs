@@ -49,8 +49,7 @@ namespace Enemigos
 
         private float distanciaJugador;
 
-        [HideInInspector]
-        public NavMeshAgent agente;
+        [HideInInspector] public NavMeshAgent agente;
         private Animator animador;
         private SkinnedMeshRenderer[] meshRenderers;
 

@@ -40,26 +40,26 @@ namespace Escenario.Generar
                                     }
 
                                     int azarRecurso = Random.Range(0, recursosIsla.Count);
-                                    Recurso recursoTemp = recursosIsla[azarRecurso].GetComponent<Recurso>();
+                                    Recurso recurso1 = recursosIsla[azarRecurso].GetComponent<Recurso>();
 
                                     int azarPoner = Random.Range(0, 100 + (int)alturaCasilla * 20);
 
-                                    if (azarPoner <= recursoTemp.porcentaje)
+                                    if (azarPoner <= recurso1.porcentaje)
                                     {
-                                        GameObject recursoFinal = Instantiate(recursosIsla[azarRecurso]);
-                                        recursoFinal.transform.SetParent(casillas[x, z].prefab.transform);
-                                        recursoFinal.transform.localPosition = casillas[x, z].recursoPosicion;
+                                        GameObject recurso2 = Instantiate(recursosIsla[azarRecurso]);
+                                        recurso2.transform.SetParent(casillas[x, z].prefab.transform);
+                                        recurso2.transform.localPosition = casillas[x, z].recursoPosicion;
 
                                         int azarRotacion = Random.Range(0, 365);
-                                        recursoFinal.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
+                                        recurso2.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
 
-                                        casillas[x, z].recurso = recursoFinal;
+                                        casillas[x, z].recurso = recurso2;
                                         casillas[x, z].recursoID = azarRecurso;
                                         casillas[x, z].recursoPuesto = true;
 
-                                        if (recursoTemp.subrecursos != null)
+                                        if (recurso1.subrecursos != null)
                                         {
-                                            MostrarSubrecursos(recursoTemp);
+                                            MostrarSubrecursos(recurso1);
                                         }
                                     }                                   
                                 }
@@ -86,18 +86,18 @@ namespace Escenario.Generar
 
                                 if (azarPoner >= 50)
                                 {
-                                    GameObject recursoFinal = Instantiate(Escenario.instancia.casillas[x, z].isla.recursos[Escenario.instancia.casillas[x, z].recursoID]);
-                                    recursoFinal.transform.SetParent(Escenario.instancia.casillas[x, z].prefab.transform);
-                                    recursoFinal.transform.localPosition = Escenario.instancia.casillas[x, z].recursoPosicion;
+                                    GameObject recurso1 = Instantiate(Escenario.instancia.casillas[x, z].isla.recursos[Escenario.instancia.casillas[x, z].recursoID]);
+                                    recurso1.transform.SetParent(Escenario.instancia.casillas[x, z].prefab.transform);
+                                    recurso1.transform.localPosition = Escenario.instancia.casillas[x, z].recursoPosicion;
 
                                     int azarRotacion = Random.Range(0, 365);
-                                    recursoFinal.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
+                                    recurso1.gameObject.transform.Rotate(Vector3.up, azarRotacion, Space.World);
 
-                                    Recurso recursoTemp = recursoFinal.GetComponent<Recurso>();
+                                    Recurso recurso2 = recurso1.GetComponent<Recurso>();
 
-                                    if (recursoTemp.subrecursos != null)
+                                    if (recurso2.subrecursos != null)
                                     {
-                                        MostrarSubrecursos(recursoTemp);
+                                        MostrarSubrecursos(recurso2);
                                     }
                                 }                               
                             }                          

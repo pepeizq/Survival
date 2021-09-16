@@ -13,13 +13,11 @@ namespace Escenario
         [Header("Generacion")]
         public float alturaMinima;
         public float alturaMaxima;
-        [Range(0, 100)]
-        public int porcentaje;
+        [Range(0, 100)] public int porcentaje;
 
         [Header("Subrecursos")]
         public List<GameObject> subrecursos;
-        [Range(0, 100)]
-        public int subrecursoGeneracion;
+        [Range(0, 100)] public int subrecursoGeneracion;
 
         public void Start()
         {

@@ -19,7 +19,7 @@ namespace Partida
         public PartidaEscenario escenario;
         public PartidaCasilla[] casillas;
         public PartidaInventarioHueco[] inventario;
-        public PartidaObjetoSuelto[] objetosSueltos;
+        public PartidaObjeto[] objetos;
         public PartidaConstruccion[] construcciones;
         public PartidaEnemigo[] enemigos;
     }
@@ -61,7 +61,7 @@ namespace Partida
     }
 
     [System.Serializable]
-    public struct PartidaObjetoSuelto
+    public struct PartidaObjeto
     {
         public string id;
         public VectorTres posicion;
@@ -109,6 +109,7 @@ namespace Partida
         public int cantidad;
         public VectorTres posicion;
         public VectorTres rotacion;
+        public bool[] subrecursos;
     }
 
     [System.Serializable]

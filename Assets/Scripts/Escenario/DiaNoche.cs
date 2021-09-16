@@ -5,14 +5,11 @@ namespace Escenario
     public class DiaNoche : MonoBehaviour
     {
         [Header("Datos")]
-        [HideInInspector]
-        [Range(0f, 1f)]
-        public float tiempo;
+        [HideInInspector] [Range(0f, 1f)] public float tiempo;
         public float diaTotalSegundos;
         public float inicioTiempo = 0.45f;
         public Vector3 mediodia;
-        [HideInInspector]
-        public int dias;
+        [HideInInspector] public int dias;
 
         private float tiempoIncremento;
 

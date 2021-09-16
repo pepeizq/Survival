@@ -6,18 +6,12 @@ namespace Partida
     {
         public bool nuevaPartida;
 
-        [HideInInspector]
-        public Assets.Casilla[] casillas;
-        [HideInInspector]
-        public Assets.Isla[] islas;
-        [HideInInspector]
-        public Assets.Objeto[] objetos;
-        //[HideInInspector]
-        //public Escenario.Recurso[] recursos;
-        [HideInInspector]
-        public Assets.Construccion[] construcciones;
-        [HideInInspector]
-        public Assets.Enemigo[] enemigos;
+        [HideInInspector] public Assets.Casilla[] casillas;
+        [HideInInspector] public Assets.Isla[] islas;
+        [HideInInspector] public Assets.Objeto[] objetos;
+        //[HideInInspector] public Escenario.Recurso[] recursos;
+        [HideInInspector] public Assets.Construccion[] construcciones;
+        [HideInInspector] public Assets.Enemigo[] enemigos;
 
         public static Gestor instancia;
 

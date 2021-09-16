@@ -163,6 +163,22 @@ namespace Partida
                         GameObject recurso = casilla.recurso;
                         Escenario.Recurso recurso2 = recurso.GetComponent<Escenario.Recurso>();
                         partida.casillas[i].recurso.cantidad = recurso2.cantidad;
+
+                        if (recurso2.subrecursos != null)
+                        {
+                            partida.casillas[i].recurso.subrecursos = new bool[recurso2.subrecursos.Count];
+
+                            int j = 0;
+                            foreach (GameObject subrecurso in recurso2.subrecursos)
+                            {
+                                if (subrecurso != null)
+                                {
+                                    partida.casillas[i].recurso.subrecursos[j] = subrecurso.activeSelf;
+                                }
+
+                                j += 1;
+                            }
+                        }                        
                     }
 
                     i += 1;
@@ -207,17 +223,20 @@ namespace Partida
         private Datos Objetos(Datos partida)
         {
             Objeto.Objeto[] objetos = FindObjectsOfType<Objeto.Objeto>();
-            partida.objetosSueltos = new PartidaObjetoSuelto[objetos.Length];
+            partida.objetos = new PartidaObjeto[objetos.Length];
 
             int i = 0;
             while (i < objetos.Length)
             {
-                partida.objetosSueltos[i] = new PartidaObjetoSuelto
+                partida.objetos[i] = new PartidaObjeto
                 {
                     id = objetos[i].objeto.id,
                     posicion = new VectorTres(objetos[i].transform.position),
                     rotacion = new VectorTres(objetos[i].transform.localEulerAngles)
                 };
+
+                Rigidbody cuerpo = objetos[i].transform.GetComponent<Rigidbody>();
+                partida.objetos[i].fijo = cuerpo.isKinematic;
 
                 i += 1;
             }

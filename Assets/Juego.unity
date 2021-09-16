@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41543117, g: 0.4705451, b: 0.7097882, a: 1}
+  m_IndirectSpecularColor: {r: 0.40811425, g: 0.4574011, b: 0.6896295, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2812,7 +2812,7 @@ Transform:
   - {fileID: 1096922746}
   - {fileID: 1100851957}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &487785793
 MonoBehaviour:
@@ -4113,7 +4113,7 @@ Transform:
   - {fileID: 705507995}
   - {fileID: 1102487874}
   m_Father: {fileID: 1256031160}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &581942340
 PrefabInstance:
@@ -6581,7 +6581,7 @@ Transform:
   - {fileID: 1660277304}
   - {fileID: 1349943658}
   m_Father: {fileID: 1256031160}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &878031849
 MonoBehaviour:
@@ -8883,9 +8883,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 487785796}
-        m_TargetAssemblyTypeName: Jugador.Inventario, Assembly-CSharp
+        m_TargetAssemblyTypeName: Jugador.Inventario.Inventario, Assembly-CSharp
         m_MethodName: EquiparBoton
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9290,11 +9290,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 681689834}
-  - {fileID: 2115491972}
   - {fileID: 560174988}
   - {fileID: 878031848}
+  - {fileID: 2115491972}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1256031162
 MonoBehaviour:
@@ -15712,12 +15712,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115491971}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1256031160}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2115491973
 MonoBehaviour:

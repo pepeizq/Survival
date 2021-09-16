@@ -271,7 +271,7 @@ namespace Jugador.Inventario
             QuitarObjetoSeleccionado();
         }
 
-        public void EquiparBoton()
+        public void EquiparBoton(bool carga)
         {
             if (Canvas.Inventario.instancia.huecos[objetoEquipadoPosicion].equipado == true)
             {
@@ -285,10 +285,13 @@ namespace Jugador.Inventario
 
             SeleccionarObjeto(objetoSeleccionadoPosicion);
 
-            if (Canvas.Inventario.instancia.huecos[objetoEquipadoPosicion].equipado == true)
+            if (carga == false)
             {
-                AbrirCerrar();
-            }
+                if (Canvas.Inventario.instancia.huecos[objetoEquipadoPosicion].equipado == true)
+                {
+                    AbrirCerrar();
+                }
+            }          
         }
 
         public void Desequipar(int posicion)

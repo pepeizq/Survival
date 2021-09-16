@@ -19,10 +19,8 @@ namespace Jugador
         public float maxXMirar;
         private float camaraCurvaXRotacion;
         public float sensibilidadMirar;
-        [HideInInspector]
-        public bool puedeMirar = true;
-        [HideInInspector]
-        private bool bloqueo = false;
+        [HideInInspector] public bool puedeMirar = true;
+        [HideInInspector] private bool bloqueo = false;
 
         private Vector2 ratonDelta;
 
