@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3863827575089741792}
   - component: {fileID: 6406696916953604999}
   m_Layer: 9
-  m_Name: Prefab_Cama
+  m_Name: Prefab Cama
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

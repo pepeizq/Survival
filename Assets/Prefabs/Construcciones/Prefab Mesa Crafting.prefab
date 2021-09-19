@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1851814942339670959
+--- !u!1 &2725400156631677862
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,94 +8,80 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1851814942339670954}
-  - component: {fileID: 1851814942339670957}
-  - component: {fileID: 1851814942339670956}
-  - component: {fileID: -8648889836386897765}
-  - component: {fileID: 1201010561752677828}
+  - component: {fileID: 2725400156631677859}
+  - component: {fileID: 2725400156631677860}
+  - component: {fileID: 2725400156631677861}
+  - component: {fileID: 1481034020318787341}
   m_Layer: 9
-  m_Name: Prefab_VistaPrevia_MesaCrafteo
+  m_Name: Prefab Mesa Crafting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1851814942339670954
+--- !u!4 &2725400156631677859
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851814942339670959}
+  m_GameObject: {fileID: 2725400156631677862}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2177576859855503248}
+  - {fileID: 2474772515796658073}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1851814942339670957
+--- !u!65 &2725400156631677860
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851814942339670959}
+  m_GameObject: {fileID: 2725400156631677862}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.3758087, y: 1.1887219, z: 1.2798812}
   m_Center: {x: -0.00077342987, y: 0.52572477, z: 0.00000011920929}
---- !u!114 &1851814942339670956
+--- !u!114 &2725400156631677861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851814942339670959}
+  m_GameObject: {fileID: 2725400156631677862}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e336372f27f2e1488896dfc79129485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8648889836386897765
-MonoBehaviour:
+  asset: {fileID: 11400000, guid: 66f2656151abb9c4eaf2b12b3a4cb3ff, type: 2}
+--- !u!208 &1481034020318787341
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851814942339670959}
+  m_GameObject: {fileID: 2725400156631677862}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f188f37cab0e77f42b7d75d7300e03ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  puedeConstruir: {fileID: 2100000, guid: b6720ce4a2bbf914c84480f9d3870dcd, type: 2}
-  noPuedeConstruir: {fileID: 2100000, guid: f3487e66d21b8e8408f9fb2e5374b573, type: 2}
---- !u!54 &1201010561752677828
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851814942339670959}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!1001 &1851814940872104059
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6879045, y: 0.594361, z: 0.6399405}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.0007734299, y: 0.5257248, z: 0.0000001192093}
+  m_TimeToStationary: 0.5
+--- !u!1001 &2725400156941369458
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1851814942339670954}
+    m_TransformParent: {fileID: 2725400156631677859}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
       propertyPath: m_RootOrder
@@ -141,26 +127,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b6720ce4a2bbf914c84480f9d3870dcd, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: b6720ce4a2bbf914c84480f9d3870dcd, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: b6720ce4a2bbf914c84480f9d3870dcd, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
-      propertyPath: m_Materials.Array.data[3]
-      value: 
-      objectReference: {fileID: 2100000, guid: b6720ce4a2bbf914c84480f9d3870dcd, type: 2}
-    - target: {fileID: -7511558181221131132, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
-      propertyPath: m_Materials.Array.data[4]
-      value: 
-      objectReference: {fileID: 2100000, guid: b6720ce4a2bbf914c84480f9d3870dcd, type: 2}
     - target: {fileID: 919132149155446097, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
       propertyPath: m_Name
       value: MesaCrafteo
@@ -171,8 +137,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
---- !u!4 &2177576859855503248 stripped
+--- !u!4 &2474772515796658073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
-  m_PrefabInstance: {fileID: 1851814940872104059}
+  m_PrefabInstance: {fileID: 2725400156941369458}
   m_PrefabAsset: {fileID: 0}

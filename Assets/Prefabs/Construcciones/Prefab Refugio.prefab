@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8035010870663679286}
   - component: {fileID: 750415409418577905}
   m_Layer: 0
-  m_Name: Prefab_Refugio
+  m_Name: Prefab Refugio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

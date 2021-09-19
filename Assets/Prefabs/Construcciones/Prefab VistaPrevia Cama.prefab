@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -221947120997650178}
   - component: {fileID: 4437648143182096388}
   m_Layer: 0
-  m_Name: Prefab_VistaPrevia_Cama
+  m_Name: Prefab VistaPrevia Cama
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

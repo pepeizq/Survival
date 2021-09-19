@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5233783288332088421}
   - component: {fileID: 7323679995965947937}
   m_Layer: 0
-  m_Name: Prefab_VistaPrevia_Refugio
+  m_Name: Prefab VistaPrevia Refugio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
