@@ -279,7 +279,7 @@ namespace Escenario.Generar
                     casilla3.recursoPuesto = false;
                     casilla3.recursoPosible = casillasFinal[id].recursoPosible;
                     casilla3.recursoPosicion = casillasFinal[id].recursoPosicion;
-                    casilla3.construido = false;      
+                    casilla3.construccionPuesta = false;      
 
                     casillas[x, z] = casilla3;
                 }

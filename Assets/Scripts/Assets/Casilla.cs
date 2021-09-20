@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets
@@ -18,10 +19,16 @@ namespace Assets
         public bool recursoPosible;
         public Vector3 recursoPosicion;
 
+        [Header("Construcciones")]
+        [HideInInspector] public bool construccionPuesta;
+        public bool construccionPosible;
+        [HideInInspector] public List<Piso> pisos;
+        public List<Vector3> posicionesSuelo;
+        public List<Vector3> posicionesParedes;
+
         [HideInInspector] public Vector3 posicion;
         [HideInInspector] public int rotacion;
         [HideInInspector] public Isla isla;
-        [HideInInspector] public bool construido;
 
         public Casilla(int ID, int Rotacion, Vector3 Posicion)
         {
@@ -29,5 +36,12 @@ namespace Assets
             rotacion = Rotacion;
             posicion = Posicion;
         }
+    }
+
+    public class Piso : MonoBehaviour
+    {
+        public int nivel;
+        public GameObject suelo;
+        public GameObject pared;
     }
 }
