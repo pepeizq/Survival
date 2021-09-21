@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5435356379422937791}
   - component: {fileID: 5312945385918819408}
   m_Layer: 0
-  m_Name: Tablon 1
+  m_Name: Prefab Suelo 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,8 +61,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 5775865398287329665, guid: c867bda4ccf31194fa9e482b78a94ebf, type: 3}
   - {fileID: -8255497921437555292, guid: 99ce197582ca7aa4a877f524c3af7d3f, type: 3}
-  - {fileID: 5775865398287329665, guid: 99ce197582ca7aa4a877f524c3af7d3f, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
