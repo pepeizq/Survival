@@ -13,5 +13,6 @@ namespace Assets
         public GameObject prefab;
         public GameObject vistaPreviaPrefab;
         public RecursoCoste[] costes;
+        public Tipos.Construccion tipo;
     }
 }

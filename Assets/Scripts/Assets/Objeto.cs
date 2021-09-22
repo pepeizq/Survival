@@ -32,21 +32,3 @@ namespace Assets
         public float valor;
     }
 }
-
-namespace Assets.Tipos
-{
-    public enum Objeto
-    {
-        Recurso,
-        Equipable,
-        Consumible
-    }
-
-    public enum Consumible
-    {
-        Hambre,
-        Sed,
-        Salud,
-        Sueño
-    }
-}
