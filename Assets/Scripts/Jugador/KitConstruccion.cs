@@ -76,7 +76,11 @@ namespace Jugador
             Canvas.Canvas.instancia.construcciones.SetActive(false);
             Movimientos.instancia.EnseñarCursor(false);
 
-            vistaPrevia = Instantiate(receta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
+            if (receta.tipo == Assets.Tipos.Construccion.Libre)
+            {
+                vistaPrevia = Instantiate(receta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
+            }
+            
         }
 
         public void Update()
