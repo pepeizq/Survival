@@ -1,5 +1,5 @@
 {
-    "name": "JugadorControl",
+    "name": "Controles",
     "maps": [
         {
             "name": "Principal",
@@ -105,6 +105,14 @@
                     "name": "Guardar",
                     "type": "Button",
                     "id": "9ee08a83-05ad-4134-896c-c70334f3c5a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Construccion Rotar",
+                    "type": "Button",
+                    "id": "bf29f60f-e33d-4cd6-a11e-958dde5a64af",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -339,6 +347,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Guardar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa166e36-0c0a-4581-ae34-4828a939c4f3",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Construccion Rotar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

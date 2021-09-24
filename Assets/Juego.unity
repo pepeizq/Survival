@@ -5383,6 +5383,9 @@ MonoBehaviour:
   herramientasJugador:
   - {fileID: 11400000, guid: 9aa3f4525866e9d48912e8fdc5a8f848, type: 2}
   - {fileID: 11400000, guid: e1e00b828f8e6af4593246e569eda9e6, type: 2}
+  - {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
+  - {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
+  - {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
   "tama\xF1oEscenarioX": 0
   "tama\xF1oEscenarioZ": 0
   casillasEscala: 2

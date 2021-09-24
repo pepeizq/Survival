@@ -5,7 +5,7 @@ namespace Jugador
 {
     public class KitConstruccion : Objeto.Camara
     {
-        private Assets.Construccion actualReceta;
+        private Assets.Construccion recetaConstruccion;
         private Construccion.VistaPrevia vistaPrevia;
 
         public float ubicacionActualizacionVelocidad = 0.03f;
@@ -32,27 +32,27 @@ namespace Jugador
 
         public override void AtacarInput()
         {
-            if (actualReceta == null || vistaPrevia == null || puedeUbicarConstruccion == false)
+            if (recetaConstruccion == null || vistaPrevia == null || puedeUbicarConstruccion == false)
             {
                 return;
             }
 
-            Instantiate(actualReceta.prefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
+            Instantiate(recetaConstruccion.prefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
 
             int i = 0;
-            while (i < actualReceta.costes.Length)
+            while (i < recetaConstruccion.costes.Length)
             {
                 int j = 0;
-                while (j < actualReceta.costes[i].cantidad)
+                while (j < recetaConstruccion.costes[i].cantidad)
                 {
-                    Inventario.Inventario.instancia.QuitarObjeto(actualReceta.costes[i].objeto);
+                    Inventario.Inventario.instancia.QuitarObjeto(recetaConstruccion.costes[i].objeto);
                     j += 1;
                 }
 
                 i += 1;
             }
 
-            actualReceta = null;
+            recetaConstruccion = null;
             Destroy(vistaPrevia.gameObject);
             vistaPrevia = null;
             puedeUbicarConstruccion = false;
@@ -70,62 +70,79 @@ namespace Jugador
             Movimientos.instancia.EnseñarCursor(true); 
         }
 
-        public void EstablecerNuevaRecetaConstruccion(Assets.Construccion receta)
+        public void EstablecerNuevaRecetaConstruccion(Assets.Construccion nuevaReceta)
         {
-            actualReceta = receta;
+            recetaConstruccion = nuevaReceta;
             Canvas.Canvas.instancia.construcciones.SetActive(false);
             Movimientos.instancia.EnseñarCursor(false);
 
-            if (receta.tipo == Assets.Tipos.Construccion.Libre)
-            {
-                vistaPrevia = Instantiate(receta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
-            }
-            
+            vistaPrevia = Instantiate(nuevaReceta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
         }
 
         public void Update()
         {
-            if (actualReceta != null && vistaPrevia != null && Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
+            if (vistaPrevia != null && recetaConstruccion != null)
             {
-                ultimaUbicacionTiempo = Time.time;
-
-                Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
+                if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Libre)
                 {
-                    vistaPrevia.transform.position = hit.point;
-                    vistaPrevia.transform.up = hit.normal;
-                    vistaPrevia.transform.Rotate(new Vector3(0, rotacionEjeY, 0), Space.Self);
-
-                    if (vistaPrevia.ColisionandoConObjetos() == false)
+                    if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
                     {
-                        if (puedeUbicarConstruccion == false)
-                        {
-                            vistaPrevia.PuedeColocar();
-                        }
+                        ultimaUbicacionTiempo = Time.time;
 
-                        puedeUbicarConstruccion = true;
+                        Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
+                        {
+                            vistaPrevia.transform.position = hit.point;
+                            vistaPrevia.transform.up = hit.normal;
+                            vistaPrevia.transform.Rotate(new Vector3(0, rotacionEjeY, 0), Space.Self);
+
+                            if (vistaPrevia.ColisionandoConObjetos() == false)
+                            {
+                                if (puedeUbicarConstruccion == false)
+                                {
+                                    vistaPrevia.PuedeColocar();
+                                }
+
+                                puedeUbicarConstruccion = true;
+                            }
+                            else
+                            {
+                                if (puedeUbicarConstruccion == true)
+                                {
+                                    vistaPrevia.NoPuedeColocar();
+                                }
+
+                                puedeUbicarConstruccion = false;
+                            }
+                        }
                     }
-                    else
-                    {
-                        if (puedeUbicarConstruccion == true)
-                        {
-                            vistaPrevia.NoPuedeColocar();
-                        }
 
-                        puedeUbicarConstruccion = false;
+                    if (Keyboard.current.rKey.isPressed == true)
+                    {
+                        rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
+
+                        if (rotacionEjeY > 360)
+                        {
+                            rotacionEjeY = 0;
+                        }
                     }
                 }
-            }
-
-            if (Keyboard.current.rKey.isPressed == true)
-            {
-                rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
-
-                if (rotacionEjeY > 360)
+                else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo)
                 {
-                    rotacionEjeY = 0;
+                    if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
+                    {
+                        ultimaUbicacionTiempo = Time.time;
+
+                        Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
+                        {
+
+                        }
+                    }
                 }
             }
         }
