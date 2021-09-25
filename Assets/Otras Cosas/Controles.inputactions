@@ -94,14 +94,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Mapa Arrastre",
-                    "type": "Button",
-                    "id": "140c6865-efbe-4e5a-92d0-da00fbcbaaf0",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Guardar",
                     "type": "Button",
                     "id": "9ee08a83-05ad-4134-896c-c70334f3c5a7",
@@ -325,17 +317,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mapa Zoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "095d8c4c-e326-4218-9a4d-9ad49ed0a3a5",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Mapa Arrastre",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

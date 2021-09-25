@@ -17,7 +17,7 @@ namespace Jugador
         public Vector3 ubicacionPosicion;
         private bool puedeUbicarConstruccion;
         private float rotacionEjeY;
-
+        private bool puedeRotar;
         public float rotacionVelocidad = 180;
 
         private Camera camara;
@@ -118,8 +118,8 @@ namespace Jugador
                             }
                         }
                     }
-
-                    if (Keyboard.current.rKey.isPressed == true)
+                    Debug.Log(puedeRotar);
+                    if (puedeRotar == true)
                     {
                         rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
 
@@ -127,6 +127,8 @@ namespace Jugador
                         {
                             rotacionEjeY = 0;
                         }
+
+                        //puedeRotar = false;
                     }
                 }
                 else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo)
@@ -152,6 +154,18 @@ namespace Jugador
             if (vistaPrevia != null)
             {
                 Destroy(vistaPrevia.gameObject);
+            }
+        }
+
+        public void RotarInput(InputAction.CallbackContext contexto)
+        {
+            if (contexto.phase == InputActionPhase.Started)
+            {
+                puedeRotar = true;
+            }
+            else if (contexto.phase == InputActionPhase.Canceled)
+            {
+                puedeRotar = false;
             }
         }
     }

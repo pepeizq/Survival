@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41047943, g: 0.46151817, b: 0.69613725, a: 1}
+  m_IndirectSpecularColor: {r: 0.4114762, g: 0.46275276, b: 0.6982646, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3106,6 +3106,7 @@ GameObject:
   - component: {fileID: 487785793}
   - component: {fileID: 487785790}
   - component: {fileID: 487785789}
+  - component: {fileID: 487785799}
   m_Layer: 8
   m_Name: Jugador
   m_TagString: Player
@@ -3374,22 +3375,6 @@ MonoBehaviour:
     m_ActionName: Principal/Mapa Zoom[/Mouse/scroll/y,/Mouse/scroll/y]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 487785798}
-        m_TargetAssemblyTypeName: Jugador.Mapa, Assembly-CSharp
-        m_MethodName: MapaArrastreInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 140c6865-efbe-4e5a-92d0-da00fbcbaaf0
-    m_ActionName: Principal/Mapa Arrastre[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 2115491975}
         m_TargetAssemblyTypeName: Partida.Guardar, Assembly-CSharp
         m_MethodName: RecopilarDatos
@@ -3404,6 +3389,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9ee08a83-05ad-4134-896c-c70334f3c5a7
     m_ActionName: Principal/Guardar
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 487785799}
+        m_TargetAssemblyTypeName: Jugador.KitConstruccion, Assembly-CSharp
+        m_MethodName: RotarInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bf29f60f-e33d-4cd6-a11e-958dde5a64af
+    m_ActionName: Principal/Construccion Rotar[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Principal
@@ -3534,6 +3535,25 @@ MonoBehaviour:
   zoomCerca: 0.5
   zoomLejos: 60
   velocidad: 10
+--- !u!114 &487785799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487785788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b97911c10578144b9ccc1308adaf862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ubicacionActualizacionVelocidad: 0.03
+  ubicacionMaximaDistancia: 5
+  ubicacionLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  ubicacionPosicion: {x: 0, y: 0, z: 0}
+  rotacionVelocidad: 180
 --- !u!1 &496158733
 GameObject:
   m_ObjectHideFlags: 0
