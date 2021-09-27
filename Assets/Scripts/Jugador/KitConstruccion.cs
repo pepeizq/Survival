@@ -16,7 +16,7 @@ namespace Jugador
 
         public Vector3 ubicacionPosicion;
         private bool puedeUbicarConstruccion;
-        private float rotacionEjeY;
+        private float rotacionEjeY = 0;
         private bool puedeRotar;
         public float rotacionVelocidad = 180;
 
@@ -79,23 +79,34 @@ namespace Jugador
             vistaPrevia = Instantiate(nuevaReceta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             if (vistaPrevia != null && recetaConstruccion != null)
             {
                 if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Libre)
                 {
+                    Debug.Log(rotacionEjeY);
+                    if (puedeRotar == true)
+                    {
+                        rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
+
+                        if (rotacionEjeY > 360)
+                        {
+                            rotacionEjeY = 0;
+                        }
+                    }
+
                     if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
                     {
                         ultimaUbicacionTiempo = Time.time;
 
                         Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
                         RaycastHit hit;
-
+                     
                         if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
                         {
                             vistaPrevia.transform.position = hit.point;
-                            vistaPrevia.transform.up = hit.normal;
+                            vistaPrevia.transform.up = hit.normal;                        
                             vistaPrevia.transform.Rotate(new Vector3(0, rotacionEjeY, 0), Space.Self);
 
                             if (vistaPrevia.ColisionandoConObjetos() == false)
@@ -117,18 +128,6 @@ namespace Jugador
                                 puedeUbicarConstruccion = false;
                             }
                         }
-                    }
-                    Debug.Log(puedeRotar);
-                    if (puedeRotar == true)
-                    {
-                        rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
-
-                        if (rotacionEjeY > 360)
-                        {
-                            rotacionEjeY = 0;
-                        }
-
-                        //puedeRotar = false;
                     }
                 }
                 else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo)
@@ -159,13 +158,9 @@ namespace Jugador
 
         public void RotarInput(InputAction.CallbackContext contexto)
         {
-            if (contexto.phase == InputActionPhase.Started)
+            if (contexto.phase == InputActionPhase.Performed)
             {
-                puedeRotar = true;
-            }
-            else if (contexto.phase == InputActionPhase.Canceled)
-            {
-                puedeRotar = false;
+                rotacionEjeY = rotacionEjeY + contexto.ReadValue<float>() + rotacionVelocidad * Time.deltaTime;
             }
         }
     }
