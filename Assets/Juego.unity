@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.41059983, g: 0.46122092, b: 0.69585747, a: 1}
+  m_IndirectSpecularColor: {r: 0.408733, g: 0.45793653, b: 0.6907611, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3553,6 +3553,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   ubicacionPosicion: {x: 0, y: 0, z: 0}
+  puedeRotar: 0
   rotacionVelocidad: 180
 --- !u!1 &496158733
 GameObject:
@@ -5339,8 +5340,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5197c65d8064c7e4481c3236c0612a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aleatorio: 0
-  coloresGeneracion: 1
+  aleatorio: 1
+  coloresGeneracion: 0
   llano: 1
   agua: 1
   colocarJugador: 1

@@ -17,7 +17,7 @@ namespace Jugador
         public Vector3 ubicacionPosicion;
         private bool puedeUbicarConstruccion;
         private float rotacionEjeY = 0;
-        private bool puedeRotar;
+        public bool puedeRotar;
         public float rotacionVelocidad = 180;
 
         private Camera camara;
@@ -79,13 +79,12 @@ namespace Jugador
             vistaPrevia = Instantiate(nuevaReceta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
         }
 
-        public void FixedUpdate()
+        public void Update()
         {
             if (vistaPrevia != null && recetaConstruccion != null)
             {
                 if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Libre)
                 {
-                    Debug.Log(rotacionEjeY);
                     if (puedeRotar == true)
                     {
                         rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
@@ -158,9 +157,13 @@ namespace Jugador
 
         public void RotarInput(InputAction.CallbackContext contexto)
         {
-            if (contexto.phase == InputActionPhase.Performed)
+            if (contexto.phase == InputActionPhase.Started)
             {
-                rotacionEjeY = rotacionEjeY + contexto.ReadValue<float>() + rotacionVelocidad * Time.deltaTime;
+                instancia.puedeRotar = true;
+            }
+            else if (contexto.phase == InputActionPhase.Canceled)
+            {
+                instancia.puedeRotar = false;
             }
         }
     }

@@ -9,7 +9,7 @@ namespace Construccion
         public Material noPuedeConstruir;
         private MeshRenderer[] meshRenderers;
         private List<GameObject> objetosColisiones = new List<GameObject>();
-
+        
         public void Awake()
         {
             meshRenderers = transform.GetComponentsInChildren<MeshRenderer>();
