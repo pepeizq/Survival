@@ -140,7 +140,12 @@ namespace Jugador
 
                         if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
                         {
+                            GameObject casilla = hit.collider.gameObject;
 
+                            if (casilla != null)
+                            {
+
+                            }
                         }
                     }
                 }

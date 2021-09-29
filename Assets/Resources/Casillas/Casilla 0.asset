@@ -14,9 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   idDebug: 0
+  idColocacion: 0
   prefab: {fileID: 476269539104930055, guid: d6ae6d03a1772984097fed33fd0a1eb5, type: 3}
+  recurso: {fileID: 0}
+  recursoID: 0
+  recursoPuesto: 0
   recursoPosible: 1
   recursoPosicion: {x: 0, y: -0.5, z: 0}
+  construccionPuesta: 0
+  construccionPosible: 0
+  pisos: []
+  posicionesSuelo:
+  - {x: 0, y: 0, z: 0}
+  posicionesParedes: []
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0
   isla: {fileID: 0}
