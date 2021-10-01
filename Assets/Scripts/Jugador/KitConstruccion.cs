@@ -141,10 +141,15 @@ namespace Jugador
                         if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
                         {
                             GameObject casilla = hit.collider.gameObject;
-
+                
                             if (casilla != null)
-                            {
+                            {                         
+                                Assets.Casilla casilla2 = Escenario.Generar.Escenario.instancia.casillas[(int)casilla.transform.position.x, (int)casilla.transform.position.z];
 
+                                if (casilla2 != null)
+                                {
+                                    Debug.Log(casilla2.idColocacion);
+                                }
                             }
                         }
                     }

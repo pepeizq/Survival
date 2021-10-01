@@ -20,3 +20,4 @@ MonoBehaviour:
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
     cantidad: 1
+  tipo: 1
