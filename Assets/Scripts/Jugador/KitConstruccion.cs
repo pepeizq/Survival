@@ -148,7 +148,29 @@ namespace Jugador
 
                                 if (casilla2 != null)
                                 {
-                                    Debug.Log(casilla2.idColocacion);
+                                    if (casilla2.construccionPosible == true)
+                                    {
+                                        if (casilla2.posicionesSuelo != null)
+                                        {
+                                            if (casilla2.posicionesSuelo.Count > 0)
+                                            {
+                                                if (casilla2.pisos != null)
+                                                {
+                                                    if (casilla2.pisos.Count == 0)
+                                                    {
+                                                        Vector3 posicion = casilla2.posicionesSuelo[0];
+
+                                                        vistaPrevia.transform.position = hit.point;
+                                                        vistaPrevia.transform.up = hit.normal;
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
