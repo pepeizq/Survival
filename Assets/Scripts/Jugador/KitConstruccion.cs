@@ -16,7 +16,7 @@ namespace Jugador
 
         public Vector3 ubicacionPosicion;
         private bool puedeUbicarConstruccion;
-        private float rotacionEjeY = 0;
+        private float rotacionLibreEjeY = 0;
         public bool puedeRotar;
         public float rotacionVelocidad = 180;
 
@@ -56,7 +56,7 @@ namespace Jugador
             Destroy(vistaPrevia.gameObject);
             vistaPrevia = null;
             puedeUbicarConstruccion = false;
-            rotacionEjeY = 0;
+            rotacionLibreEjeY = 0;
         }
 
         public override void Atacar2Input()
@@ -87,11 +87,11 @@ namespace Jugador
                 {
                     if (puedeRotar == true)
                     {
-                        rotacionEjeY = rotacionEjeY + rotacionVelocidad * Time.deltaTime;
+                        rotacionLibreEjeY = rotacionLibreEjeY + rotacionVelocidad * Time.deltaTime;
 
-                        if (rotacionEjeY > 360)
+                        if (rotacionLibreEjeY > 360)
                         {
-                            rotacionEjeY = 0;
+                            rotacionLibreEjeY = 0;
                         }
                     }
 
@@ -106,7 +106,7 @@ namespace Jugador
                         {
                             vistaPrevia.transform.position = hit.point;
                             vistaPrevia.transform.up = hit.normal;                        
-                            vistaPrevia.transform.Rotate(new Vector3(0, rotacionEjeY, 0), Space.Self);
+                            vistaPrevia.transform.Rotate(new Vector3(0, rotacionLibreEjeY, 0), Space.Self);
 
                             if (vistaPrevia.ColisionandoConObjetos() == false)
                             {
@@ -162,6 +162,9 @@ namespace Jugador
 
                                                         vistaPrevia.transform.position = hit.point;
                                                         vistaPrevia.transform.up = hit.normal;
+                                                        vistaPrevia.transform.SetParent(casilla2.prefab.transform);
+
+
                                                     }
                                                     else
                                                     {
