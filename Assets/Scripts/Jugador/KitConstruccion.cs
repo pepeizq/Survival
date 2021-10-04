@@ -160,11 +160,28 @@ namespace Jugador
                                                     {
                                                         Vector3 posicion = casilla2.posicionesSuelo[0];
 
-                                                        vistaPrevia.transform.position = hit.point;
+                                                        vistaPrevia.transform.position = posicion;
                                                         vistaPrevia.transform.up = hit.normal;
                                                         vistaPrevia.transform.SetParent(casilla2.prefab.transform);
 
+                                                        if (vistaPrevia.ColisionandoConObjetos() == false)
+                                                        {
+                                                            if (puedeUbicarConstruccion == false)
+                                                            {
+                                                                vistaPrevia.PuedeColocar();
+                                                            }
 
+                                                            puedeUbicarConstruccion = true;
+                                                        }
+                                                        else
+                                                        {
+                                                            if (puedeUbicarConstruccion == true)
+                                                            {
+                                                                vistaPrevia.NoPuedeColocar();
+                                                            }
+
+                                                            puedeUbicarConstruccion = false;
+                                                        }
                                                     }
                                                     else
                                                     {
