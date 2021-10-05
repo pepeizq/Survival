@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -145,48 +146,51 @@ namespace Jugador
                             if (casilla != null)
                             {                         
                                 Assets.Casilla casilla2 = Escenario.Generar.Escenario.instancia.casillas[(int)casilla.transform.position.x, (int)casilla.transform.position.z];
-
+                            
                                 if (casilla2 != null)
                                 {
                                     if (casilla2.construccionPosible == true)
                                     {
+                                        Debug.Log("yolo");
                                         if (casilla2.posicionesSuelo != null)
                                         {
                                             if (casilla2.posicionesSuelo.Count > 0)
                                             {
-                                                if (casilla2.pisos != null)
+                                                if (casilla2.pisos == null)
                                                 {
-                                                    if (casilla2.pisos.Count == 0)
+                                                    casilla2.pisos = new List<Assets.Piso>();                                                   
+                                                }
+                                                Debug.Log(casilla2.pisos.Count);
+                                                if (casilla2.pisos.Count == 0)
+                                                {
+                                                    Vector3 posicion = casilla2.posicionesSuelo[0];
+
+                                                    vistaPrevia.transform.position = posicion;
+                                                    vistaPrevia.transform.up = hit.normal;
+                                                    vistaPrevia.transform.SetParent(casilla2.prefab.transform);
+
+                                                    if (vistaPrevia.ColisionandoConObjetos() == false)
                                                     {
-                                                        Vector3 posicion = casilla2.posicionesSuelo[0];
-
-                                                        vistaPrevia.transform.position = posicion;
-                                                        vistaPrevia.transform.up = hit.normal;
-                                                        vistaPrevia.transform.SetParent(casilla2.prefab.transform);
-
-                                                        if (vistaPrevia.ColisionandoConObjetos() == false)
+                                                        if (puedeUbicarConstruccion == false)
                                                         {
-                                                            if (puedeUbicarConstruccion == false)
-                                                            {
-                                                                vistaPrevia.PuedeColocar();
-                                                            }
-
-                                                            puedeUbicarConstruccion = true;
+                                                            vistaPrevia.PuedeColocar();
                                                         }
-                                                        else
-                                                        {
-                                                            if (puedeUbicarConstruccion == true)
-                                                            {
-                                                                vistaPrevia.NoPuedeColocar();
-                                                            }
 
-                                                            puedeUbicarConstruccion = false;
-                                                        }
+                                                        puedeUbicarConstruccion = true;
                                                     }
                                                     else
                                                     {
+                                                        if (puedeUbicarConstruccion == true)
+                                                        {
+                                                            vistaPrevia.NoPuedeColocar();
+                                                        }
 
+                                                        puedeUbicarConstruccion = false;
                                                     }
+                                                }
+                                                else
+                                                {
+
                                                 }
                                             }
                                         }

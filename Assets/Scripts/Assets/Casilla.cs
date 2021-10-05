@@ -20,7 +20,6 @@ namespace Assets
         public Vector3 recursoPosicion;
 
         [Header("Construcciones")]
-        [HideInInspector] public bool construccionPuesta;
         public bool construccionPosible;
         [HideInInspector] public List<Piso> pisos;
         public List<Vector3> posicionesSuelo;
