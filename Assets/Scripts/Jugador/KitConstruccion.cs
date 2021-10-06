@@ -151,7 +151,6 @@ namespace Jugador
                                 {
                                     if (casilla2.construccionPosible == true)
                                     {
-                                        Debug.Log("yolo");
                                         if (casilla2.posicionesSuelo != null)
                                         {
                                             if (casilla2.posicionesSuelo.Count > 0)
