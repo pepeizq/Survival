@@ -159,7 +159,7 @@ namespace Jugador
                                                 {
                                                     casilla2.pisos = new List<Assets.Piso>();                                                   
                                                 }
-                                                //Debug.Log(casilla2.pisos.Count);
+                                                Debug.Log(casilla2.pisos.Count);
                                                 if (casilla2.pisos.Count == 0)
                                                 {
                                                     Vector3 posicion = casilla2.posicionesSuelo[0];
