@@ -20,7 +20,7 @@ namespace Escenario.Generar
                 {
                     if (casillas[x, z] != null)
                     {
-                        if (casillas[x, z].recursoPosible == true && casillas[x, z].construccionPuesta == false)
+                        if (casillas[x, z].recursoPosible == true && casillas[x, z].pisos is null)
                         {
                             if (casillas[x, z].isla.recursos != null)
                             {
@@ -78,7 +78,7 @@ namespace Escenario.Generar
                 {
                     if (Escenario.instancia.casillas[x, z] != null)
                     {
-                        if (Escenario.instancia.casillas[x, z].recursoPuesto == true && Escenario.instancia.casillas[x, z].construccionPuesta == false)
+                        if (Escenario.instancia.casillas[x, z].recursoPuesto == true && Escenario.instancia.casillas[x, z].pisos is null)
                         {
                             if (Escenario.instancia.casillas[x, z].recurso == null)
                             {
