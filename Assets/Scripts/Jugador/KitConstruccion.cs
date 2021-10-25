@@ -167,7 +167,7 @@ namespace Jugador
                                                     if (casilla2.pisos.Count == 0)
                                                     {
                                                         Vector3 posicion = casilla2.posicionesSuelo[0];
-                                                        Debug.Log(casilla2.pisos.Count);
+                                                        //Debug.Log(casilla2.pisos.Count);
                                                         vistaPrevia.transform.position = posicion;
                                                         vistaPrevia.transform.up = hit.normal;
                                                         vistaPrevia.transform.SetParent(casilla2.prefab.transform);
