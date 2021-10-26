@@ -21,11 +21,10 @@ MonoBehaviour:
   recursoPuesto: 0
   recursoPosible: 1
   recursoPosicion: {x: 0, y: -0.5, z: 0}
-  construccionPuesta: 0
   construccionPosible: 1
   pisos: []
   posicionesSuelo:
-  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: -0.5, z: 0}
   posicionesParedes: []
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0

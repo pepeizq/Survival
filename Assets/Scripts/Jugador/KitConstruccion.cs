@@ -153,7 +153,7 @@ namespace Jugador
 
                                     if (casilla2 != null)
                                     {
-                                        if (casilla2.construccionPosible == true)
+                                        if (casilla2.construccionPosible == true && casilla2.recursoPuesto == false)
                                         {
                                             if (casilla2.posicionesSuelo != null)
                                             {
@@ -167,10 +167,11 @@ namespace Jugador
                                                     if (casilla2.pisos.Count == 0)
                                                     {
                                                         Vector3 posicion = casilla2.posicionesSuelo[0];
-                                                        //Debug.Log(casilla2.pisos.Count);
-                                                        vistaPrevia.transform.position = posicion;
+
+                                                        vistaPrevia.transform.localPosition = posicion;
                                                         vistaPrevia.transform.up = hit.normal;
                                                         vistaPrevia.transform.SetParent(casilla2.prefab.transform);
+                                                        vistaPrevia.transform.localScale = new Vector3(Escenario.Generar.Escenario.instancia.casillasEscala, vistaPrevia.transform.localScale.y, Escenario.Generar.Escenario.instancia.casillasEscala);
 
                                                         if (vistaPrevia.ColisionandoConObjetos() == false)
                                                         {
