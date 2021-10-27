@@ -73,8 +73,22 @@ namespace Construccion
 
         public void OnTriggerEnter(Collider colision)
         {
-            //ID de la layer de terreno
-            if (colision.gameObject.layer != 12)
+            //Layers:
+            //12 Terreno
+            //13 Suelo
+
+            bool añadir = true;
+       
+            if (colision.gameObject.layer == 12)
+            {
+                añadir = false;
+            }
+            else if (colision.gameObject.layer == 13)
+            {
+                añadir = false;
+            }
+
+            if (añadir == true)
             {
                 objetosColisiones.Add(colision.gameObject);
             }           
@@ -82,7 +96,18 @@ namespace Construccion
 
         public void OnTriggerExit(Collider colision)
         {
-            if (colision.gameObject.layer != 12)
+            bool quitar = true;
+
+            if (colision.gameObject.layer == 12)
+            {
+                quitar = false;
+            }
+            else if (colision.gameObject.layer == 13)
+            {
+                quitar = false;
+            }
+
+            if (quitar == true)
             {
                 objetosColisiones.Remove(colision.gameObject);
             }

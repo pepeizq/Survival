@@ -270,7 +270,7 @@ namespace Escenario.Generar
                     casilla2.gameObject.transform.Rotate(Vector3.up, casilla.rotacion, Space.World);
                     casilla2.gameObject.transform.localScale = new Vector3(casillasEscala, casillasEscala, casillasEscala);
 
-                    CasillaCoordenadas coordenadas = casilla2.gameObject.AddComponent<CasillaCoordenadas>();
+                    Coordenadas coordenadas = casilla2.gameObject.AddComponent<Coordenadas>();
                     coordenadas.x = x;
                     coordenadas.z = z;
 
@@ -497,12 +497,6 @@ namespace Escenario.Generar
                 return false;
             }
         }
-    }
-
-    public class CasillaCoordenadas : MonoBehaviour
-    {
-        public int x;
-        public int z;
     }
 }
 

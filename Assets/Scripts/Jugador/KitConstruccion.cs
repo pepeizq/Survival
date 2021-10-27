@@ -142,68 +142,80 @@ namespace Jugador
 
                         if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
                         {
-                            GameObject casilla = hit.collider.gameObject;
+                            GameObject objeto = hit.collider.gameObject;
                            
-                            if (casilla != null)
-                            {               
-                                if (casilla.GetComponent<CasillaCoordenadas>() != null)
+                            if (objeto != null)
+                            {
+                                Assets.Casilla casilla = null;
+                                int x = 0;
+                                int z = 0;
+
+                                if (objeto.GetComponent<Coordenadas>() != null)
                                 {
-                                    CasillaCoordenadas coordenadas = casilla.GetComponent<CasillaCoordenadas>();
-                                    Assets.Casilla casilla2 = Escenario.Generar.Escenario.instancia.casillas[coordenadas.x, coordenadas.z];
+                                    Coordenadas coordenadas = objeto.GetComponent<Coordenadas>();
+                                    x = coordenadas.x;
+                                    z = coordenadas.z;
+                                    casilla = Escenario.Generar.Escenario.instancia.casillas[x, z];
+                                }
 
-                                    if (casilla2 != null)
+                                if (casilla != null)
+                                {
+                                    if (casilla.construccionPosible == true && casilla.recursoPuesto == false)
                                     {
-                                        if (casilla2.construccionPosible == true && casilla2.recursoPuesto == false)
+                                        if (casilla.posicionesSuelo != null)
                                         {
-                                            if (casilla2.posicionesSuelo != null)
+                                            if (casilla.posicionesSuelo.Count > 0)
                                             {
-                                                if (casilla2.posicionesSuelo.Count > 0)
+                                                if (casilla.pisos == null)
                                                 {
-                                                    if (casilla2.pisos == null)
+                                                    casilla.pisos = new List<Assets.Piso>();
+                                                }
+
+                                                Vector3 posicion = casilla.posicionesSuelo[0];
+
+                                                if (casilla.pisos.Count > 0)
+                                                {
+                                                    posicion.y = 1.5f * casilla.pisos.Count;
+                                                }
+
+                                                vistaPrevia.transform.localPosition = posicion;
+                                                vistaPrevia.transform.up = hit.normal;
+                                                vistaPrevia.transform.SetParent(casilla.prefab.transform);
+
+                                                Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
+                                                coordenadas.x = x;
+                                                coordenadas.z = z;
+
+                                                if (vistaPrevia.ColisionandoConObjetos() == false)
+                                                {
+                                                    if (puedeUbicarConstruccion == false)
                                                     {
-                                                        casilla2.pisos = new List<Assets.Piso>();
+                                                        vistaPrevia.PuedeColocar();
                                                     }
-                                                   
-                                                    if (casilla2.pisos.Count == 0)
+
+                                                    puedeUbicarConstruccion = true;
+                                                }
+                                                else
+                                                {
+                                                    if (puedeUbicarConstruccion == true)
                                                     {
-                                                        Vector3 posicion = casilla2.posicionesSuelo[0];
-
-                                                        vistaPrevia.transform.localPosition = posicion;
-                                                        vistaPrevia.transform.up = hit.normal;
-                                                        vistaPrevia.transform.SetParent(casilla2.prefab.transform);
-                                                        vistaPrevia.transform.localScale = new Vector3(Escenario.Generar.Escenario.instancia.casillasEscala, vistaPrevia.transform.localScale.y, Escenario.Generar.Escenario.instancia.casillasEscala);
-
-                                                        if (vistaPrevia.ColisionandoConObjetos() == false)
-                                                        {
-                                                            if (puedeUbicarConstruccion == false)
-                                                            {
-                                                                vistaPrevia.PuedeColocar();
-                                                            }
-
-                                                            puedeUbicarConstruccion = true;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (puedeUbicarConstruccion == true)
-                                                            {
-                                                                vistaPrevia.NoPuedeColocar();
-                                                            }
-
-                                                            puedeUbicarConstruccion = false;
-                                                        }
+                                                        vistaPrevia.NoPuedeColocar();
                                                     }
-                                                    else
-                                                    {
 
-                                                    }
+                                                    puedeUbicarConstruccion = false;
                                                 }
                                             }
                                         }
                                     }
-                                }                               
+                                }
+                                                            
                             }
                         }
                     }
+                }
+                else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Pared)
+                {
+
                 }
             }
         }
