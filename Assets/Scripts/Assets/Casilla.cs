@@ -39,7 +39,6 @@ namespace Assets
 
     public class Piso : MonoBehaviour
     {
-        public int nivel;
         public GameObject suelo;
         public GameObject pared;
     }

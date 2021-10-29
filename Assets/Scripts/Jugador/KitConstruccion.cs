@@ -78,6 +78,32 @@ namespace Jugador
             Canvas.Canvas.instancia.construcciones.SetActive(false);
             Movimientos.instancia.EnseñarCursor(false);
 
+            if (nuevaReceta.tipo == Assets.Tipos.Construccion.Suelo)
+            {
+                Coordenadas coordenadasViejas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
+
+                if (coordenadasViejas != null)
+                {
+                    Coordenadas coordenadasNuevas = nuevaReceta.vistaPreviaPrefab.gameObject.AddComponent<Coordenadas>();
+                    coordenadasNuevas = coordenadasViejas;
+
+                    Assets.Casilla casilla = Escenario.Generar.Escenario.instancia.casillas[coordenadasNuevas.x, coordenadasNuevas.z];
+
+                    if (casilla != null)
+                    {
+                        if (casilla.pisos == null)
+                        {
+                            casilla.pisos = new List<Assets.Piso>();
+                        }
+
+                        Assets.Piso piso = new Assets.Piso();
+                        piso.suelo = nuevaReceta.vistaPreviaPrefab.gameObject;
+
+                        casilla.pisos.Add(piso);
+                    }
+                }
+            }
+
             vistaPrevia = Instantiate(nuevaReceta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
         }
 
@@ -165,17 +191,15 @@ namespace Jugador
                                         if (casilla.posicionesSuelo != null)
                                         {
                                             if (casilla.posicionesSuelo.Count > 0)
-                                            {
-                                                if (casilla.pisos == null)
-                                                {
-                                                    casilla.pisos = new List<Assets.Piso>();
-                                                }
-
+                                            {                                               
                                                 Vector3 posicion = casilla.posicionesSuelo[0];
 
-                                                if (casilla.pisos.Count > 0)
+                                                if (casilla.pisos != null)
                                                 {
-                                                    posicion.y = 1.5f * casilla.pisos.Count;
+                                                    if (casilla.pisos.Count > 0)
+                                                    {
+                                                        posicion.y = 1.5f * casilla.pisos.Count;
+                                                    }
                                                 }
 
                                                 vistaPrevia.transform.localPosition = posicion;
