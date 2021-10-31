@@ -72,7 +72,7 @@ namespace Jugador
             Movimientos.instancia.EnseñarCursor(true); 
         }
 
-        public void EstablecerNuevaRecetaConstruccion(Assets.Construccion nuevaReceta)
+        public void ConstruirReceta(Assets.Construccion nuevaReceta)
         {
             recetaConstruccion = nuevaReceta;
             Canvas.Canvas.instancia.construcciones.SetActive(false);

@@ -75,7 +75,7 @@ namespace Construccion
         {
             if (puedeConstruir == true)
             {
-                Jugador.KitConstruccion.instancia.EstablecerNuevaRecetaConstruccion(receta);
+                Jugador.KitConstruccion.instancia.ConstruirReceta(receta);
             }
             else
             {
