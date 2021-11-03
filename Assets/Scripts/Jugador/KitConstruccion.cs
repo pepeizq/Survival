@@ -39,7 +39,33 @@ namespace Jugador
                 return;
             }
 
-            Instantiate(recetaConstruccion.prefab, vistaPrevia.transform.position, vistaPrevia.transform.rotation);
+            GameObject objetoConstruir = recetaConstruccion.prefab;
+            Vector3 coordenadas = vistaPrevia.transform.position;
+
+            if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo && vistaPrevia != null)
+            {
+                Coordenadas coordenadas2 = vistaPrevia.gameObject.GetComponent<Coordenadas>();
+
+                if (coordenadas2 != null)
+                {
+                    Assets.Casilla casilla = Escenario.Generar.Escenario.instancia.casillas[coordenadas2.x, coordenadas2.z];
+
+                    if (casilla != null)
+                    {
+                        if (casilla.pisos == null)
+                        {
+                            casilla.pisos = new List<Assets.Piso>();
+                        }
+
+                        Assets.Piso piso = new Assets.Piso();
+                        piso.suelo = recetaConstruccion.prefab;
+
+                        casilla.pisos.Add(piso);
+                    }
+                }
+            }
+
+            Instantiate(objetoConstruir, coordenadas, vistaPrevia.transform.rotation);
 
             int i = 0;
             while (i < recetaConstruccion.costes.Length)
@@ -72,39 +98,13 @@ namespace Jugador
             Movimientos.instancia.EnseñarCursor(true); 
         }
 
-        public void ConstruirReceta(Assets.Construccion nuevaReceta)
+        public void MostrarVistaPreviaReceta(Assets.Construccion nuevaReceta)
         {
             recetaConstruccion = nuevaReceta;
             Canvas.Canvas.instancia.construcciones.SetActive(false);
             Movimientos.instancia.EnseñarCursor(false);
-
-            if (nuevaReceta.tipo == Assets.Tipos.Construccion.Suelo)
-            {
-                Coordenadas coordenadasViejas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
-
-                if (coordenadasViejas != null)
-                {
-                    Coordenadas coordenadasNuevas = nuevaReceta.vistaPreviaPrefab.gameObject.AddComponent<Coordenadas>();
-                    coordenadasNuevas = coordenadasViejas;
-
-                    Assets.Casilla casilla = Escenario.Generar.Escenario.instancia.casillas[coordenadasNuevas.x, coordenadasNuevas.z];
-
-                    if (casilla != null)
-                    {
-                        if (casilla.pisos == null)
-                        {
-                            casilla.pisos = new List<Assets.Piso>();
-                        }
-
-                        Assets.Piso piso = new Assets.Piso();
-                        piso.suelo = nuevaReceta.vistaPreviaPrefab.gameObject;
-
-                        casilla.pisos.Add(piso);
-                    }
-                }
-            }
-
-            vistaPrevia = Instantiate(nuevaReceta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();
+     
+            vistaPrevia = Instantiate(nuevaReceta.vistaPreviaPrefab.gameObject).GetComponent<Construccion.VistaPrevia>();         
         }
 
         public void Update()

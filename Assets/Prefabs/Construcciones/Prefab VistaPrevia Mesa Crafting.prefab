@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1851814942339670956}
   - component: {fileID: -8648889836386897765}
   - component: {fileID: 1201010561752677828}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Prefab VistaPrevia Mesa Crafting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e336372f27f2e1488896dfc79129485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asset: {fileID: 0}
 --- !u!114 &-8648889836386897765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29d22d4f9d1156d4190602dcc3cb8213, type: 3}
