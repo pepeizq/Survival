@@ -198,7 +198,7 @@ namespace Jugador
                                                 {
                                                     if (casilla.pisos.Count > 0)
                                                     {
-                                                        posicion.y = 1.5f * casilla.pisos.Count;
+                                                        posicion.y = 2f * casilla.pisos.Count;
                                                     }
                                                 }
 
@@ -239,7 +239,90 @@ namespace Jugador
                 }
                 else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Pared)
                 {
+                    int posicionPared = 0;
 
+                    if (puedeRotar == true)
+                    {
+                        float rotacionTemp = rotacionLibreEjeY;
+                        rotacionLibreEjeY = rotacionLibreEjeY + rotacionVelocidad * Time.deltaTime;
+
+                        if (rotacionLibreEjeY != rotacionTemp)
+                        {
+                            posicionPared += 1;
+                        }
+
+                        if (posicionPared > 3)
+                        {
+                            posicionPared = 0;
+                        }
+                    }
+
+                    if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
+                    {
+                        ultimaUbicacionTiempo = Time.time;
+
+                        Ray ray = camara.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                        RaycastHit hit;
+
+                        if (Physics.Raycast(ray, out hit, ubicacionMaximaDistancia, ubicacionLayerMask) == true)
+                        {
+                            GameObject objeto = hit.collider.gameObject;
+
+                            if (objeto != null)
+                            {
+                                Assets.Casilla casilla = null;
+                                int x = 0;
+                                int z = 0;
+
+                                if (objeto.GetComponent<Coordenadas>() != null)
+                                {
+                                    Coordenadas coordenadas = objeto.GetComponent<Coordenadas>();
+                                    x = coordenadas.x;
+                                    z = coordenadas.z;
+                                    casilla = Escenario.Generar.Escenario.instancia.casillas[x, z];
+                                }
+
+                                if (casilla != null)
+                                {
+                                    if (casilla.pisos != null)
+                                    {
+                                        if (casilla.pisos.Count > 0)
+                                        {
+                                            if (casilla.pisos[casilla.pisos.Count - 1].pared == null)
+                                            {
+                                                Vector3 posicion = casilla.posicionesParedes[posicionPared];
+                                                vistaPrevia.transform.localPosition = posicion;
+                                                vistaPrevia.transform.SetParent(casilla.prefab.transform);
+
+                                                Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
+                                                coordenadas.x = x;
+                                                coordenadas.z = z;
+
+                                                if (vistaPrevia.ColisionandoConObjetos() == false)
+                                                {
+                                                    if (puedeUbicarConstruccion == false)
+                                                    {
+                                                        vistaPrevia.PuedeColocar();
+                                                    }
+
+                                                    puedeUbicarConstruccion = true;
+                                                }
+                                                else
+                                                {
+                                                    if (puedeUbicarConstruccion == true)
+                                                    {
+                                                        vistaPrevia.NoPuedeColocar();
+                                                    }
+
+                                                    puedeUbicarConstruccion = false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

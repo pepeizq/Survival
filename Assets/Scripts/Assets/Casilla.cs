@@ -13,11 +13,11 @@ namespace Assets
         public GameObject prefab;
 
         [Header("Recurso")]
+        public bool recursoPosible;
+        public Vector3 recursoPosicion;
         [HideInInspector] public GameObject recurso;
         [HideInInspector] public int recursoID;
         [HideInInspector] public bool recursoPuesto;
-        public bool recursoPosible;
-        public Vector3 recursoPosicion;
 
         [Header("Construcciones")]
         public bool construccionPosible;
