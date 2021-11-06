@@ -42,29 +42,46 @@ namespace Jugador
             GameObject objetoConstruir = recetaConstruccion.prefab;
             Vector3 coordenadas = vistaPrevia.transform.position;
 
-            if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo && vistaPrevia != null)
+            if (vistaPrevia != null)
             {
-                Coordenadas coordenadas2 = vistaPrevia.gameObject.GetComponent<Coordenadas>();
-
-                if (coordenadas2 != null)
+                if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo || recetaConstruccion.tipo == Assets.Tipos.Construccion.Pared)
                 {
-                    Assets.Casilla casilla = Escenario.Generar.Escenario.instancia.casillas[coordenadas2.x, coordenadas2.z];
+                    Coordenadas coordenadas2 = vistaPrevia.gameObject.GetComponent<Coordenadas>();
 
-                    if (casilla != null)
+                    if (coordenadas2 != null)
                     {
-                        if (casilla.pisos == null)
+                        Assets.Casilla casilla = Escenario.Generar.Escenario.instancia.casillas[coordenadas2.x, coordenadas2.z];
+
+                        if (casilla != null)
                         {
-                            casilla.pisos = new List<Assets.Piso>();
+                            if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Suelo)
+                            {
+                                if (casilla.pisos == null)
+                                {
+                                    casilla.pisos = new List<Assets.Piso>();
+                                }
+
+                                Assets.Piso piso = new Assets.Piso();
+                                piso.suelo = recetaConstruccion.prefab;
+
+                                casilla.pisos.Add(piso);
+                            }
+                            else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Pared)
+                            {
+                                if (casilla.pisos != null)
+                                {
+                                    if (casilla.pisos.Count > 0)
+                                    {
+                                        Assets.Piso piso = casilla.pisos[casilla.pisos.Count - 1];
+                                        piso.pared = recetaConstruccion.prefab;
+                                    }
+                                }
+                            }
                         }
-
-                        Assets.Piso piso = new Assets.Piso();
-                        piso.suelo = recetaConstruccion.prefab;
-
-                        casilla.pisos.Add(piso);
                     }
                 }
             }
-
+            
             Instantiate(objetoConstruir, coordenadas, vistaPrevia.transform.rotation);
 
             int i = 0;
@@ -136,24 +153,7 @@ namespace Jugador
                             vistaPrevia.transform.up = hit.normal;                        
                             vistaPrevia.transform.Rotate(new Vector3(0, rotacionLibreEjeY, 0), Space.Self);
 
-                            if (vistaPrevia.ColisionandoConObjetos() == false)
-                            {
-                                if (puedeUbicarConstruccion == false)
-                                {
-                                    vistaPrevia.PuedeColocar();
-                                }
-
-                                puedeUbicarConstruccion = true;
-                            }
-                            else
-                            {
-                                if (puedeUbicarConstruccion == true)
-                                {
-                                    vistaPrevia.NoPuedeColocar();
-                                }
-
-                                puedeUbicarConstruccion = false;
-                            }
+                            VistaPreviaUbicar(vistaPrevia);
                         }
                     }
                 }
@@ -210,24 +210,7 @@ namespace Jugador
                                                 coordenadas.x = x;
                                                 coordenadas.z = z;
 
-                                                if (vistaPrevia.ColisionandoConObjetos() == false)
-                                                {
-                                                    if (puedeUbicarConstruccion == false)
-                                                    {
-                                                        vistaPrevia.PuedeColocar();
-                                                    }
-
-                                                    puedeUbicarConstruccion = true;
-                                                }
-                                                else
-                                                {
-                                                    if (puedeUbicarConstruccion == true)
-                                                    {
-                                                        vistaPrevia.NoPuedeColocar();
-                                                    }
-
-                                                    puedeUbicarConstruccion = false;
-                                                }
+                                                VistaPreviaUbicar(vistaPrevia);
                                             }
                                         }
                                     }
@@ -291,6 +274,15 @@ namespace Jugador
                                             if (casilla.pisos[casilla.pisos.Count - 1].pared == null)
                                             {
                                                 Vector3 posicion = casilla.posicionesParedes[posicionPared];
+
+                                                if (casilla.pisos != null)
+                                                {
+                                                    if (casilla.pisos.Count > 0)
+                                                    {
+                                                        posicion.y = 2f * (casilla.pisos.Count - 1);
+                                                    }
+                                                }
+
                                                 vistaPrevia.transform.localPosition = posicion;
                                                 vistaPrevia.transform.SetParent(casilla.prefab.transform);
 
@@ -298,24 +290,7 @@ namespace Jugador
                                                 coordenadas.x = x;
                                                 coordenadas.z = z;
 
-                                                if (vistaPrevia.ColisionandoConObjetos() == false)
-                                                {
-                                                    if (puedeUbicarConstruccion == false)
-                                                    {
-                                                        vistaPrevia.PuedeColocar();
-                                                    }
-
-                                                    puedeUbicarConstruccion = true;
-                                                }
-                                                else
-                                                {
-                                                    if (puedeUbicarConstruccion == true)
-                                                    {
-                                                        vistaPrevia.NoPuedeColocar();
-                                                    }
-
-                                                    puedeUbicarConstruccion = false;
-                                                }
+                                                VistaPreviaUbicar(vistaPrevia);
                                             }
                                         }
                                     }
@@ -324,6 +299,28 @@ namespace Jugador
                         }
                     }
                 }
+            }
+        }
+
+        private void VistaPreviaUbicar(Construccion.VistaPrevia vistaPrevia)
+        {
+            if (vistaPrevia.ColisionandoConObjetos() == false)
+            {
+                if (puedeUbicarConstruccion == false)
+                {
+                    vistaPrevia.PuedeColocar();
+                }
+
+                puedeUbicarConstruccion = true;
+            }
+            else
+            {
+                if (puedeUbicarConstruccion == true)
+                {
+                    vistaPrevia.NoPuedeColocar();
+                }
+
+                puedeUbicarConstruccion = false;
             }
         }
 
