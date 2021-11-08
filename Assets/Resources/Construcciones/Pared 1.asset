@@ -15,8 +15,8 @@ MonoBehaviour:
   id: 6
   nombre: Pared
   icono: {fileID: 21300000, guid: 7ca63a4fd0518484db16f4116f3e51dd, type: 3}
-  prefab: {fileID: 5795780483606901610, guid: e2d296c1718b55f4fb04db2ce80f5b30, type: 3}
-  vistaPreviaPrefab: {fileID: 5795780483606901610, guid: 01950b13ae6f4ba4fa6184e58b0e97df, type: 3}
+  prefab: {fileID: 3320697028204876538, guid: 279a1bc6cf4e1ba40a0a8588f5fde30b, type: 3}
+  vistaPreviaPrefab: {fileID: 237191962196386796, guid: f6fac6dfc09942e48a6729eeb5a115fb, type: 3}
   costes:
   - objeto: {fileID: 11400000, guid: 903374d1d13f1704db1398bd1ba92561, type: 2}
     cantidad: 1
