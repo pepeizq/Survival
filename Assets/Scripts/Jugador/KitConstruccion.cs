@@ -279,7 +279,7 @@ namespace Jugador
                                                 {
                                                     if (casilla.pisos.Count > 0)
                                                     {
-                                                        posicion.y = 2f * (casilla.pisos.Count - 1);
+                                                        posicion.y = (2f * casilla.pisos.Count) + posicion.y;
                                                     }
                                                 }
 
