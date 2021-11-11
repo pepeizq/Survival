@@ -22,6 +22,8 @@ namespace Jugador
         public bool puedeRotar;
         public float rotacionVelocidad = 180;
 
+        private int posicionPared = 0;
+
         private Camera camara;
 
         public static KitConstruccion instancia;
@@ -191,7 +193,8 @@ namespace Jugador
                                         if (casilla.posicionesSuelo != null)
                                         {
                                             if (casilla.posicionesSuelo.Count > 0)
-                                            {                                               
+                                            {
+                                                bool enseñar = true;
                                                 Vector3 posicion = casilla.posicionesSuelo[0];
 
                                                 if (casilla.pisos != null)
@@ -199,18 +202,29 @@ namespace Jugador
                                                     if (casilla.pisos.Count > 0)
                                                     {
                                                         posicion.y = 2f * casilla.pisos.Count;
+
+                                                        if (casilla.pisos.Count > 1)
+                                                        {
+                                                            if (casilla.pisos[casilla.pisos.Count - 1].pared is null)
+                                                            {
+                                                                enseñar = false;
+                                                            }
+                                                        }
                                                     }
                                                 }
 
-                                                vistaPrevia.transform.localPosition = posicion;
-                                                vistaPrevia.transform.up = hit.normal;
-                                                vistaPrevia.transform.SetParent(casilla.prefab.transform);
+                                                if (enseñar == true)
+                                                {
+                                                    vistaPrevia.transform.localPosition = posicion;
+                                                    vistaPrevia.transform.up = hit.normal;
+                                                    vistaPrevia.transform.SetParent(casilla.prefab.transform);
 
-                                                Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
-                                                coordenadas.x = x;
-                                                coordenadas.z = z;
+                                                    Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
+                                                    coordenadas.x = x;
+                                                    coordenadas.z = z;
 
-                                                VistaPreviaUbicar(vistaPrevia);
+                                                    VistaPreviaUbicar(vistaPrevia);
+                                                }                                               
                                             }
                                         }
                                     }
@@ -222,8 +236,6 @@ namespace Jugador
                 }
                 else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Pared)
                 {
-                    int posicionPared = 0;
-
                     if (puedeRotar == true)
                     {
                         float rotacionTemp = rotacionLibreEjeY;
@@ -239,6 +251,8 @@ namespace Jugador
                             posicionPared = 0;
                         }
                     }
+
+                    Debug.Log(posicionPared);
 
                     if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
                     {
@@ -277,9 +291,13 @@ namespace Jugador
 
                                                 if (casilla.pisos != null)
                                                 {
-                                                    if (casilla.pisos.Count > 0)
+                                                    if (casilla.pisos.Count > 2)
                                                     {
-                                                        posicion.y = (2f * casilla.pisos.Count) + posicion.y;
+                                                        posicion.y = (2f * casilla.pisos.Count) + 0.5f - 2f;
+                                                    }
+                                                    else if (casilla.pisos.Count == 2)
+                                                    {
+                                                        posicion.y = casilla.pisos.Count + 0.5f;
                                                     }
                                                 }
 
