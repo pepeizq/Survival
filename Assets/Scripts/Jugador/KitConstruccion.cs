@@ -285,7 +285,7 @@ namespace Jugador
                                     {
                                         if (casilla.pisos.Count > 0)
                                         {
-                                            if (casilla.pisos[casilla.pisos.Count - 1].pared == null)
+                                            if (casilla.pisos[casilla.pisos.Count - 1].suelo != null && casilla.pisos[casilla.pisos.Count - 1].pared == null)
                                             {
                                                 Vector3 posicion = casilla.posicionesParedes[posicionPared];
 
