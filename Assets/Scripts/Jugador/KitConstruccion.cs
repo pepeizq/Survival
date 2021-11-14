@@ -23,6 +23,7 @@ namespace Jugador
         public float rotacionVelocidad = 180;
 
         private int posicionPared = 0;
+        private int rotacionPared = 0;
 
         private Camera camara;
 
@@ -245,6 +246,19 @@ namespace Jugador
                         {
                             posicionPared += 1;
                         }
+                        //Debug.Log(string.Format("{0} {1}", rotacionLibreEjeY, rotacionTemp));
+                        if (posicionPared == 2)
+                        {
+                            rotacionPared = 90;
+                        }
+                        else if (posicionPared == 3)
+                        {
+                            rotacionPared = 270;
+                        }
+                        else
+                        {
+                            rotacionPared = 0;
+                        }
 
                         if (posicionPared > 3)
                         {
@@ -252,7 +266,7 @@ namespace Jugador
                         }
                     }
 
-                    Debug.Log(posicionPared);
+                    //Debug.Log(posicionPared);
 
                     if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
                     {
@@ -302,7 +316,12 @@ namespace Jugador
                                                 }
 
                                                 vistaPrevia.transform.localPosition = posicion;
-                                                vistaPrevia.transform.SetParent(casilla.prefab.transform);
+                                                vistaPrevia.transform.SetParent(casilla.pisos[casilla.pisos.Count - 1].suelo.transform);
+
+                                                if (vistaPrevia.transform.localRotation.y != rotacionPared)
+                                                {
+                                                    vistaPrevia.transform.Rotate(new Vector3(0, rotacionPared, 0), Space.Self);
+                                                }                                                
 
                                                 Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
                                                 coordenadas.x = x;

@@ -1417,6 +1417,10 @@ namespace Escenario.Generar
             {
                 Escenario.instancia.PonerCasilla(esquina3rotacion0);
             }
+            else if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z + 2], y, 90) == true)
+            {
+                Escenario.instancia.PonerCasilla(esquina3rotacion0);
+            }
             else if (Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x + 2, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x, z + 2], y, 90) == true)
             {
                 Escenario.instancia.PonerCasilla(esquina3rotacion0);
