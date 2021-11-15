@@ -245,24 +245,13 @@ namespace Jugador
                         if (rotacionLibreEjeY != rotacionTemp)
                         {
                             posicionPared += 1;
-                        }
-                        //Debug.Log(string.Format("{0} {1}", rotacionLibreEjeY, rotacionTemp));
-                        if (posicionPared == 2)
-                        {
-                            rotacionPared = 90;
-                        }
-                        else if (posicionPared == 3)
-                        {
-                            rotacionPared = 270;
-                        }
-                        else
-                        {
-                            rotacionPared = 0;
+                            rotacionPared += 90;
                         }
 
                         if (posicionPared > 3)
                         {
                             posicionPared = 0;
+                            rotacionPared = 0;
                         }
                     }
 
@@ -316,11 +305,12 @@ namespace Jugador
                                                 }
 
                                                 vistaPrevia.transform.localPosition = posicion;
-                                                vistaPrevia.transform.SetParent(casilla.pisos[casilla.pisos.Count - 1].suelo.transform);
+                                                vistaPrevia.transform.SetParent(casilla.prefab.transform);
 
-                                                if (vistaPrevia.transform.localRotation.y != rotacionPared)
+                                                if (casilla.pisos[casilla.pisos.Count - 1].rotacionPared != rotacionPared)
                                                 {
                                                     vistaPrevia.transform.Rotate(new Vector3(0, rotacionPared, 0), Space.Self);
+                                                    casilla.pisos[casilla.pisos.Count - 1].rotacionPared = rotacionPared;
                                                 }                                                
 
                                                 Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();

@@ -525,7 +525,7 @@ namespace Escenario.Generar
             Assets.Casilla rampas4rotacion0 = new Assets.Casilla(34, 0, new Vector3(x + 1, y, z - 1));
             rampas4rotacion0.isla = ObtenerIsla(Escenario.instancia.casillas[x, z]);
 
-            if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z - 2], y, 270) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z]) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z - 1]) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 1, z]) == true)
+            if (Escenario.instancia.ComprobarCasilla0(Escenario.instancia.casillas[x, z], y, 0) == true && Escenario.instancia.ComprobarCasilla2(Escenario.instancia.casillas[x + 2, z - 2], y, 270) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z]) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 2, z - 1]) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 1, z]) == true && Escenario.instancia.ComprobarVacio(Escenario.instancia.casillas[x + 1, z - 2]) == true)
             {
                 Escenario.instancia.PonerCasilla(rampas4rotacion0);
             }

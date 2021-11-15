@@ -27,10 +27,9 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   posicionesParedes:
   - {x: -0.5, y: 0.5, z: 0}
-  - {x: 1.5, y: 0.5, z: 0}
-  - {x: 0, y: 0.5, z: -1.5}
   - {x: 0, y: 0.5, z: 0.5}
-  rotacionesParedes: 00000000000000000000000000000000
+  - {x: 0.5, y: 0.5, z: 0.5}
+  - {x: 0, y: 0.5, z: -0.5}
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0
   isla: {fileID: 0}

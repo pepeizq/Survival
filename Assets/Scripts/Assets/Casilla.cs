@@ -24,7 +24,6 @@ namespace Assets
         [HideInInspector] public List<Piso> pisos;
         public List<Vector3> posicionesSuelo;
         public List<Vector3> posicionesParedes;
-        public List<int> rotacionesParedes;
 
         [HideInInspector] public Vector3 posicion;
         [HideInInspector] public int rotacion;
@@ -42,5 +41,6 @@ namespace Assets
     {
         public GameObject suelo;
         public GameObject pared;
+        public int rotacionPared;
     }
 }
