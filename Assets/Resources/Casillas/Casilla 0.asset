@@ -28,7 +28,7 @@ MonoBehaviour:
   posicionesParedes:
   - {x: -0.5, y: 0.5, z: 0}
   - {x: 0, y: 0.5, z: 0.5}
-  - {x: 0.5, y: 0.5, z: 0.5}
+  - {x: 0.5, y: 0.5, z: 0}
   - {x: 0, y: 0.5, z: -0.5}
   posicion: {x: 0, y: 0, z: 0}
   rotacion: 0

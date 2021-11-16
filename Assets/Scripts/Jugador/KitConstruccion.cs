@@ -237,26 +237,6 @@ namespace Jugador
                 }
                 else if (recetaConstruccion.tipo == Assets.Tipos.Construccion.Pared)
                 {
-                    if (puedeRotar == true)
-                    {
-                        float rotacionTemp = rotacionLibreEjeY;
-                        rotacionLibreEjeY = rotacionLibreEjeY + rotacionVelocidad * Time.deltaTime;
-
-                        if (rotacionLibreEjeY != rotacionTemp)
-                        {
-                            posicionPared += 1;
-                            rotacionPared += 90;
-                        }
-
-                        if (posicionPared > 3)
-                        {
-                            posicionPared = 0;
-                            rotacionPared = 0;
-                        }
-                    }
-
-                    //Debug.Log(posicionPared);
-
                     if (Time.time - ultimaUbicacionTiempo > ubicacionActualizacionVelocidad)
                     {
                         ultimaUbicacionTiempo = Time.time;
@@ -292,6 +272,8 @@ namespace Jugador
                                             {
                                                 Vector3 posicion = casilla.posicionesParedes[posicionPared];
 
+                                                //Altura----------------
+
                                                 if (casilla.pisos != null)
                                                 {
                                                     if (casilla.pisos.Count > 2)
@@ -304,13 +286,38 @@ namespace Jugador
                                                     }
                                                 }
 
+                                                //Rotacion---------------
+
+                                                if (puedeRotar == true)
+                                                {
+                                                    float rotacionTemp = rotacionLibreEjeY;
+                                                    rotacionLibreEjeY = rotacionLibreEjeY + rotacionVelocidad * Time.deltaTime;
+
+                                                    if (rotacionLibreEjeY != rotacionTemp)
+                                                    {
+                                                        posicionPared += 1;
+
+                                                        if (posicionPared > 0)
+                                                        {
+                                                            rotacionPared = 90;
+                                                        }
+                                                    }
+
+                                                    if (posicionPared > 3)
+                                                    {
+                                                        posicionPared = 0;
+                                                        rotacionPared = 90;
+                                                        rotacionLibreEjeY = 0;
+                                                    }
+                                                }
+
                                                 vistaPrevia.transform.localPosition = posicion;
                                                 vistaPrevia.transform.SetParent(casilla.prefab.transform);
 
-                                                if (casilla.pisos[casilla.pisos.Count - 1].rotacionPared != rotacionPared)
+                                                if (casilla.pisos[casilla.pisos.Count - 1].rotacionPared != (rotacionPared * posicionPared))
                                                 {
                                                     vistaPrevia.transform.Rotate(new Vector3(0, rotacionPared, 0), Space.Self);
-                                                    casilla.pisos[casilla.pisos.Count - 1].rotacionPared = rotacionPared;
+                                                    casilla.pisos[casilla.pisos.Count - 1].rotacionPared = rotacionPared * posicionPared;
                                                 }                                                
 
                                                 Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
