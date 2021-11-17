@@ -41,6 +41,8 @@ namespace Assets
     {
         public GameObject suelo;
         public GameObject pared;
+        public int posicionPared;
         public int rotacionPared;
+        public int rotacionTemp;
     }
 }

@@ -22,9 +22,6 @@ namespace Jugador
         public bool puedeRotar;
         public float rotacionVelocidad = 180;
 
-        private int posicionPared = 0;
-        private int rotacionPared = 0;
-
         private Camera camara;
 
         public static KitConstruccion instancia;
@@ -270,7 +267,7 @@ namespace Jugador
                                         {
                                             if (casilla.pisos[casilla.pisos.Count - 1].suelo != null && casilla.pisos[casilla.pisos.Count - 1].pared == null)
                                             {
-                                                Vector3 posicion = casilla.posicionesParedes[posicionPared];
+                                                Vector3 posicion = casilla.posicionesParedes[casilla.pisos[casilla.pisos.Count - 1].posicionPared];
 
                                                 //Altura----------------
 
@@ -290,35 +287,35 @@ namespace Jugador
 
                                                 if (puedeRotar == true)
                                                 {
-                                                    float rotacionTemp = rotacionLibreEjeY;
+                                                    float rotacionTemp = rotacionLibreEjeY; 
                                                     rotacionLibreEjeY = rotacionLibreEjeY + rotacionVelocidad * Time.deltaTime;
 
                                                     if (rotacionLibreEjeY != rotacionTemp)
                                                     {
-                                                        posicionPared += 1;
+                                                        casilla.pisos[casilla.pisos.Count - 1].posicionPared += 1;
 
-                                                        if (posicionPared > 0)
+                                                        if (casilla.pisos[casilla.pisos.Count - 1].posicionPared > 0)
                                                         {
-                                                            rotacionPared = 90;
+                                                            casilla.pisos[casilla.pisos.Count - 1].rotacionTemp = 90;
                                                         }
                                                     }
 
-                                                    if (posicionPared > 3)
+                                                    if (casilla.pisos[casilla.pisos.Count - 1].posicionPared > 3)
                                                     {
-                                                        posicionPared = 0;
-                                                        rotacionPared = 90;
+                                                        casilla.pisos[casilla.pisos.Count - 1].posicionPared = 0;
+                                                        casilla.pisos[casilla.pisos.Count - 1].rotacionTemp = 90;
                                                         rotacionLibreEjeY = 0;
                                                     }
                                                 }
 
+                                                if (casilla.pisos[casilla.pisos.Count - 1].rotacionPared != (casilla.pisos[casilla.pisos.Count - 1].rotacionTemp * casilla.pisos[casilla.pisos.Count - 1].posicionPared))
+                                                {
+                                                    vistaPrevia.transform.Rotate(new Vector3(0, casilla.pisos[casilla.pisos.Count - 1].rotacionTemp, 0), Space.Self);
+                                                    casilla.pisos[casilla.pisos.Count - 1].rotacionPared = casilla.pisos[casilla.pisos.Count - 1].rotacionTemp * casilla.pisos[casilla.pisos.Count - 1].posicionPared;
+                                                }
+
                                                 vistaPrevia.transform.localPosition = posicion;
                                                 vistaPrevia.transform.SetParent(casilla.prefab.transform);
-
-                                                if (casilla.pisos[casilla.pisos.Count - 1].rotacionPared != (rotacionPared * posicionPared))
-                                                {
-                                                    vistaPrevia.transform.Rotate(new Vector3(0, rotacionPared, 0), Space.Self);
-                                                    casilla.pisos[casilla.pisos.Count - 1].rotacionPared = rotacionPared * posicionPared;
-                                                }                                                
 
                                                 Coordenadas coordenadas = vistaPrevia.gameObject.AddComponent<Coordenadas>();
                                                 coordenadas.x = x;
