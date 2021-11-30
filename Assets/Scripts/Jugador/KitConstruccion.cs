@@ -269,7 +269,7 @@ namespace Jugador
                                             {
                                                 Vector3 posicion = casilla.posicionesParedes[casilla.pisos[casilla.pisos.Count - 1].posicionPared];
 
-                                                //Altura----------------
+                                                //Altura-----------------
 
                                                 if (casilla.pisos != null)
                                                 {
@@ -289,7 +289,7 @@ namespace Jugador
                                                 {
                                                     float rotacionTemp = rotacionLibreEjeY; 
                                                     rotacionLibreEjeY = rotacionLibreEjeY + rotacionVelocidad * Time.deltaTime;
-
+                                                    Debug.Log(string.Format("{0} {1}", rotacionLibreEjeY, rotacionTemp));
                                                     if (rotacionLibreEjeY != rotacionTemp)
                                                     {
                                                         casilla.pisos[casilla.pisos.Count - 1].posicionPared += 1;
